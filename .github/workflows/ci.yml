@@ -33,10 +33,23 @@ jobs:
           set -euo pipefail
           sudo apt-get update
           sudo apt-get install -y shellcheck shfmt curl ca-certificates
-          curl -fsSL get.stplr.dev | bash -s -- v0.1.1
-          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+          stplr_version="0.1.1"
+          stplr_arch="linux-x86_64"
+          stplr_url="https://altlinux.space/stapler/stplr/releases/download/v${stplr_version}/stplr-${stplr_version}-${stplr_arch}.tar.gz"
+          tmp_dir="$(mktemp -d)"
+          curl -fsSL "$stplr_url" -o "${tmp_dir}/stplr.tar.gz"
+          tar -xzf "${tmp_dir}/stplr.tar.gz" -C "$tmp_dir"
+          sudo install -Dm755 "${tmp_dir}/stplr" /usr/local/bin/stplr
+          rm -rf "$tmp_dir"
+
+          if ! id stapler-builder >/dev/null 2>&1; then
+            sudo useradd -r -s /usr/sbin/nologin stapler-builder
+          fi
+          sudo install -d -o stapler-builder -g stapler-builder -m 755 /var/cache/stplr /etc/stplr
+
           echo "$HOME/go/bin" >> "$GITHUB_PATH"
-          "$HOME/.local/bin/stplr" version
+          stplr version
 
       - name: Check stplr version
         run: |
