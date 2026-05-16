@@ -30,7 +30,7 @@ deps_altlinux=('glibc' 'libgtk+3' 'libnss' 'libXScrnSaver' 'libXtst' 'xdg-utils'
 
 sources=(
     "https://amazonvpn.s3.amazonaws.com/VanyaVPN.AppImage?~archive=false&~name=vanyavpn.AppImage"
-    "https://raw.githubusercontent.com/Cheviiot/Luma/main/.github/assets/icons/vanyavpn.png?~archive=false&~name=vanyavpn.png"
+    "local:///vanyavpn.png"
 )
 
 checksums=(
@@ -54,7 +54,7 @@ package() {
     rm -f "${pkgdir}/opt/vanyavpn/vanyavpn.AppImage" 2>/dev/null || true
 
     install -dm755 "${pkgdir}/usr/bin"
-    cat > "${pkgdir}/usr/bin/vanyavpn" <<'WRAPPER'
+    cat >"${pkgdir}/usr/bin/vanyavpn" <<'WRAPPER'
 #!/bin/bash
 export APPDIR=/opt/vanyavpn
 cd /opt/vanyavpn

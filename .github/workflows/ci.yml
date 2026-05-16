@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: Package directory to build with stplr
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate repository
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install tools
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y shellcheck shfmt curl ca-certificates
+          curl -fsSL get.stplr.dev | bash
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          echo "$HOME/go/bin" >> "$GITHUB_PATH"
+
+      - name: Check stplr version
+        run: |
+          set -euo pipefail
+          required="0.1.1"
+          actual="$(stplr version | sed 's/^v//')"
+          if [[ "$(printf '%s\n%s\n' "$required" "$actual" | sort -V | head -n1)" != "$required" ]]; then
+            echo "stplr >= v${required} is required, got v${actual}" >&2
+            exit 1
+          fi
+          grep -q 'minVersion = "v0.1.1"' stapler-repo.toml
+
+      - name: Check shell syntax
+        run: |
+          set -euo pipefail
+          find . -path './.git' -prune -o \( -name 'Staplerfile' -o -name '*.sh' -o -path '*/.stapler/*' \) -type f -print0 |
+            xargs -0 -r bash -n
+          find . -path './.git' -prune -o \( -name '*.sh' -o -path '*/.stapler/*' \) -type f -print0 |
+            xargs -0 -r shellcheck
+          find . -path './.git' -prune -o \( -name 'Staplerfile' -o -name '*.sh' -o -path '*/.stapler/*' \) -type f -print0 |
+            xargs -0 -r shfmt -d -i 4
+          git diff --check
+
+      - name: Build selected package
+        if: github.event_name == 'workflow_dispatch' && inputs.package != ''
+        env:
+          PACKAGE: ${{ inputs.package }}
+        run: |
+          set -euo pipefail
+          test -f "${PACKAGE}/Staplerfile"
+          cd "$PACKAGE"
+          stplr build --clean

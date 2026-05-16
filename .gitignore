@@ -1,14 +1,18 @@
-# Stapler build artifacts
+# Stapler artifacts
 *.rpm
+*.src.rpm
 *.deb
+*.pkg.tar*
 *.tar.gz
 *.tar.xz
 *.tar.zst
+*.tgz
 
-# GitHub Actions output
-check-output.txt
+# stplr-spec
+.stplr-spec-bc-export/
+stplr-support.tar.gz
 
-# Build directories
+# Build state
 */build/
 */src/
 */pkg/

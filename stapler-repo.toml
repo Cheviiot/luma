@@ -1,18 +1,15 @@
 [repo]
-minVersion = "v0.1.0"
+minVersion = "v0.1.1"
 
 title = "Luma"
-summary = "Stapler-репозиторий с приложениями"
+summary = "Stapler-репозиторий для Linux-приложений"
 description = """
 Luma — Stapler-репозиторий, содержащий сборочные скрипты
 для установки приложений через Stapler."""
-homepage = "https://github.com/Cheviiot/Luma"
-icon = "https://raw.githubusercontent.com/Cheviiot/Luma/main/.github/assets/icon.svg"
+homepage = "https://github.com/Cheviiot/luma"
+icon = "https://raw.githubusercontent.com/Cheviiot/luma/main/.github/assets/icon.svg"
 
-url = "https://github.com/Cheviiot/Luma.git"
+url = "https://github.com/Cheviiot/luma.git"
 ref = "main"
-mirrors = [
-    "https://altlinux.space/Cheviiot/Luma.git",
-]
 
-report_url = "https://github.com/Cheviiot/Luma/issues/new?title={{ .BasePackageName }}"
+report_url = "https://github.com/Cheviiot/luma/issues/new?title={{ .BasePackageName }}"

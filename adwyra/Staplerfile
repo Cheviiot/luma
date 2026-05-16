@@ -79,32 +79,32 @@ appstream_app_id='com.github.adwyra'
 package() {
     # GitHub создаёт архив с именем репозитория (Adwyra)
     src="${srcdir}/Adwyra-${version}"
-    
+
     # Бинарный файл
     install -Dm755 "${src}/adwyra" "${pkgdir}/usr/bin/adwyra"
-    
+
     # Python модуль
     install -dm755 "${pkgdir}/usr/lib/adwyra"
     cp -r "${src}/src/adwyra" "${pkgdir}/usr/lib/adwyra/"
     find "${pkgdir}/usr/lib/adwyra" -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
-    
+
     # Обновляем путь в бинарнике
     sed -i 's|os.path.join(os.path.dirname(os.path.abspath(__file__)), "src")|'\''/usr/lib/adwyra'\''|' \
         "${pkgdir}/usr/bin/adwyra"
-    
+
     # Desktop файл
     install-desktop "${src}/data/com.github.adwyra.desktop"
-    
+
     # Иконки всех размеров
     for size in 16 24 32 48 64 128 256 512; do
         install -Dm644 "${src}/data/icons/hicolor/${size}x${size}/apps/com.github.adwyra.png" \
             "${pkgdir}/usr/share/icons/hicolor/${size}x${size}/apps/com.github.adwyra.png"
     done
-    
+
     # AppStream metainfo
     install -Dm644 "${src}/data/com.github.adwyra.metainfo.xml" \
         "${pkgdir}/usr/share/metainfo/com.github.adwyra.metainfo.xml"
-    
+
     # Лицензия
     install-license "${src}/LICENSE"
 }

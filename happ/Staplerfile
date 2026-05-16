@@ -1,5 +1,5 @@
 name='happ'
-version='2.14.0'
+version='2.15.0'
 release=1
 summary='Happ Proxy Client — GUI for xray-core'
 summary_ru='Happ Proxy Client — GUI для xray-core'
@@ -38,11 +38,11 @@ sources_arm64=(
 )
 
 checksums=(
-    'd4e1644f6940afb113967161610a84dab10e54a103d2f6bfde50f82d0721310a'
+    '5e3a392c1c80c76304f9132a7ec861171eacb7935e843758aeb67fa64b12396e'
 )
 
 checksums_arm64=(
-    '44e3f25a96d3c6f4a9e2c2db3de0f96333dad7c6a06fe7829f03511186a0bc91'
+    '0844c85c49489461c4222b45a7d763d1013fbbaff0e063452b73581287feacbe'
 )
 
 scripts=(

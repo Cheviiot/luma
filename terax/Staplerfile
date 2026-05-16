@@ -1,5 +1,5 @@
 name='terax'
-version='0.6.5'
+version='0.6.6'
 release=1
 summary='Terax — lightweight AI-native terminal emulator'
 summary_ru='Terax — лёгкий AI-native терминал'
@@ -33,7 +33,7 @@ sources=(
 )
 
 checksums=(
-    '91010a12ebb290016e287e45eac22bf76ef8c3408b6003fd77880cb3a0e91279'
+    '5417202e8292532ed003c372624adf702925756dd34a1d4f97409adc7eeceea6'
 )
 
 scripts=(

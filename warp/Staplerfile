@@ -1,5 +1,5 @@
 name='warp'
-version='0.2026.05.13.09.15.stable.01'
+version='0.2026.05.13.09.15.stable.03'
 release=1
 summary='Warp — modern Rust-based terminal'
 summary_ru='Warp — современный терминал на Rust'
@@ -37,11 +37,11 @@ sources_arm64=(
 )
 
 checksums=(
-    '203d8df452816d3754ba80ae81bcca5a18034e2e4c14f2a0f1ea4eeb3fd1eb9f'
+    '096ba25c2d938ac283d64d7f94a973dc05a3b0e0cc37c5b6fab3135a7b6839c8'
 )
 
 checksums_arm64=(
-    '084d4d23dad31afce0cafc7cc8a611f6682da7368fe255b38ab61e69b04d8d14'
+    '07d01a490ae7aed6081de741df2270bd4175fe358bbac08a5c52c825828e67a7'
 )
 
 scripts=(
