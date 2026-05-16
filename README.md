@@ -24,7 +24,7 @@ stplr refresh
 <table>
   <tr>
     <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/clash-verge.svg" width="72" height="72" alt="Clash Verge Rev"></p>
+      <p align="center"><img src=".github/assets/apps/clash-verge.png" width="72" height="72" alt="Clash Verge Rev"></p>
       <h3 align="center"><a href="./clash-verge">Clash Verge Rev</a></h3>
       <p>GUI-клиент на Tauri для профилей Mihomo/Clash.</p>
       <p><code>clash-verge</code> <code>2.4.7</code> <code>amd64</code> <code>arm64</code></p>
@@ -32,7 +32,7 @@ stplr refresh
       <pre><code>stplr install luma/clash-verge</code></pre>
     </td>
     <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/happ.svg" width="72" height="72" alt="Happ"></p>
+      <p align="center"><img src=".github/assets/apps/happ.png" width="72" height="72" alt="Happ"></p>
       <h3 align="center"><a href="./happ">Happ</a></h3>
       <p>Удобный GUI-прокси-клиент для xray-core.</p>
       <p><code>happ</code> <code>2.15.0</code> <code>amd64</code> <code>arm64</code></p>
@@ -50,7 +50,7 @@ stplr refresh
       <pre><code>stplr install luma/tailscale</code></pre>
     </td>
     <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/vanyavpn.svg" width="72" height="72" alt="VanyaVPN"></p>
+      <p align="center"><img src=".github/assets/apps/vanyavpn.png" width="72" height="72" alt="VanyaVPN"></p>
       <h3 align="center"><a href="./vanyavpn">VanyaVPN</a></h3>
       <p>Десктопный клиент сервиса VanyaVPN, перепакованный из AppImage.</p>
       <p><code>vanyavpn</code> <code>1.12.1+472165</code> <code>amd64</code></p>
@@ -65,7 +65,7 @@ stplr refresh
 <table>
   <tr>
     <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/github-plus.svg" width="72" height="72" alt="GitHub Desktop Plus"></p>
+      <p align="center"><img src=".github/assets/apps/github-plus.png" width="72" height="72" alt="GitHub Desktop Plus"></p>
       <h3 align="center"><a href="./github-plus">GitHub Desktop Plus</a></h3>
       <p>Форк GitHub Desktop с интеграцией Bitbucket и GitLab.</p>
       <p><code>github-plus</code> <code>3.5.9.2</code> <code>amd64</code> <code>arm64</code></p>
@@ -73,7 +73,7 @@ stplr refresh
       <pre><code>stplr install luma/github-plus</code></pre>
     </td>
     <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/terax.svg" width="72" height="72" alt="Terax"></p>
+      <p align="center"><img src=".github/assets/apps/terax.png" width="72" height="72" alt="Terax"></p>
       <h3 align="center"><a href="./terax">Terax</a></h3>
       <p>AI-native эмулятор терминала на Tauri, Rust и React.</p>
       <p><code>terax</code> <code>0.6.6</code> <code>amd64</code></p>
@@ -83,7 +83,7 @@ stplr refresh
   </tr>
   <tr>
     <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/warp.svg" width="72" height="72" alt="Warp"></p>
+      <p align="center"><img src=".github/assets/apps/warp.png" width="72" height="72" alt="Warp"></p>
       <h3 align="center"><a href="./warp">Warp</a></h3>
       <p>Терминал на Rust для разработчиков и команд.</p>
       <p><code>warp</code> <code>0.2026.05.13.09.15.stable.03</code> <code>amd64</code> <code>arm64</code></p>
@@ -91,7 +91,7 @@ stplr refresh
       <pre><code>stplr install luma/warp</code></pre>
     </td>
     <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/windsurf.svg" width="72" height="72" alt="Windsurf"></p>
+      <p align="center"><img src=".github/assets/apps/windsurf.png" width="72" height="72" alt="Windsurf"></p>
       <h3 align="center"><a href="./windsurf">Windsurf</a></h3>
       <p>AI-редактор кода для сохранения flow state.</p>
       <p><code>windsurf</code> <code>2.2.17</code> <code>amd64</code></p>
@@ -106,7 +106,7 @@ stplr refresh
 <table>
   <tr>
     <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/adwyra.svg" width="72" height="72" alt="Adwyra"></p>
+      <p align="center"><img src=".github/assets/apps/adwyra.png" width="72" height="72" alt="Adwyra"></p>
       <h3 align="center"><a href="./adwyra">Adwyra</a></h3>
       <p>Минималистичный лаунчер приложений для GNOME.</p>
       <p><code>adwyra</code> <code>0.5.0</code> <code>all</code></p>
@@ -114,7 +114,7 @@ stplr refresh
       <pre><code>stplr install luma/adwyra</code></pre>
     </td>
     <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/vual.svg" width="72" height="72" alt="Vual"></p>
+      <p align="center"><img src=".github/assets/apps/vual.png" width="72" height="72" alt="Vual"></p>
       <h3 align="center"><a href="./vual">Vual</a></h3>
       <p>Запуск Cheat Engine для Steam-игр через Proton.</p>
       <p><code>vual</code> <code>0.3.1</code> <code>all</code></p>
@@ -167,6 +167,13 @@ stplr upgrade
 | `vual` | Игры | [Vual](https://github.com/Cheviiot/Vual) | `0.3.1` | `GPL-3.0-or-later` | `all` |
 | `warp` | Разработка | [Warp](https://warp.dev/) | `0.2026.05.13.09.15.stable.03` | `AGPL-3.0-only`, `MIT` | `amd64`, `arm64` |
 | `windsurf` | Разработка | [Windsurf](https://windsurf.com/) | `2.2.17` | `custom` | `amd64` |
+
+</details>
+
+<details>
+<summary><strong>Источник иконок</strong></summary>
+
+Иконки витрины взяты из upstream-артефактов пакетов: `.deb`, AppImage или исходных архивов. Для `tailscale`, чей Linux CLI-архив не содержит desktop-иконку, используется официальный `favicon.svg` с сайта Tailscale.
 
 </details>
 
