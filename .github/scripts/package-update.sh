@@ -135,6 +135,58 @@ latest_windsurf() {
     echo "$version"
 }
 
+latest_vanyavpn() (
+    local appimage_source appimage_url tmp version
+
+    command -v strings >/dev/null 2>&1 || die "strings from binutils is required to determine VanyaVPN version"
+
+    appimage_source="$(
+        package_sources vanyavpn sources |
+            awk '$0 !~ /^local:\/\// {print; exit}'
+    )"
+    appimage_url="$(real_source_url "$appimage_source")"
+    [[ -n "$appimage_url" ]] || die "cannot determine VanyaVPN AppImage source"
+
+    tmp="$(mktemp -d)"
+    trap 'rm -rf "$tmp"' EXIT
+
+    download -o "${tmp}/vanyavpn.AppImage" "$appimage_url"
+    chmod +x "${tmp}/vanyavpn.AppImage"
+
+    (
+        cd "$tmp"
+        ./vanyavpn.AppImage --appimage-extract 'resources/app.asar' >/dev/null
+    )
+
+    version="$(
+        strings "${tmp}/squashfs-root/resources/app.asar" |
+            awk '
+                version == "" && index($0, "\"APP_VERSION\":\"") {
+                    split($0, fields, "\"APP_VERSION\":\"")
+                    split(fields[2], parts, "\"")
+                    version = parts[1]
+                }
+                build == "" && index($0, "\"APP_BUILD_NUMBER\":") {
+                    split($0, fields, "\"APP_BUILD_NUMBER\":")
+                    build = fields[2]
+                    sub(/[^0-9].*/, "", build)
+                }
+                END {
+                    if (version != "") {
+                        printf "%s", version
+                        if (build != "") {
+                            printf "+%s", build
+                        }
+                        print ""
+                    }
+                }
+            '
+    )"
+
+    [[ -n "$version" ]] || die "cannot determine latest VanyaVPN version from AppImage"
+    echo "$version"
+)
+
 latest_version() {
     local package="$1"
 
@@ -145,7 +197,7 @@ latest_version() {
     happ) github_latest_release "Happ-proxy/happ-desktop" ;;
     tailscale) latest_tailscale ;;
     terax) github_latest_release "crynta/terax-ai" ;;
-    vanyavpn) current_version "$package" ;;
+    vanyavpn) latest_vanyavpn ;;
     vual) github_latest_release "Cheviiot/Vual" ;;
     warp) latest_warp ;;
     windsurf) latest_windsurf ;;

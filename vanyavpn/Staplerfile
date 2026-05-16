@@ -1,5 +1,5 @@
 name='vanyavpn'
-version='1.12.3'
+version='1.12.1+472165'
 release=1
 summary='Desktop client for the VanyaVPN service'
 summary_ru='Десктопный клиент сервиса VanyaVPN'
