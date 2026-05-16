@@ -1,0 +1,98 @@
+name='vanyavpn'
+version='1.12.3'
+release=1
+summary='VanyaVPN — VPN client for Uncle Vanya VPN service'
+summary_ru='Дядя Ваня VPN — клиент VPN-сервиса'
+group='Networking/Other'
+desc='VanyaVPN is the desktop client for the Uncle Vanya VPN service. This package repacks the upstream Linux AppImage into a native filesystem layout instead of installing the AppImage as a portable binary.'
+desc_ru='Дядя Ваня VPN — десктопный клиент одноимённого VPN-сервиса. Пакет распаковывает upstream Linux AppImage в нативную файловую структуру вместо установки AppImage как портативного бинарника.'
+homepage='https://vanyavpn.es'
+maintainer='CODE ASSET LTD <support@vanyavpn.es>'
+
+architectures=('amd64')
+
+license=('custom')
+nonfree=1
+nonfree_msg='VanyaVPN is proprietary software by CODE ASSET LTD. Usage is subject to the terms at https://vanyavpn.es'
+nonfree_url='https://vanyavpn.es'
+
+auto_reqprov_method="dirty"
+auto_req=0
+auto_prov=0
+
+deps=()
+deps_debian=('libc6' 'libgtk-3-0' 'libnss3' 'libxss1' 'libxtst6' 'xdg-utils' 'libsecret-1-0' 'libnotify4')
+deps_ubuntu=("${deps_debian[@]}")
+deps_fedora=('glibc' 'gtk3' 'nss' 'libXScrnSaver' 'libXtst' 'xdg-utils' 'libsecret' 'libnotify')
+deps_arch=('glibc' 'gtk3' 'nss' 'libxss' 'libxtst' 'xdg-utils' 'libsecret' 'libnotify')
+deps_opensuse=('glibc' 'gtk3' 'mozilla-nss' 'libXScrnSaver1' 'libXtst6' 'xdg-utils' 'libsecret-1-0' 'libnotify4')
+deps_altlinux=('glibc' 'libgtk+3' 'libnss' 'libXScrnSaver' 'libXtst' 'xdg-utils' 'libsecret' 'libnotify')
+
+sources=(
+    "https://amazonvpn.s3.amazonaws.com/VanyaVPN.AppImage?~archive=false&~name=vanyavpn.AppImage"
+    "https://raw.githubusercontent.com/Cheviiot/Luma/main/.github/assets/icons/vanyavpn.png?~archive=false&~name=vanyavpn.png"
+)
+
+checksums=(
+    '99f4a35664d63cd466864a9188b3202b8359d964b9b43f853133c588e6315a1f'
+    '616e5564c26edf9df1bb1bbc1e0b4387710da1515e3c2c26931aeb17dfbc34b4'
+)
+
+scripts=(
+    ['postinstall']='postinstall.sh'
+    ['postremove']='postremove.sh'
+)
+
+package() {
+    cd "${srcdir}"
+
+    chmod +x vanyavpn.AppImage
+    ./vanyavpn.AppImage --appimage-extract >/dev/null
+
+    install -dm755 "${pkgdir}/opt/vanyavpn"
+    cp -a "${srcdir}/squashfs-root/." "${pkgdir}/opt/vanyavpn/"
+    rm -f "${pkgdir}/opt/vanyavpn/vanyavpn.AppImage" 2>/dev/null || true
+
+    install -dm755 "${pkgdir}/usr/bin"
+    cat > "${pkgdir}/usr/bin/vanyavpn" <<'WRAPPER'
+#!/bin/bash
+export APPDIR=/opt/vanyavpn
+cd /opt/vanyavpn
+exec ./AppRun "$@"
+WRAPPER
+    chmod 755 "${pkgdir}/usr/bin/vanyavpn"
+
+    desktop_src=$(find "${pkgdir}/opt/vanyavpn" -maxdepth 1 -name '*.desktop' -print -quit)
+    if [[ -n "$desktop_src" ]]; then
+        install -Dm644 "$desktop_src" \
+            "${pkgdir}/usr/share/applications/vanyavpn.desktop"
+        sed -i \
+            -e 's|^Exec=.*|Exec=/usr/bin/vanyavpn %U|' \
+            -e 's|^TryExec=.*|TryExec=/usr/bin/vanyavpn|' \
+            -e 's|^Icon=.*|Icon=vanyavpn|' \
+            "${pkgdir}/usr/share/applications/vanyavpn.desktop"
+    fi
+
+    # Корневые outline-client.png/.DirIcon в AppImage принадлежат upstream-базе Outline,
+    # поэтому для desktop-иконки используем фирменную иконку VanyaVPN.
+    icon_dest="${pkgdir}/usr/share/icons/hicolor/512x512/apps/vanyavpn.png"
+    install -Dm644 "${srcdir}/vanyavpn.png" "$icon_dest"
+
+    app_icon="usr/share/icons/hicolor/512x512/apps/vanyavpn.png"
+    install -Dm644 "${srcdir}/vanyavpn.png" "${pkgdir}/opt/vanyavpn/${app_icon}"
+    rm -f "${pkgdir}/opt/vanyavpn/.DirIcon" \
+        "${pkgdir}/opt/vanyavpn/outline-client.png"
+    ln -s "$app_icon" "${pkgdir}/opt/vanyavpn/.DirIcon"
+    ln -s "$app_icon" "${pkgdir}/opt/vanyavpn/outline-client.png"
+    if [[ -f "${pkgdir}/opt/vanyavpn/outline-client.desktop" ]]; then
+        sed -i 's|^Icon=.*|Icon=vanyavpn|' \
+            "${pkgdir}/opt/vanyavpn/outline-client.desktop"
+    fi
+}
+
+files() {
+    files-find "/opt/vanyavpn/**/*"
+    files-find-binary
+    files-find-desktop
+    files-find "/usr/share/icons/hicolor/*/apps/vanyavpn.png"
+}

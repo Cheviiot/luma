@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">Luma</title>
+  <desc id="desc">Баннер Luma, Stapler-репозитория с Linux-пакетами.</desc>
+
+  <defs>
+    <linearGradient id="canvas" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071114"/>
+      <stop offset="0.48" stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#172026"/>
+    </linearGradient>
+
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#14B8A6"/>
+      <stop offset="0.5" stop-color="#22C55E"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+
+    <linearGradient id="icon-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101418"/>
+      <stop offset="1" stop-color="#172026"/>
+    </linearGradient>
+
+    <linearGradient id="icon-mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#E0F2FE"/>
+      <stop offset="0.46" stop-color="#5EEAD4"/>
+      <stop offset="1" stop-color="#A7F3D0"/>
+    </linearGradient>
+
+    <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M34 0H0V34" fill="none" stroke="#FFFFFF" stroke-width="1" opacity="0.045"/>
+    </pattern>
+
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000000" flood-opacity="0.38"/>
+    </filter>
+
+    <clipPath id="clip">
+      <rect width="1200" height="360" rx="30"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#clip)">
+    <rect width="1200" height="360" fill="url(#canvas)"/>
+    <rect width="1200" height="360" fill="url(#grid)"/>
+
+    <path d="M716 -50L1238 76V360H990L794 126Z" fill="#FFFFFF" opacity="0.035"/>
+    <path d="M-80 318C160 246 318 334 540 262C742 196 868 214 1040 140C1132 100 1196 76 1280 66" fill="none" stroke="url(#accent)" stroke-width="18" stroke-linecap="round" opacity="0.22"/>
+    <path d="M0 332H1200V360H0Z" fill="url(#accent)" opacity="0.9"/>
+
+    <g transform="translate(84 72)" filter="url(#shadow)">
+      <rect x="0" y="0" width="216" height="216" rx="42" fill="#FFFFFF" opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.14"/>
+      <rect x="18" y="18" width="180" height="180" rx="38" fill="url(#icon-bg)"/>
+      <g transform="translate(44 44) scale(2)">
+        <path d="M32 12 L50 22 L50 42 L32 52 L14 42 L14 22 Z" fill="none" stroke="url(#icon-mark)" stroke-width="3.5" stroke-linejoin="round"/>
+        <path d="M32 12 L32 32 L50 42" fill="none" stroke="#A7F3D0" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14 22 L32 32 L32 52" fill="none" stroke="#67E8F9" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="22" y="55" width="20" height="3" rx="1.5" fill="url(#accent)"/>
+      </g>
+    </g>
+
+    <g font-family="Inter, Segoe UI, system-ui, -apple-system, sans-serif">
+      <text x="342" y="122" fill="#F8FAFC" font-size="76" font-weight="850" letter-spacing="0">Luma</text>
+      <rect x="342" y="142" width="456" height="5" rx="2.5" fill="url(#accent)"/>
+      <text x="342" y="184" fill="#BAE6FD" font-size="28" font-weight="700">Stapler-репозиторий для Linux</text>
+      <text x="342" y="218" fill="#CBD5E1" font-size="19" font-weight="500">Готовые пакеты для рабочей среды: VPN, терминалы, AI-инструменты и утилиты.</text>
+
+      <g transform="translate(342 248)">
+        <rect x="0" y="0" width="384" height="48" rx="14" fill="#020617" fill-opacity="0.74" stroke="#FFFFFF" stroke-opacity="0.12"/>
+        <text x="22" y="31" fill="#5EEAD4" font-size="16" font-family="JetBrains Mono, SFMono-Regular, Consolas, monospace">$</text>
+        <text x="46" y="31" fill="#F8FAFC" font-size="16" font-family="JetBrains Mono, SFMono-Regular, Consolas, monospace">stplr install &lt;package&gt;</text>
+      </g>
+
+      <g transform="translate(762 248)" font-size="14" font-weight="750">
+        <rect x="0" y="0" width="104" height="48" rx="14" fill="#FFFFFF" fill-opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.16"/>
+        <text x="52" y="30" fill="#F8FAFC" text-anchor="middle">9 пакетов</text>
+
+        <rect x="116" y="0" width="96" height="48" rx="14" fill="#FFFFFF" fill-opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.16"/>
+        <text x="164" y="30" fill="#F8FAFC" text-anchor="middle">5 систем</text>
+
+        <rect x="224" y="0" width="142" height="48" rx="14" fill="#FFFFFF" fill-opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.16"/>
+        <text x="295" y="30" fill="#F8FAFC" text-anchor="middle">RPM · DEB · PKG</text>
+      </g>
+
+      <g transform="translate(880 70)" font-size="13" font-weight="800" text-anchor="middle">
+        <rect x="0" y="0" width="82" height="32" rx="16" fill="#CCFBF1" stroke="#5EEAD4"/>
+        <text x="41" y="21" fill="#0F766E">ALT</text>
+        <rect x="94" y="0" width="90" height="32" rx="16" fill="#DBEAFE" stroke="#93C5FD"/>
+        <text x="139" y="21" fill="#1D4ED8">Debian</text>
+        <rect x="196" y="0" width="92" height="32" rx="16" fill="#DCFCE7" stroke="#86EFAC"/>
+        <text x="242" y="21" fill="#15803D">Ubuntu</text>
+        <rect x="62" y="44" width="92" height="32" rx="16" fill="#FEF3C7" stroke="#FCD34D"/>
+        <text x="108" y="65" fill="#A16207">Fedora</text>
+        <rect x="166" y="44" width="88" height="32" rx="16" fill="#E0E7FF" stroke="#A5B4FC"/>
+        <text x="210" y="65" fill="#4338CA">Arch</text>
+      </g>
+    </g>
+  </g>
+</svg>

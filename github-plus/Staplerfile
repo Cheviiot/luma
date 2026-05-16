@@ -1,0 +1,74 @@
+name='github-plus'
+version='3.5.9.2'
+release=2
+summary='GitHub Desktop Plus — enhanced GUI client for Git'
+summary_ru='GitHub Desktop Plus — улучшенный GUI-клиент для Git'
+group='Development/Tools'
+desc='GitHub Desktop Plus is a fork of GitHub Desktop with extended functionality and Bitbucket/GitLab integration.'
+desc_ru='GitHub Desktop Plus — форк GitHub Desktop с расширенной функциональностью и интеграцией Bitbucket/GitLab.'
+homepage='https://github.com/pol-rivero/github-desktop-plus'
+maintainer='pol-rivero <https://github.com/pol-rivero>'
+
+architectures=('amd64' 'arm64')
+
+license=('MIT')
+
+auto_reqprov_method="dirty"
+auto_req=0
+auto_prov=0
+
+deps=()
+deps_debian=('libc6' 'libgtk-3-0' 'libnotify4' 'libnss3' 'libxss1' 'libxtst6' 'xdg-utils' 'libsecret-1-0' 'gnome-keyring' 'libcurl3-gnutls | libcurl4' 'libatspi2.0-0' 'libdrm2' 'libgbm1' 'libxcb-dri3-0' 'libasound2')
+deps_ubuntu=("${deps_debian[@]}")
+deps_fedora=('glibc' 'gtk3' 'libnotify' 'nss' 'libXScrnSaver' 'libXtst' 'xdg-utils' 'libsecret' 'gnome-keyring' 'libcurl' 'at-spi2-core' 'libdrm' 'mesa-libgbm' 'libxcb' 'alsa-lib')
+deps_arch=('glibc' 'gtk3' 'libnotify' 'nss' 'libxss' 'libxtst' 'xdg-utils' 'libsecret' 'gnome-keyring' 'curl' 'at-spi2-core' 'libdrm' 'mesa' 'libxcb' 'alsa-lib')
+deps_opensuse=('glibc' 'gtk3' 'libnotify4' 'mozilla-nss' 'libXScrnSaver1' 'libXtst6' 'xdg-utils' 'libsecret-1-0' 'gnome-keyring' 'libcurl4' 'libatspi0' 'libdrm2' 'libgbm1' 'libxcb-dri3-0' 'libasound2')
+deps_altlinux=('glibc' 'libgtk+3' 'libnotify' 'libnss' 'libXScrnSaver' 'libXtst' 'xdg-utils' 'libsecret' 'gnome-keyring' 'libcurl-gnutls-compat' 'libat-spi2-core' 'libdrm' 'libgbm' 'libxcb' 'libalsa')
+
+# Один .deb: внутри уже Icon=github-desktop-plus, иконки hicolor, .desktop + MimeType для OAuth
+sources=(
+    "https://github.com/pol-rivero/github-desktop-plus/releases/download/v${version}/GitHubDesktopPlus-v${version}-linux-x86_64.deb?~archive=false&~name=github-desktop-plus.deb"
+)
+
+sources_arm64=(
+    "https://github.com/pol-rivero/github-desktop-plus/releases/download/v${version}/GitHubDesktopPlus-v${version}-linux-arm64.deb?~archive=false&~name=github-desktop-plus.deb"
+)
+
+checksums=(
+    'cf9fddfb175dfc425923634e697de501376f50e1e55f2fc5a56d0c05c8e01c73'
+)
+
+checksums_arm64=(
+    '48fbc3537864d24c7bf6c001a782ccced707b1fa94b0d778692263ef97c1751c'
+)
+
+scripts=(
+    ['postinstall']='postinstall.sh'
+    ['postremove']='postremove.sh'
+)
+
+package() {
+    cd "${srcdir}"
+
+    mkdir -p "${srcdir}/extracted"
+    ar x github-desktop-plus.deb
+    tar -xf data.tar.* -C "${srcdir}/extracted"
+
+    # Всё из upstream .deb: бинарник, /usr/lib/github-desktop-plus, .desktop, github-desktop-plus.png
+    # (раньше в files() попадали только иконки github-plus.png, не совпадающие с Icon= в .desktop)
+    cp -a "${srcdir}/extracted/usr" "${pkgdir}/usr"
+
+    # Upstream .deb делает это в postinst. В Stapler этот postinst не выполняется,
+    # поэтому переносим CLI helper в сам пакет, иначе clone/open flows ломаются.
+    chmod 755 "${pkgdir}/usr/lib/github-desktop-plus/resources/app/static/github"
+    ln -sfn /usr/lib/github-desktop-plus/resources/app/static/github \
+        "${pkgdir}/usr/bin/github-desktop-plus-cli"
+}
+
+files() {
+    files-find-binary
+    files-find-desktop
+    files-find \
+        "/usr/lib/github-desktop-plus/**/*" \
+        "/usr/share/icons/hicolor/*/apps/github-desktop-plus.png"
+}

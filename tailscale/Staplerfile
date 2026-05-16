@@ -1,0 +1,70 @@
+name='tailscale'
+version='1.96.4'
+release=1
+summary='Tailscale — WireGuard-based mesh VPN'
+summary_ru='Tailscale — mesh VPN на базе WireGuard'
+group='Networking/Other'
+desc='Tailscale is a secure mesh VPN built on WireGuard that connects devices and services across networks.'
+desc_ru='Tailscale — безопасный mesh VPN на базе WireGuard для соединения устройств и сервисов между сетями.'
+homepage='https://tailscale.com/'
+maintainer='Tailscale Inc <info@tailscale.com>'
+
+architectures=('amd64' 'arm64')
+
+license=('BSD-3-Clause')
+
+provides=('tailscale')
+replaces=('tailscale')
+
+auto_reqprov_method="dirty"
+auto_req=0
+auto_prov=0
+
+deps=()
+deps_debian=('iptables' 'iproute2' 'ca-certificates')
+deps_ubuntu=("${deps_debian[@]}")
+deps_fedora=('iptables' 'iproute' 'ca-certificates')
+deps_arch=('iptables' 'iproute2' 'ca-certificates')
+deps_opensuse=('iptables' 'iproute2' 'ca-certificates')
+deps_altlinux=('iptables' 'iproute2' 'ca-certificates')
+
+sources=(
+    "https://pkgs.tailscale.com/stable/tailscale_${version}_amd64.tgz?~archive=false&~name=tailscale.tgz"
+)
+
+sources_arm64=(
+    "https://pkgs.tailscale.com/stable/tailscale_${version}_arm64.tgz?~archive=false&~name=tailscale.tgz"
+)
+
+checksums=(
+    'a1cba18826b1f91cb25ef7f5b8259b5258339b42db7867af9269e21829ea78cc'
+)
+
+checksums_arm64=(
+    'a27249bc70d7b37a68f8be7f5c4507ea5f354e592dce43cb5d4f3e742b313c3c'
+)
+
+scripts=(
+    ['postinstall']='postinstall.sh'
+    ['postremove']='postremove.sh'
+)
+
+package() {
+    cd "${srcdir}"
+
+    tar -xzf tailscale.tgz
+    src="$(find "${srcdir}" -maxdepth 1 -type d -name "tailscale_${version}_*" | head -1)"
+
+    install -Dm755 "${src}/tailscale" "${pkgdir}/usr/bin/tailscale"
+    install -Dm755 "${src}/tailscaled" "${pkgdir}/usr/sbin/tailscaled"
+    install -Dm644 "${src}/systemd/tailscaled.service" "${pkgdir}/lib/systemd/system/tailscaled.service"
+    install -Dm644 "${src}/systemd/tailscaled.defaults" "${pkgdir}/etc/default/tailscaled"
+}
+
+files() {
+    files-find-binary
+    files-find \
+        "/usr/sbin/tailscaled" \
+        "/lib/systemd/system/tailscaled.service" \
+        "/etc/default/tailscaled"
+}

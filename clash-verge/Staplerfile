@@ -1,0 +1,77 @@
+name='clash-verge'
+version='2.4.7'
+release=2
+summary='Clash Verge — Tauri GUI client for Mihomo'
+summary_ru='Clash Verge — Tauri GUI-клиент для Mihomo'
+group='Networking/Other'
+desc='Clash Verge is a modern cross-platform GUI client based on Tauri for managing Mihomo/Clash proxy configurations.'
+desc_ru='Clash Verge — современный кроссплатформенный GUI-клиент на Tauri для управления конфигурациями прокси Mihomo/Clash.'
+homepage='https://github.com/clash-verge-rev/clash-verge-rev'
+maintainer='clash-verge-rev contributors <https://github.com/clash-verge-rev/clash-verge-rev>'
+
+architectures=('amd64' 'arm64')
+
+license=('GPL-3.0-only')
+
+provides=('clash-verge-rev')
+replaces=('clash-verge-rev')
+
+auto_reqprov_method="dirty"
+auto_req=0
+auto_prov=0
+
+deps=()
+deps_debian=('libc6' 'libgtk-3-0' 'libwebkit2gtk-4.1-0' 'libayatana-appindicator3-1' 'libssl3 | libssl3t64' 'libcap2-bin')
+deps_ubuntu=("${deps_debian[@]}")
+deps_fedora=('glibc' 'gtk3' 'webkit2gtk4.1' 'libayatana-appindicator' 'openssl-libs' 'libcap')
+deps_arch=('glibc' 'gtk3' 'webkit2gtk-4.1' 'libayatana-appindicator' 'openssl' 'libcap')
+deps_opensuse=('glibc' 'gtk3' 'libwebkit2gtk-4_1-0' 'libayatana-appindicator3-1' 'libopenssl3' 'libcap-progs')
+deps_altlinux=('glibc' 'libgtk+3' 'libwebkit2gtk4.1' 'libayatana-appindicator3-1' 'libssl3' 'libcap-utils')
+
+sources=(
+    "https://github.com/clash-verge-rev/clash-verge-rev/releases/download/v${version}/Clash.Verge_${version}_amd64.deb?~archive=false&~name=clash-verge.deb"
+)
+
+sources_arm64=(
+    "https://github.com/clash-verge-rev/clash-verge-rev/releases/download/v${version}/Clash.Verge_${version}_arm64.deb?~archive=false&~name=clash-verge.deb"
+)
+
+checksums=(
+    'c1fcbaa79e454416e3dff644f83ea30c9437cd9cd7e4d199ac7add651882c65d'
+)
+
+checksums_arm64=(
+    '35f321a498f762175316b231d2fad3a90678016ad19157779758b5420d743a8f'
+)
+
+scripts=(
+    ['postinstall']='postinstall.sh'
+    ['postremove']='postremove.sh'
+)
+
+package() {
+    cd "${srcdir}"
+
+    mkdir -p "${srcdir}/extracted"
+    ar x clash-verge.deb
+    tar -xf data.tar.* -C "${srcdir}/extracted"
+
+    for path in usr opt etc; do
+        if [[ -d "${srcdir}/extracted/${path}" ]]; then
+            mkdir -p "${pkgdir}/${path}"
+            cp -a "${srcdir}/extracted/${path}/." "${pkgdir}/${path}/"
+        fi
+    done
+}
+
+files() {
+    if [[ -d "${pkgdir}/usr" ]]; then
+        files-find "/usr/**/*"
+    fi
+    if [[ -d "${pkgdir}/opt" ]]; then
+        files-find "/opt/**/*"
+    fi
+    if [[ -d "${pkgdir}/etc" ]]; then
+        files-find "/etc/**/*"
+    fi
+}

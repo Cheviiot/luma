@@ -1,0 +1,14 @@
+# Stapler build artifacts
+*.rpm
+*.deb
+*.tar.gz
+*.tar.xz
+*.tar.zst
+
+# GitHub Actions output
+check-output.txt
+
+# Build directories
+*/build/
+*/src/
+*/pkg/

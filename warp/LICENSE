@@ -1,0 +1,11 @@
+Warp Terminal upstream licensing
+
+Warp client source is published by warpdotdev under AGPL-3.0, with selected
+components under MIT.
+
+License references:
+- https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL
+- https://github.com/warpdotdev/warp/blob/master/LICENSE-MIT
+
+The packaged binary is downloaded from the official Warp Linux package URL:
+https://app.warp.dev/download?package=deb

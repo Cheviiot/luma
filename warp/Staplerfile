@@ -1,0 +1,81 @@
+name='warp'
+version='0.2026.05.13.09.15.stable.01'
+release=1
+summary='Warp — modern Rust-based terminal'
+summary_ru='Warp — современный терминал на Rust'
+group='Development/Tools'
+desc='Warp is a modern Rust-based terminal with AI features, command sharing and team-oriented developer workflows.'
+desc_ru='Warp — современный терминал на Rust с AI-функциями, обменом командами и рабочими процессами для разработчиков.'
+homepage='https://www.warp.dev/'
+maintainer='Warp Linux Maintainers <linux-maintainers@warp.dev>'
+
+architectures=('amd64' 'arm64')
+
+license=('AGPL-3.0-only' 'MIT')
+
+provides=('warp-terminal')
+replaces=('warp-terminal')
+
+auto_reqprov_method="dirty"
+auto_req=0
+auto_prov=0
+
+deps=()
+deps_debian=('fontconfig' 'libegl1' 'libwayland-client0' 'libwayland-egl1' 'libx11-6' 'libxcb1' 'libxcursor1' 'libxi6' 'libxkbcommon-x11-0' 'zlib1g' 'libgl1-mesa-dri' 'adwaita-icon-theme')
+deps_ubuntu=("${deps_debian[@]}")
+deps_fedora=('fontconfig' 'mesa-libEGL' 'wayland' 'libX11' 'libxcb' 'libXcursor' 'libXi' 'libxkbcommon-x11' 'zlib' 'mesa-dri-drivers' 'adwaita-icon-theme')
+deps_arch=('fontconfig' 'libglvnd' 'wayland' 'libx11' 'libxcb' 'libxcursor' 'libxi' 'libxkbcommon-x11' 'zlib' 'mesa' 'adwaita-icon-theme')
+deps_opensuse=('fontconfig' 'libEGL1' 'libwayland-client0' 'libwayland-egl1' 'libX11-6' 'libxcb1' 'libXcursor1' 'libXi6' 'libxkbcommon-x11-0' 'libz1' 'Mesa-dri' 'adwaita-icon-theme')
+deps_altlinux=('fontconfig' 'libEGL' 'libwayland-client' 'libwayland-egl' 'libX11' 'libxcb' 'libXcursor' 'libXi' 'libxkbcommon-x11' 'zlib' 'icon-theme-adwaita')
+
+sources=(
+    "https://app.warp.dev/download?package=deb&~archive=false&~name=warp-terminal.deb"
+)
+
+sources_arm64=(
+    "https://app.warp.dev/download?package=deb_arm64&~archive=false&~name=warp-terminal.deb"
+)
+
+checksums=(
+    '203d8df452816d3754ba80ae81bcca5a18034e2e4c14f2a0f1ea4eeb3fd1eb9f'
+)
+
+checksums_arm64=(
+    '084d4d23dad31afce0cafc7cc8a611f6682da7368fe255b38ab61e69b04d8d14'
+)
+
+scripts=(
+    ['postinstall']='postinstall.sh'
+    ['postremove']='postremove.sh'
+)
+
+package() {
+    cd "${srcdir}"
+
+    mkdir -p "${srcdir}/extracted"
+    ar x warp-terminal.deb
+    tar -xf data.tar.* -C "${srcdir}/extracted"
+
+    for path in opt usr etc; do
+        if [[ -d "${srcdir}/extracted/${path}" ]]; then
+            mkdir -p "${pkgdir}/${path}"
+            cp -a "${srcdir}/extracted/${path}/." "${pkgdir}/${path}/"
+        fi
+    done
+
+    # Upstream .deb creates this in postinst; keep Luma package self-contained.
+    mkdir -p "${pkgdir}/usr/bin"
+    ln -sf /opt/warpdotdev/warp-terminal/warp "${pkgdir}/usr/bin/warp"
+}
+
+files() {
+    if [[ -d "${pkgdir}/usr" ]]; then
+        files-find "/usr/**/*"
+    fi
+    if [[ -d "${pkgdir}/opt" ]]; then
+        files-find "/opt/**/*"
+    fi
+    if [[ -d "${pkgdir}/etc" ]]; then
+        files-find "/etc/**/*"
+    fi
+}
