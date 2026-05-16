@@ -1,12 +1,12 @@
 name='clash-verge'
 version='2.4.7'
 release=2
-summary='Clash Verge — Tauri GUI client for Mihomo'
-summary_ru='Clash Verge — Tauri GUI-клиент для Mihomo'
+summary='Tauri GUI client for Mihomo/Clash proxy profiles'
+summary_ru='GUI-клиент на Tauri для профилей Mihomo/Clash'
 group='Networking/Other'
-desc='Clash Verge is a modern cross-platform GUI client based on Tauri for managing Mihomo/Clash proxy configurations.'
-desc_ru='Clash Verge — современный кроссплатформенный GUI-клиент на Tauri для управления конфигурациями прокси Mihomo/Clash.'
-homepage='https://github.com/clash-verge-rev/clash-verge-rev'
+desc='Clash Verge Rev is a modern cross-platform GUI client based on Tauri for a tailored proxy experience with Mihomo/Clash profiles.'
+desc_ru='Clash Verge Rev — современный кроссплатформенный GUI-клиент на Tauri для удобной работы с профилями прокси Mihomo/Clash.'
+homepage='https://www.clashverge.dev'
 maintainer='clash-verge-rev contributors <https://github.com/clash-verge-rev/clash-verge-rev>'
 
 architectures=('amd64' 'arm64')

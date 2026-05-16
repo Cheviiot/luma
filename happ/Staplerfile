@@ -1,12 +1,12 @@
 name='happ'
 version='2.15.0'
 release=1
-summary='Happ Proxy Client — GUI for xray-core'
-summary_ru='Happ Proxy Client — GUI для xray-core'
+summary='User-friendly GUI proxy client for xray-core'
+summary_ru='Удобный GUI-прокси-клиент для xray-core'
 group='Networking/Other'
-desc='Happ is a graphical client for xray-core with TUN/VPN support, anti-censorship and subscription management.'
-desc_ru='Happ — графический клиент для xray-core с поддержкой TUN/VPN, anti-censorship и управлением подписками.'
-homepage='https://github.com/Happ-proxy/happ-desktop'
+desc='Happ is a GUI client for xray-core with TUN/VPN mode via sing-box, anti-censorship tools, QR code import and subscription management.'
+desc_ru='Happ — GUI-клиент для xray-core с режимом TUN/VPN через sing-box, средствами обхода блокировок, импортом QR-кодов и управлением подписками.'
+homepage='https://happ.su/'
 maintainer='FlyFrog LLC <support@happ.su>'
 
 architectures=('amd64' 'arm64')

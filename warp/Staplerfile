@@ -1,12 +1,12 @@
 name='warp'
 version='0.2026.05.13.09.15.stable.03'
 release=1
-summary='Warp — modern Rust-based terminal'
-summary_ru='Warp — современный терминал на Rust'
+summary='Rust-based terminal for developers and teams'
+summary_ru='Терминал на Rust для разработчиков и команд'
 group='Development/Tools'
-desc='Warp is a modern Rust-based terminal with AI features, command sharing and team-oriented developer workflows.'
-desc_ru='Warp — современный терминал на Rust с AI-функциями, обменом командами и рабочими процессами для разработчиков.'
-homepage='https://www.warp.dev/'
+desc='Warp is a modern Rust-based terminal with AI built in, command sharing and team-oriented workflows for onboarding and incident response.'
+desc_ru='Warp — современный терминал на Rust со встроенным AI, обменом командами и командными сценариями для онбординга и incident response.'
+homepage='https://warp.dev/'
 maintainer='Warp Linux Maintainers <linux-maintainers@warp.dev>'
 
 architectures=('amd64' 'arm64')

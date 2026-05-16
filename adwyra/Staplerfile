@@ -1,17 +1,13 @@
 name='adwyra'
 version='0.5.0'
 release=1
-summary='Adwyra — elegant application launcher for Linux'
-summary_ru='Adwyra — элегантный лаунчер приложений для Linux'
-desc='Adwyra is a minimalist and fast way to launch applications.
-A beautiful grid of icons, instant search, app folders, pages,
-drag & drop reordering and customizable settings.'
-desc_ru='Adwyra — минималистичный и быстрый способ запуска приложений.
-Красивая сетка иконок, мгновенный поиск, папки приложений, страницы,
-перетаскивание для сортировки и настраиваемые параметры.'
+summary='Minimal GNOME application launcher'
+summary_ru='Минималистичный лаунчер приложений для GNOME'
+desc='Adwyra is a compact GTK 4/libadwaita application launcher for GNOME with an application grid, search, folders, pinned apps, drag-and-drop ordering, themes, hotkeys and plugin support.'
+desc_ru='Adwyra — компактный лаунчер приложений для GNOME на GTK 4/libadwaita с сеткой приложений, поиском, папками, закреплением, drag-and-drop сортировкой, темами, горячими клавишами и плагинами.'
 group='Graphical desktop/GNOME'
-homepage='https://github.com/cheviiot/adwyra'
-maintainer='Cheviiot <cheviiot@example.com>'
+homepage='https://github.com/Cheviiot/Adwyra'
+maintainer='Cheviiot <https://github.com/Cheviiot>'
 
 architectures=('all')
 

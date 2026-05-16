@@ -1,12 +1,12 @@
 name='tailscale'
 version='1.98.2'
 release=1
-summary='Tailscale — WireGuard-based mesh VPN'
-summary_ru='Tailscale — mesh VPN на базе WireGuard'
+summary='Mesh VPN built on WireGuard'
+summary_ru='Mesh VPN на базе WireGuard'
 group='Networking/Other'
-desc='Tailscale is a secure mesh VPN built on WireGuard that connects devices and services across networks.'
-desc_ru='Tailscale — безопасный mesh VPN на базе WireGuard для соединения устройств и сервисов между сетями.'
-homepage='https://tailscale.com/'
+desc='Tailscale is a secure mesh VPN built on WireGuard and identity-based access that connects devices and services across networks.'
+desc_ru='Tailscale — безопасный mesh VPN на базе WireGuard и identity-based access для соединения устройств и сервисов между сетями.'
+homepage='https://tailscale.com'
 maintainer='Tailscale Inc <info@tailscale.com>'
 
 architectures=('amd64' 'arm64')

@@ -1,11 +1,11 @@
 name='windsurf'
 version='2.2.17'
 release=1
-summary='Windsurf — AI-native code editor'
-summary_ru='Windsurf — AI-редактор кода'
+summary="Tomorrow's Editor, Today"
+summary_ru='AI-редактор кода для сохранения flow state'
 group='Development/Tools'
-desc='Windsurf is an AI-native code editor built to keep developers in flow with integrated agentic assistance.'
-desc_ru='Windsurf — AI-редактор кода с интегрированной агентной помощью для разработки.'
+desc='The Windsurf Editor is an AI-native code editor built to keep developers in flow state with instant, integrated AI developer assistance.'
+desc_ru='Windsurf Editor — AI-native редактор кода, созданный для сохранения flow state и мгновенной встроенной AI-помощи разработчику.'
 homepage='https://windsurf.com/'
 maintainer='Exafunction, Inc. <https://windsurf.com/>'
 
@@ -15,6 +15,9 @@ license=('custom')
 nonfree=1
 nonfree_msg='Windsurf is proprietary software by Exafunction, Inc. Usage is subject to the Terms of Service.'
 nonfree_url='https://windsurf.com/terms-of-service-individual'
+
+provides=('visual-studio-windsurf')
+replaces=('visual-studio-windsurf')
 
 auto_reqprov_method="dirty"
 auto_req=0

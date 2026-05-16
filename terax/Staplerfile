@@ -1,12 +1,12 @@
 name='terax'
 version='0.6.6'
 release=1
-summary='Terax — lightweight AI-native terminal emulator'
-summary_ru='Terax — лёгкий AI-native терминал'
+summary='AI-native terminal emulator'
+summary_ru='AI-native эмулятор терминала'
 group='Development/Tools'
-desc='Terax is an open-source AI-native terminal emulator built with Tauri, Rust and React. It includes multi-tab terminals, a file explorer, code editor, web preview, voice input and AI agents.'
-desc_ru='Terax — открытый AI-native терминал на Tauri, Rust и React с вкладками терминала, файловым менеджером, редактором кода, web preview, голосовым вводом и AI-агентами.'
-homepage='https://github.com/crynta/terax-ai'
+desc='Terax is an open-source AI-native terminal emulator built with Tauri, Rust and React, with multi-tab terminals, file explorer, code editor, web preview, voice input and AI agents.'
+desc_ru='Terax — открытый AI-native эмулятор терминала на Tauri, Rust и React с вкладками терминала, файловым менеджером, редактором кода, web preview, голосовым вводом и AI-агентами.'
+homepage='https://terax.app'
 maintainer='crynta <https://github.com/crynta>'
 
 architectures=('amd64')

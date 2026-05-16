@@ -1,17 +1,20 @@
 name='github-plus'
 version='3.5.9.2'
 release=2
-summary='GitHub Desktop Plus — enhanced GUI client for Git'
-summary_ru='GitHub Desktop Plus — улучшенный GUI-клиент для Git'
+summary='GitHub Desktop fork with Bitbucket and GitLab integration'
+summary_ru='Форк GitHub Desktop с интеграцией Bitbucket и GitLab'
 group='Development/Tools'
-desc='GitHub Desktop Plus is a fork of GitHub Desktop with extended functionality and Bitbucket/GitLab integration.'
-desc_ru='GitHub Desktop Plus — форк GitHub Desktop с расширенной функциональностью и интеграцией Bitbucket/GitLab.'
+desc='GitHub Desktop Plus is a GitHub Desktop fork with advanced functionality and Bitbucket/GitLab integration for desktop Git workflows.'
+desc_ru='GitHub Desktop Plus — форк GitHub Desktop с расширенными возможностями и интеграцией Bitbucket/GitLab для настольной работы с Git.'
 homepage='https://github.com/pol-rivero/github-desktop-plus'
-maintainer='pol-rivero <https://github.com/pol-rivero>'
+maintainer='Pol Rivero <github-desktop-plus@polrivero.com>'
 
 architectures=('amd64' 'arm64')
 
 license=('MIT')
+
+provides=('github-desktop-plus')
+replaces=('github-desktop-plus')
 
 auto_reqprov_method="dirty"
 auto_req=0

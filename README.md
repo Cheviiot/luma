@@ -20,20 +20,32 @@ stplr refresh
 
 ## Пакеты
 
-| Пакет | Архитектуры | Назначение |
-|:--|:--|:--|
-| `adwyra` | `all` | лаунчер приложений |
-| `clash-verge` | `amd64`, `arm64` | GUI-клиент Mihomo |
-| `github-plus` | `amd64`, `arm64` | GitHub Desktop Plus |
-| `happ` | `amd64`, `arm64` | Happ Proxy Client |
-| `tailscale` | `amd64`, `arm64` | WireGuard mesh VPN |
-| `terax` | `amd64` | AI-native терминал |
-| `vanyavpn` | `amd64` | клиент VanyaVPN |
-| `vual` | `all` | helper для Steam/Proton |
-| `warp` | `amd64`, `arm64` | Warp Terminal |
-| `windsurf` | `amd64` | AI-редактор кода |
+Метаданные пакетов синхронизированы с upstream README, GitHub metadata и control metadata официальных `.deb`/AppImage артефактов. Актуальная версия каждого пакета хранится в его `Staplerfile`.
 
-Актуальная версия каждого пакета хранится только в его `Staplerfile`, чтобы README не расходился с автоматическими обновлениями.
+### Сеть и VPN
+
+| Пакет | Upstream | Лицензия | Архитектуры | Описание |
+|:--|:--|:--|:--|:--|
+| `clash-verge` | [Clash Verge Rev](https://www.clashverge.dev) | GPL-3.0-only | `amd64`, `arm64` | GUI-клиент на Tauri для профилей Mihomo/Clash |
+| `happ` | [Happ](https://happ.su/) | proprietary | `amd64`, `arm64` | GUI-клиент для xray-core с TUN/VPN, sing-box, byedpi и подписками |
+| `tailscale` | [Tailscale](https://tailscale.com) | BSD-3-Clause | `amd64`, `arm64` | Mesh VPN на базе WireGuard и identity-based access |
+| `vanyavpn` | [VanyaVPN](https://vanyavpn.es) | proprietary | `amd64` | десктопный клиент сервиса VanyaVPN, перепакованный из AppImage |
+
+### Разработка
+
+| Пакет | Upstream | Лицензия | Архитектуры | Описание |
+|:--|:--|:--|:--|:--|
+| `github-plus` | [GitHub Desktop Plus](https://github.com/pol-rivero/github-desktop-plus) | MIT | `amd64`, `arm64` | форк GitHub Desktop с интеграцией Bitbucket и GitLab |
+| `terax` | [Terax](https://terax.app) | Apache-2.0 | `amd64` | AI-native эмулятор терминала на Tauri, Rust и React |
+| `warp` | [Warp](https://warp.dev/) | AGPL-3.0-only, MIT | `amd64`, `arm64` | терминал на Rust для разработчиков и команд |
+| `windsurf` | [Windsurf](https://windsurf.com/) | proprietary | `amd64` | AI-native редактор кода от Exafunction |
+
+### Рабочий стол и игры
+
+| Пакет | Upstream | Лицензия | Архитектуры | Описание |
+|:--|:--|:--|:--|:--|
+| `adwyra` | [Adwyra](https://github.com/Cheviiot/Adwyra) | GPL-3.0-or-later | `all` | минималистичный лаунчер приложений для GNOME |
+| `vual` | [Vual](https://github.com/Cheviiot/Vual) | GPL-3.0-or-later | `all` | запуск Cheat Engine для Steam-игр через Proton |
 
 ## Использование
 

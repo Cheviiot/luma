@@ -1,8 +1,8 @@
 name='vanyavpn'
 version='1.12.3'
 release=1
-summary='VanyaVPN — VPN client for Uncle Vanya VPN service'
-summary_ru='Дядя Ваня VPN — клиент VPN-сервиса'
+summary='Desktop client for the VanyaVPN service'
+summary_ru='Десктопный клиент сервиса VanyaVPN'
 group='Networking/Other'
 desc='VanyaVPN is the desktop client for the Uncle Vanya VPN service. This package repacks the upstream Linux AppImage into a native filesystem layout instead of installing the AppImage as a portable binary.'
 desc_ru='Дядя Ваня VPN — десктопный клиент одноимённого VPN-сервиса. Пакет распаковывает upstream Linux AppImage в нативную файловую структуру вместо установки AppImage как портативного бинарника.'

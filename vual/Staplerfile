@@ -1,8 +1,8 @@
 name='vual'
 version='0.3.1'
 release=1
-summary='Vual — Cheat Engine launcher for Steam/Proton games'
-summary_ru='Vual — запуск Cheat Engine для Steam/Proton игр'
+summary='Launch Cheat Engine for Steam games through Proton'
+summary_ru='Запуск Cheat Engine для Steam-игр через Proton'
 group='Games'
 desc='Vual is a GTK4/libadwaita application for launching Cheat Engine in Steam games
 through Proton. Displays Steam library with cover art, one-click LaunchOptions setup
@@ -11,7 +11,7 @@ desc_ru='Vual — GTK4/libadwaita-приложение для запуска Che
 через Proton. Отображает библиотеку Steam с обложками, настройка LaunchOptions
 для protonhax одним кликом, встроенная загрузка и установка Cheat Engine.'
 homepage='https://github.com/Cheviiot/Vual'
-maintainer='Cheviiot <cheviiot@example.com>'
+maintainer='Cheviiot <https://github.com/Cheviiot>'
 
 architectures=('all')
 
