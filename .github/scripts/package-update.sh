@@ -8,6 +8,7 @@ PACKAGES=(
     clash-verge
     github-plus
     happ
+    hydralauncher
     tailscale
     terax
     vanyavpn
@@ -195,6 +196,7 @@ latest_version() {
     clash-verge) github_latest_release "clash-verge-rev/clash-verge-rev" ;;
     github-plus) github_latest_release "pol-rivero/github-desktop-plus" ;;
     happ) github_latest_release "Happ-proxy/happ-desktop" ;;
+    hydralauncher) github_latest_release "hydralauncher/hydra" ;;
     tailscale) latest_tailscale ;;
     terax) github_latest_release "crynta/terax-ai" ;;
     vanyavpn) latest_vanyavpn ;;

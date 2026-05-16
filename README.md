@@ -5,7 +5,7 @@
   <p>Готовые пакеты, аккуратные метаданные и проверка upstream-версий в одном репозитории.</p>
   <p>
     <code>stplr &gt;= v0.1.1</code>
-    <code>10 пакетов</code>
+    <code>11 пакетов</code>
     <code>amd64</code>
     <code>arm64</code>
     <code>all</code>
@@ -106,6 +106,14 @@ stplr refresh
 <table>
   <tr>
     <td width="50%" valign="top">
+      <p align="center"><img src=".github/assets/apps/hydralauncher.png" width="72" height="72" alt="Hydra Launcher"></p>
+      <h3 align="center"><a href="./hydralauncher">Hydra Launcher</a></h3>
+      <p>Открытый игровой лаунчер со встроенной поддержкой BitTorrent.</p>
+      <p><code>hydralauncher</code> <code>3.9.7</code> <code>amd64</code></p>
+      <p><a href="./hydralauncher">Пакет</a> · <a href="https://hydralauncher.app/dl/">Сайт</a> · <a href="https://github.com/hydralauncher/hydra">GitHub</a></p>
+      <pre><code>stplr install luma/hydralauncher</code></pre>
+    </td>
+    <td width="50%" valign="top">
       <p align="center"><img src=".github/assets/apps/adwyra.png" width="72" height="72" alt="Adwyra"></p>
       <h3 align="center"><a href="./adwyra">Adwyra</a></h3>
       <p>Минималистичный лаунчер приложений для GNOME.</p>
@@ -113,6 +121,8 @@ stplr refresh
       <p><a href="./adwyra">Пакет</a> · <a href="https://github.com/Cheviiot/Adwyra">GitHub</a></p>
       <pre><code>stplr install luma/adwyra</code></pre>
     </td>
+  </tr>
+  <tr>
     <td width="50%" valign="top">
       <p align="center"><img src=".github/assets/apps/vual.png" width="72" height="72" alt="Vual"></p>
       <h3 align="center"><a href="./vual">Vual</a></h3>
@@ -121,6 +131,7 @@ stplr refresh
       <p><a href="./vual">Пакет</a> · <a href="https://github.com/Cheviiot/Vual">GitHub</a></p>
       <pre><code>stplr install luma/vual</code></pre>
     </td>
+    <td width="50%" valign="top"></td>
   </tr>
 </table>
 
@@ -161,6 +172,7 @@ stplr upgrade
 | `clash-verge` | Сеть и VPN | [Clash Verge Rev](https://www.clashverge.dev) | `2.4.7` | `GPL-3.0-only` | `amd64`, `arm64` |
 | `github-plus` | Разработка | [GitHub Desktop Plus](https://github.com/pol-rivero/github-desktop-plus) | `3.5.9.2` | `MIT` | `amd64`, `arm64` |
 | `happ` | Сеть и VPN | [Happ](https://happ.su/) | `2.15.0` | `custom` | `amd64`, `arm64` |
+| `hydralauncher` | Игры | [Hydra Launcher](https://hydralauncher.app/dl/) | `3.9.7` | `MIT` | `amd64` |
 | `tailscale` | Сеть и VPN | [Tailscale](https://tailscale.com) | `1.98.2` | `BSD-3-Clause` | `amd64`, `arm64` |
 | `terax` | Разработка | [Terax](https://terax.app) | `0.6.6` | `Apache-2.0` | `amd64` |
 | `vanyavpn` | Сеть и VPN | [VanyaVPN](https://vanyavpn.es) | `1.12.1+472165` | `custom` | `amd64` |
@@ -173,7 +185,7 @@ stplr upgrade
 <details>
 <summary><strong>Источник иконок</strong></summary>
 
-Иконки витрины взяты из upstream-артефактов пакетов: `.deb`, AppImage или исходных архивов. Для `tailscale`, чей Linux CLI-архив не содержит desktop-иконку, используется официальный `favicon.svg` с сайта Tailscale.
+Иконки витрины взяты из upstream-артефактов пакетов: `.deb`, AppImage или исходных архивов. Для `hydralauncher` используется `build/icon.png` из upstream-репозитория. Для `tailscale`, чей Linux CLI-архив не содержит desktop-иконку, используется официальный `favicon.svg` с сайта Tailscale.
 
 </details>
 
