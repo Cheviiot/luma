@@ -6,6 +6,7 @@ set -euo pipefail
 PACKAGES=(
     adwyra
     clash-verge
+    codex-app
     github-plus
     happ
     hydralauncher
@@ -44,11 +45,11 @@ github_api() {
         headers+=(-H "Authorization: Bearer ${GITHUB_TOKEN}")
     fi
 
-    curl --retry 3 --retry-delay 2 --retry-all-errors -fsSL "${headers[@]}" "$@"
+    curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 30 --max-time 120 -fsSL "${headers[@]}" "$@"
 }
 
 download() {
-    curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 30 -fsSL "$@"
+    curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 30 --max-time 300 -fsSL "$@"
 }
 
 strip_v() {
@@ -84,7 +85,7 @@ github_latest_release() {
 latest_tailscale() {
     local headers version
 
-    headers="$(curl --retry 3 --retry-delay 2 --retry-all-errors -fsSLI \
+    headers="$(curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 30 --max-time 120 -fsSLI \
         "https://pkgs.tailscale.com/stable/tailscale_latest_amd64.tgz")"
 
     version="$(
@@ -122,7 +123,7 @@ latest_windsurf() {
     local version
 
     version="$(
-        curl --retry 3 --retry-delay 2 --retry-all-errors -fsSL \
+        curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 30 --max-time 120 -fsSL \
             "https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/apt/dists/stable/main/binary-amd64/Packages" |
             awk '
                 /^Package: windsurf$/ {found=1; next}
@@ -194,6 +195,7 @@ latest_version() {
     case "$package" in
     adwyra) github_latest_release "Cheviiot/adwyra" ;;
     clash-verge) github_latest_release "clash-verge-rev/clash-verge-rev" ;;
+    codex-app) github_latest_release "Boria138/codex-app-linux" ;;
     github-plus) github_latest_release "pol-rivero/github-desktop-plus" ;;
     happ) github_latest_release "Happ-proxy/happ-desktop" ;;
     hydralauncher) github_latest_release "hydralauncher/hydra" ;;
@@ -212,11 +214,13 @@ package_sources() {
     local array_name="$2"
 
     (
+        local declaration
+
         set +u
         cd "${repo_root}/${package}"
         # shellcheck source=/dev/null
         source ./Staplerfile
-        if declare -p "$array_name" >/dev/null 2>&1; then
+        if declaration="$(declare -p "$array_name" 2>/dev/null)" && [[ "$declaration" == declare\ -*a* ]]; then
             eval 'printf "%s\n" "${'"$array_name"'[@]}"'
         fi
     )
@@ -294,6 +298,7 @@ refresh_checksums() {
 
     local source
     for source in "${sources[@]}"; do
+        [[ -n "$source" ]] || continue
         checksums+=("$(source_checksum "$package" "$source")")
     done
 
@@ -305,6 +310,7 @@ refresh_checksums() {
     if [[ "${#sources_arm64[@]}" -gt 0 ]]; then
         local checksums_arm64=()
         for source in "${sources_arm64[@]}"; do
+            [[ -n "$source" ]] || continue
             checksums_arm64+=("$(source_checksum "$package" "$source")")
         done
         replace_array "$file" checksums_arm64 "${checksums_arm64[@]}"

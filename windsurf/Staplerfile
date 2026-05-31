@@ -1,5 +1,5 @@
 name='windsurf'
-version='2.2.17'
+version='2.3.15'
 release=1
 summary="Tomorrow's Editor, Today"
 summary_ru='AI-редактор кода для сохранения flow state'
@@ -36,7 +36,7 @@ sources=(
 )
 
 checksums=(
-    '95f4ca585db0b5094bbfef0e79b8d563da9b66e0be1ef5bec13549029ab193b5'
+    'bd740d4872aed1d56303e4d4342ec41f634fcc82bb1c12cd6c3e29546a0a13e6'
 )
 
 scripts=(

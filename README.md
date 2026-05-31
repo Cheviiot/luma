@@ -1,205 +1,112 @@
 <div align="center">
-  <img src=".github/assets/icon.svg" width="96" height="96" alt="Luma">
+  <img src=".github/assets/icon.svg" width="104" height="104" alt="Luma">
   <h1>Luma</h1>
-  <p><strong>Витрина Linux-приложений для Stapler</strong></p>
-  <p>Готовые пакеты, аккуратные метаданные и проверка upstream-версий в одном репозитории.</p>
+  <p><strong>Аккуратный Stapler-репозиторий для Linux-приложений</strong></p>
+  <p>Готовые спецификации, реальные upstream-артефакты, postinstall-интеграция и автоматическая проверка новых версий.</p>
   <p>
     <code>stplr &gt;= v0.1.1</code>
-    <code>11 пакетов</code>
+    <code>12 пакетов</code>
     <code>amd64</code>
     <code>arm64</code>
     <code>all</code>
   </p>
 </div>
 
-```bash
-stplr repo add luma https://github.com/Cheviiot/luma.git
-stplr refresh
-```
+---
 
-## Витрина
-
-### Сеть и VPN
-
-<table>
-  <tr>
-    <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/clash-verge.png" width="72" height="72" alt="Clash Verge Rev"></p>
-      <h3 align="center"><a href="./clash-verge">Clash Verge Rev</a></h3>
-      <p>GUI-клиент на Tauri для профилей Mihomo/Clash.</p>
-      <p><code>clash-verge</code> <code>2.4.7</code> <code>amd64</code> <code>arm64</code></p>
-      <p><a href="./clash-verge">Пакет</a> · <a href="https://www.clashverge.dev">Сайт</a></p>
-      <pre><code>stplr install luma/clash-verge</code></pre>
-    </td>
-    <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/happ.png" width="72" height="72" alt="Happ"></p>
-      <h3 align="center"><a href="./happ">Happ</a></h3>
-      <p>Удобный GUI-прокси-клиент для xray-core.</p>
-      <p><code>happ</code> <code>2.15.0</code> <code>amd64</code> <code>arm64</code></p>
-      <p><a href="./happ">Пакет</a> · <a href="https://happ.su/">Сайт</a></p>
-      <pre><code>stplr install luma/happ</code></pre>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/tailscale.svg" width="72" height="72" alt="Tailscale"></p>
-      <h3 align="center"><a href="./tailscale">Tailscale</a></h3>
-      <p>Mesh VPN на базе WireGuard для приватных сетей.</p>
-      <p><code>tailscale</code> <code>1.98.2</code> <code>amd64</code> <code>arm64</code></p>
-      <p><a href="./tailscale">Пакет</a> · <a href="https://tailscale.com">Сайт</a></p>
-      <pre><code>stplr install luma/tailscale</code></pre>
-    </td>
-    <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/vanyavpn.png" width="72" height="72" alt="VanyaVPN"></p>
-      <h3 align="center"><a href="./vanyavpn">VanyaVPN</a></h3>
-      <p>Десктопный клиент сервиса VanyaVPN, перепакованный из AppImage.</p>
-      <p><code>vanyavpn</code> <code>1.12.1+472165</code> <code>amd64</code></p>
-      <p><a href="./vanyavpn">Пакет</a> · <a href="https://vanyavpn.es">Сайт</a></p>
-      <pre><code>stplr install luma/vanyavpn</code></pre>
-    </td>
-  </tr>
-</table>
-
-### Разработка
-
-<table>
-  <tr>
-    <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/github-plus.png" width="72" height="72" alt="GitHub Desktop Plus"></p>
-      <h3 align="center"><a href="./github-plus">GitHub Desktop Plus</a></h3>
-      <p>Форк GitHub Desktop с интеграцией Bitbucket и GitLab.</p>
-      <p><code>github-plus</code> <code>3.5.9.2</code> <code>amd64</code> <code>arm64</code></p>
-      <p><a href="./github-plus">Пакет</a> · <a href="https://github.com/pol-rivero/github-desktop-plus">GitHub</a></p>
-      <pre><code>stplr install luma/github-plus</code></pre>
-    </td>
-    <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/terax.png" width="72" height="72" alt="Terax"></p>
-      <h3 align="center"><a href="./terax">Terax</a></h3>
-      <p>AI-native эмулятор терминала на Tauri, Rust и React.</p>
-      <p><code>terax</code> <code>0.6.6</code> <code>amd64</code></p>
-      <p><a href="./terax">Пакет</a> · <a href="https://terax.app">Сайт</a></p>
-      <pre><code>stplr install luma/terax</code></pre>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/warp.png" width="72" height="72" alt="Warp"></p>
-      <h3 align="center"><a href="./warp">Warp</a></h3>
-      <p>Терминал на Rust для разработчиков и команд.</p>
-      <p><code>warp</code> <code>0.2026.05.13.09.15.stable.03</code> <code>amd64</code> <code>arm64</code></p>
-      <p><a href="./warp">Пакет</a> · <a href="https://warp.dev/">Сайт</a></p>
-      <pre><code>stplr install luma/warp</code></pre>
-    </td>
-    <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/windsurf.png" width="72" height="72" alt="Windsurf"></p>
-      <h3 align="center"><a href="./windsurf">Windsurf</a></h3>
-      <p>AI-редактор кода для сохранения flow state.</p>
-      <p><code>windsurf</code> <code>2.2.17</code> <code>amd64</code></p>
-      <p><a href="./windsurf">Пакет</a> · <a href="https://windsurf.com/">Сайт</a></p>
-      <pre><code>stplr install luma/windsurf</code></pre>
-    </td>
-  </tr>
-</table>
-
-### Рабочий стол и игры
-
-<table>
-  <tr>
-    <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/hydralauncher.png" width="72" height="72" alt="Hydra Launcher"></p>
-      <h3 align="center"><a href="./hydralauncher">Hydra Launcher</a></h3>
-      <p>Открытый игровой лаунчер со встроенной поддержкой BitTorrent.</p>
-      <p><code>hydralauncher</code> <code>3.9.7</code> <code>amd64</code></p>
-      <p><a href="./hydralauncher">Пакет</a> · <a href="https://hydralauncher.app/dl/">Сайт</a> · <a href="https://github.com/hydralauncher/hydra">GitHub</a></p>
-      <pre><code>stplr install luma/hydralauncher</code></pre>
-    </td>
-    <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/adwyra.png" width="72" height="72" alt="Adwyra"></p>
-      <h3 align="center"><a href="./adwyra">Adwyra</a></h3>
-      <p>Минималистичный лаунчер приложений для GNOME.</p>
-      <p><code>adwyra</code> <code>0.5.0</code> <code>all</code></p>
-      <p><a href="./adwyra">Пакет</a> · <a href="https://github.com/Cheviiot/Adwyra">GitHub</a></p>
-      <pre><code>stplr install luma/adwyra</code></pre>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <p align="center"><img src=".github/assets/apps/vual.png" width="72" height="72" alt="Vual"></p>
-      <h3 align="center"><a href="./vual">Vual</a></h3>
-      <p>Запуск Cheat Engine для Steam-игр через Proton.</p>
-      <p><code>vual</code> <code>0.3.1</code> <code>all</code></p>
-      <p><a href="./vual">Пакет</a> · <a href="https://github.com/Cheviiot/Vual">GitHub</a></p>
-      <pre><code>stplr install luma/vual</code></pre>
-    </td>
-    <td width="50%" valign="top"></td>
-  </tr>
-</table>
-
-<details>
-<summary><strong>Подключение, импорт и базовые команды</strong></summary>
-
-Требуемая версия Stapler: `v0.1.1` или новее.
+## Быстрый старт
 
 ```bash
 stplr repo add luma https://github.com/Cheviiot/luma.git
 stplr refresh
+stplr install luma/warp
 ```
 
-Если репозиторий уже склонирован локально, можно импортировать метаданные:
+Если репозиторий уже лежит локально:
 
 ```bash
 stplr repo import luma stapler-repo.toml
 stplr refresh
 ```
 
-Рабочие команды:
+Полезные команды:
 
 ```bash
-stplr search --query "name.contains('warp')"
-stplr info luma/warp
-stplr install luma/warp
+stplr search --query "name.contains('vpn')"
+stplr info luma/codex-app
+stplr install luma/codex-app
 stplr upgrade
 ```
 
-</details>
+## Каталог
 
-<details>
-<summary><strong>Полный каталог пакетов</strong></summary>
+### Сеть и VPN
+
+| Приложение | Версия | Архитектуры | Установка |
+|:--|:--|:--|:--|
+| <img src=".github/assets/apps/clash-verge.png" width="28" height="28" alt=""> [Clash Verge Rev](./clash-verge)<br><sub>GUI-клиент на Tauri для профилей Mihomo/Clash.</sub> | `2.5.1` | `amd64`, `arm64` | `stplr install luma/clash-verge` |
+| <img src=".github/assets/apps/happ.png" width="28" height="28" alt=""> [Happ](./happ)<br><sub>Удобный GUI-прокси-клиент для xray-core.</sub> | `2.16.2` | `amd64`, `arm64` | `stplr install luma/happ` |
+| <img src=".github/assets/apps/tailscale.svg" width="28" height="28" alt=""> [Tailscale](./tailscale)<br><sub>Mesh VPN на базе WireGuard для приватных сетей.</sub> | `1.98.4` | `amd64`, `arm64` | `stplr install luma/tailscale` |
+| <img src=".github/assets/apps/vanyavpn.png" width="28" height="28" alt=""> [VanyaVPN](./vanyavpn)<br><sub>Десктопный клиент сервиса VanyaVPN, перепакованный из AppImage.</sub> | `1.12.1+472165` | `amd64` | `stplr install luma/vanyavpn` |
+
+### Разработка
+
+| Приложение | Версия | Архитектуры | Установка |
+|:--|:--|:--|:--|
+| <img src=".github/assets/apps/codex-app.png" width="28" height="28" alt=""> [Codex App](./codex-app)<br><sub>Неофициальная Linux-перепаковка десктопного приложения Codex.</sub> | `26.506.31421` | `amd64` | `stplr install luma/codex-app` |
+| <img src=".github/assets/apps/github-plus.png" width="28" height="28" alt=""> [GitHub Desktop Plus](./github-plus)<br><sub>Форк GitHub Desktop с интеграцией Bitbucket и GitLab.</sub> | `3.5.11.0` | `amd64`, `arm64` | `stplr install luma/github-plus` |
+| <img src=".github/assets/apps/terax.png" width="28" height="28" alt=""> [Terax](./terax)<br><sub>AI-native эмулятор терминала на Tauri, Rust и React.</sub> | `0.7.3` | `amd64` | `stplr install luma/terax` |
+| <img src=".github/assets/apps/warp.png" width="28" height="28" alt=""> [Warp](./warp)<br><sub>Терминал на Rust для разработчиков и команд.</sub> | `0.2026.05.27.15.44.stable.01` | `amd64`, `arm64` | `stplr install luma/warp` |
+| <img src=".github/assets/apps/windsurf.png" width="28" height="28" alt=""> [Windsurf](./windsurf)<br><sub>AI-редактор кода для сохранения flow state.</sub> | `2.3.15` | `amd64` | `stplr install luma/windsurf` |
+
+### Рабочий стол и игры
+
+| Приложение | Версия | Архитектуры | Установка |
+|:--|:--|:--|:--|
+| <img src=".github/assets/apps/adwyra.png" width="28" height="28" alt=""> [Adwyra](./adwyra)<br><sub>Минималистичный лаунчер приложений для GNOME.</sub> | `0.5.0` | `all` | `stplr install luma/adwyra` |
+| <img src=".github/assets/apps/hydralauncher.png" width="28" height="28" alt=""> [Hydra Launcher](./hydralauncher)<br><sub>Открытый игровой лаунчер со встроенной поддержкой BitTorrent.</sub> | `3.9.9` | `amd64` | `stplr install luma/hydralauncher` |
+| <img src=".github/assets/apps/vual.png" width="28" height="28" alt=""> [Vual](./vual)<br><sub>Запуск Cheat Engine для Steam-игр через Proton.</sub> | `0.3.1` | `all` | `stplr install luma/vual` |
+
+## Что важно знать
+
+| Тема | Детали |
+|:--|:--|
+| Источники | Пакеты используют реальные upstream-артефакты: `.deb`, `.tgz`, AppImage или исходные архивы. |
+| Архитектуры | Витрина покрывает `amd64`, `arm64` и `all`; конкретная поддержка указана в каждом `Staplerfile`. |
+| Несвободные пакеты | Proprietary-приложения помечены `nonfree=1` и содержат ссылку на условия upstream. |
+| Postinstall | Скрипты обновляют desktop-базу, кэш иконок, systemd-сервисы и права исполняемых файлов там, где это нужно. |
+| Обновления | `.stapler/update-check` у каждого пакета совместим с `stplr-spec`, а общий скрипт проверяет весь каталог. |
+
+## Полная сводка
 
 | Пакет | Категория | Upstream | Версия | Лицензия | Архитектуры |
 |:--|:--|:--|:--|:--|:--|
 | `adwyra` | Рабочий стол | [Adwyra](https://github.com/Cheviiot/Adwyra) | `0.5.0` | `GPL-3.0-or-later` | `all` |
-| `clash-verge` | Сеть и VPN | [Clash Verge Rev](https://www.clashverge.dev) | `2.4.7` | `GPL-3.0-only` | `amd64`, `arm64` |
-| `github-plus` | Разработка | [GitHub Desktop Plus](https://github.com/pol-rivero/github-desktop-plus) | `3.5.9.2` | `MIT` | `amd64`, `arm64` |
-| `happ` | Сеть и VPN | [Happ](https://happ.su/) | `2.15.0` | `custom` | `amd64`, `arm64` |
-| `hydralauncher` | Игры | [Hydra Launcher](https://hydralauncher.app/dl/) | `3.9.7` | `MIT` | `amd64` |
-| `tailscale` | Сеть и VPN | [Tailscale](https://tailscale.com) | `1.98.2` | `BSD-3-Clause` | `amd64`, `arm64` |
-| `terax` | Разработка | [Terax](https://terax.app) | `0.6.6` | `Apache-2.0` | `amd64` |
+| `clash-verge` | Сеть и VPN | [Clash Verge Rev](https://www.clashverge.dev) | `2.5.1` | `GPL-3.0-only` | `amd64`, `arm64` |
+| `codex-app` | Разработка | [Codex App Linux](https://github.com/Boria138/codex-app-linux) | `26.506.31421` | `custom` | `amd64` |
+| `github-plus` | Разработка | [GitHub Desktop Plus](https://github.com/pol-rivero/github-desktop-plus) | `3.5.11.0` | `MIT` | `amd64`, `arm64` |
+| `happ` | Сеть и VPN | [Happ](https://happ.su/) | `2.16.2` | `custom` | `amd64`, `arm64` |
+| `hydralauncher` | Игры | [Hydra Launcher](https://hydralauncher.app/dl/) | `3.9.9` | `MIT` | `amd64` |
+| `tailscale` | Сеть и VPN | [Tailscale](https://tailscale.com) | `1.98.4` | `BSD-3-Clause` | `amd64`, `arm64` |
+| `terax` | Разработка | [Terax](https://terax.app) | `0.7.3` | `Apache-2.0` | `amd64` |
 | `vanyavpn` | Сеть и VPN | [VanyaVPN](https://vanyavpn.es) | `1.12.1+472165` | `custom` | `amd64` |
 | `vual` | Игры | [Vual](https://github.com/Cheviiot/Vual) | `0.3.1` | `GPL-3.0-or-later` | `all` |
-| `warp` | Разработка | [Warp](https://warp.dev/) | `0.2026.05.13.09.15.stable.03` | `AGPL-3.0-only`, `MIT` | `amd64`, `arm64` |
-| `windsurf` | Разработка | [Windsurf](https://windsurf.com/) | `2.2.17` | `custom` | `amd64` |
+| `warp` | Разработка | [Warp](https://warp.dev/) | `0.2026.05.27.15.44.stable.01` | `AGPL-3.0-only`, `MIT` | `amd64`, `arm64` |
+| `windsurf` | Разработка | [Windsurf](https://windsurf.com/) | `2.3.15` | `custom` | `amd64` |
 
-</details>
+## Сопровождение
 
-<details>
-<summary><strong>Источник иконок</strong></summary>
+### Структура пакета
 
-Иконки витрины взяты из upstream-артефактов пакетов: `.deb`, AppImage или исходных архивов. Для `hydralauncher` используется `build/icon.png` из upstream-репозитория. Для `tailscale`, чей Linux CLI-архив не содержит desktop-иконку, используется официальный `favicon.svg` с сайта Tailscale.
+Каждый каталог пакета содержит:
 
-</details>
+- `Staplerfile` — сборочная спецификация;
+- `stapler-repo.toml` — наследование настроек репозитория;
+- `.stapler/update-check` — проверка актуальной upstream-версии;
+- `postinstall.sh` и `postremove.sh` — системная интеграция после установки и удаления;
+- `LICENSE` — upstream-лицензия или описание условий распространения.
 
-<details>
-<summary><strong>Разработка, проверки и сборка</strong></summary>
-
-Пакеты лежат в корне репозитория. Каждый пакет содержит:
-
-- `Staplerfile` - описание сборки;
-- `stapler-repo.toml` - наследование настроек репозитория;
-- `postinstall.sh` и `postremove.sh`, если нужны действия после установки или удаления;
-- `LICENSE`, если upstream-лицензия должна поставляться рядом со спецификацией.
-
-Быстрые локальные проверки:
+### Проверки
 
 ```bash
 find . -path './.git' -prune -o \( -name 'Staplerfile' -o -name '*.sh' -o -path '*/.stapler/*' \) -type f -print0 | xargs -0 -r bash -n
@@ -208,44 +115,29 @@ find . -path './.git' -prune -o \( -name 'Staplerfile' -o -name '*.sh' -o -path 
 git diff --check
 ```
 
-Сборка конкретного пакета:
+### Сборка
 
 ```bash
-cd github-plus
+cd codex-app
 stplr build --clean
 ```
 
 Для чистой сборки через `stplr-spec`, если он установлен:
 
 ```bash
-cd github-plus
+cd codex-app
 stplr-spec clean-build --preset aides
 ```
 
-</details>
-
-<details>
-<summary><strong>Автообновления upstream-версий</strong></summary>
-
-Проверка всех upstream-версий:
+### Обновление версий
 
 ```bash
 .github/scripts/package-update.sh check-all
-```
-
-Каждый пакет содержит `.stapler/update-check`, совместимый со `stplr-spec`:
-
-```bash
-cd github-plus
-stplr-spec update-package --only-check
-```
-
-Применить доступные обновления локально:
-
-```bash
 .github/scripts/package-update.sh apply-all
 ```
 
-GitHub Actions ежедневно запускает `Update Packages` и создаёт Pull Request, если upstream выпустил новые версии.
+После обновления версий нужно проверить сборку измененных пакетов и синхронизировать README/CHANGELOG, если изменилась публичная информация.
 
-</details>
+## Иконки
+
+Иконки витрины взяты из upstream-артефактов пакетов: `.deb`, AppImage, `.tgz` или исходных архивов. Для `tailscale`, чей Linux CLI-архив не содержит desktop-иконку, используется официальный `favicon.svg` с сайта Tailscale.

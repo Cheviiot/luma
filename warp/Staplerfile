@@ -1,5 +1,5 @@
 name='warp'
-version='0.2026.05.13.09.15.stable.03'
+version='0.2026.05.27.15.44.stable.01'
 release=1
 summary='Rust-based terminal for developers and teams'
 summary_ru='Терминал на Rust для разработчиков и команд'
@@ -37,11 +37,11 @@ sources_arm64=(
 )
 
 checksums=(
-    '096ba25c2d938ac283d64d7f94a973dc05a3b0e0cc37c5b6fab3135a7b6839c8'
+    '9edee46881ace3ffc3a3fdb69f6a222ff4527d3c20adb34cbafd79352b11a5a2'
 )
 
 checksums_arm64=(
-    '07d01a490ae7aed6081de741df2270bd4175fe358bbac08a5c52c825828e67a7'
+    '77e4b26bf67ae30be34a164249f218a01a3f27b4f37dc1e68139715eb128adde'
 )
 
 scripts=(

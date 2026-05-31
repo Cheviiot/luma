@@ -1,5 +1,5 @@
 name='tailscale'
-version='1.98.2'
+version='1.98.4'
 release=1
 summary='Mesh VPN built on WireGuard'
 summary_ru='Mesh VPN на базе WireGuard'
@@ -37,11 +37,11 @@ sources_arm64=(
 )
 
 checksums=(
-    'aae02be635e8bffbdaecefb3518344357d39d904c1bbe1e7ca95cd0cbb8ad21c'
+    'e6c08a8ee7e63e69aaf1b62ecd12672b3883fbcd2a176bf6cfa42a15fdce0b6b'
 )
 
 checksums_arm64=(
-    '6f56441fedd4309fb949e8f257d7bd93bc157191968918b906a781fc25029ad4'
+    '3cb068eb1368b6bb218d0ef0aa0a7a679a7156b7c979e2279cc2c2321b5f05c7'
 )
 
 scripts=(

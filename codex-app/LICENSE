@@ -1,0 +1,11 @@
+Custom proprietary upstream artifacts
+
+This package installs an unofficial Linux repack produced by:
+https://github.com/Boria138/codex-app-linux
+
+The upstream repository does not publish a repository-level license file.
+The packaged archive includes Electron and Chromium license files, which are
+installed under /usr/share/licenses/codex-app.
+
+Use of the desktop application and bundled service functionality is subject
+to the applicable upstream service terms.

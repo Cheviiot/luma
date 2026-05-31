@@ -1,0 +1,182 @@
+name='codex-app'
+version='26.506.31421'
+release=1
+summary='Unofficial Linux repack of the Codex desktop app'
+summary_ru='Неофициальная Linux-перепаковка десктопного приложения Codex'
+group='Development/Tools'
+desc='codex-app-linux repacks the Codex desktop application into Linux Electron artifacts and bundles a Linux codex CLI binary for local workflows.'
+desc_ru='codex-app-linux перепаковывает десктопное приложение Codex в Linux-артефакты Electron и включает Linux-бинарник codex CLI для локальных сценариев.'
+homepage='https://github.com/Boria138/codex-app-linux'
+maintainer='Boria138 <https://github.com/Boria138>'
+
+architectures=('amd64')
+
+license=('custom')
+nonfree=1
+nonfree_msg='Codex App Linux is an unofficial repack of proprietary desktop application artifacts. Usage is subject to the applicable upstream service terms.'
+nonfree_url='https://github.com/Boria138/codex-app-linux'
+
+auto_reqprov_method="dirty"
+auto_req=0
+auto_prov=0
+
+deps=()
+deps_debian=('ca-certificates' 'libc6' 'libasound2' 'libatk-bridge2.0-0' 'libatk1.0-0' 'libatspi2.0-0' 'libcairo2' 'libcups2' 'libcurl3-gnutls | libcurl4' 'libdbus-1-3' 'libexpat1' 'libgbm1' 'libglib2.0-0' 'libgtk-3-0' 'libnspr4' 'libnss3' 'libpango-1.0-0' 'libsecret-1-0' 'libudev1' 'libx11-6' 'libxcb1' 'libxcomposite1' 'libxdamage1' 'libxext6' 'libxfixes3' 'libxkbcommon0' 'libxkbfile1' 'libxrandr2' 'libxss1' 'libxtst6' 'xdg-utils')
+deps_ubuntu=("${deps_debian[@]}")
+deps_fedora=('ca-certificates' 'glibc' 'alsa-lib' 'atk' 'at-spi2-atk' 'at-spi2-core' 'cairo' 'cups-libs' 'libcurl' 'dbus-libs' 'expat' 'mesa-libgbm' 'glib2' 'gtk3' 'nspr' 'nss' 'pango' 'libsecret' 'systemd-libs' 'libX11' 'libxcb' 'libXcomposite' 'libXdamage' 'libXext' 'libXfixes' 'libxkbcommon' 'libxkbfile' 'libXrandr' 'libXScrnSaver' 'libXtst' 'xdg-utils')
+deps_arch=('ca-certificates' 'glibc' 'alsa-lib' 'atk' 'at-spi2-atk' 'at-spi2-core' 'cairo' 'cups' 'curl' 'dbus' 'expat' 'libgbm' 'glib2' 'gtk3' 'nspr' 'nss' 'pango' 'libsecret' 'systemd-libs' 'libx11' 'libxcb' 'libxcomposite' 'libxdamage' 'libxext' 'libxfixes' 'libxkbcommon' 'libxkbfile' 'libxrandr' 'libxss' 'libxtst' 'xdg-utils')
+deps_opensuse=('ca-certificates' 'glibc' 'alsa' 'libatk-1_0-0' 'libatk-bridge-2_0-0' 'libatspi0' 'libcairo2' 'cups-libs' 'libcurl4' 'libdbus-1-3' 'libexpat1' 'libgbm1' 'glib2' 'gtk3' 'mozilla-nspr' 'mozilla-nss' 'pango' 'libsecret-1-0' 'libudev1' 'libX11-6' 'libxcb1' 'libXcomposite1' 'libXdamage1' 'libXext6' 'libXfixes3' 'libxkbcommon0' 'libxkbfile1' 'libXrandr2' 'libXss1' 'libXtst6' 'xdg-utils')
+deps_altlinux=('ca-certificates' 'glibc' 'libalsa' 'at-spi2-atk' 'libat-spi2-core' 'libatk' 'libcairo' 'libcups' 'libcurl' 'libdbus' 'libexpat' 'libgbm' 'glib2' 'libgtk+3' 'libnspr' 'libnss' 'libpango' 'libsecret' 'libudev0' 'libX11' 'libxcb' 'libXcomposite' 'libXdamage' 'libXext' 'libXfixes' 'libxkbcommon' 'libxkbfile' 'libXrandr' 'libXScrnSaver' 'libXtst' 'xdg-utils')
+
+sources=(
+    "https://github.com/Boria138/codex-app-linux/releases/download/${version}/codex-app-${version}-x86_64.tar.gz?~archive=false&~name=codex-app.tar.gz"
+    "local:///codex-app.png"
+)
+
+checksums=(
+    '41c74bf9f40f7eacf6a393aff82eaccef689487c28e263b5e4c381a27667d62e'
+    '5c4fe03d5777a9684e37ec9a2331302abf525f53db83762e6adaafd2fc5eb510'
+)
+
+scripts=(
+    ['postinstall']='postinstall.sh'
+    ['postremove']='postremove.sh'
+)
+
+package() {
+    cd "${srcdir}"
+
+    tar -xzf codex-app.tar.gz
+    src="$(find "${srcdir}" -maxdepth 1 -type d -name "codex-app-${version}-x64" | head -1)"
+
+    install -dm755 "${pkgdir}/opt/codex-app"
+    cp -a "${src}/." "${pkgdir}/opt/codex-app/"
+
+    # Отключаем стандартное меню Electron на Linux/Windows до загрузки основного codex.asar.
+    python3 - "${pkgdir}/opt/codex-app/resources/app.asar" "${version}" <<'PY'
+import hashlib
+import json
+import struct
+import sys
+from pathlib import Path
+
+asar_path = Path(sys.argv[1])
+app_version = sys.argv[2]
+
+bootstrap = b'''"use strict";
+const path = require("path");
+const electron = require("electron");
+
+const { app, Menu } = electron;
+
+function disableNativeMenus() {
+  const setNullMenu = () => {
+    try {
+      Menu.setApplicationMenu(null);
+    } catch {}
+  };
+
+  const originalSetApplicationMenu = Menu.setApplicationMenu.bind(Menu);
+  Menu.setApplicationMenu = () => originalSetApplicationMenu(null);
+
+  app.on("browser-window-created", (_event, window) => {
+    try {
+      window.setMenu(null);
+    } catch {}
+    try {
+      window.setMenuBarVisibility(false);
+    } catch {}
+  });
+
+  setNullMenu();
+}
+
+disableNativeMenus();
+
+process.env.ELECTRON_FORCE_IS_PACKAGED = "1";
+process.env.NODE_ENV = "production";
+process.env.CODEX_CLI_PATH = path.join(process.resourcesPath, "codex");
+require(path.join(process.resourcesPath, "codex.asar"));
+'''
+
+package_json = json.dumps(
+    {
+        "name": "codex-app",
+        "private": True,
+        "version": app_version,
+        "main": "bootstrap.js",
+        "description": "Codex app for Linux",
+        "author": "Boria138",
+    },
+    separators=(",", ":"),
+).encode()
+
+entries = [
+    ("bootstrap.js", bootstrap),
+    ("package.json", package_json),
+]
+
+header_files = {}
+offset = 0
+for name, content in entries:
+    digest = hashlib.sha256(content).hexdigest()
+    header_files[name] = {
+        "size": len(content),
+        "offset": str(offset),
+        "integrity": {
+            "algorithm": "SHA256",
+            "hash": digest,
+            "blockSize": 4194304,
+            "blocks": [digest],
+        },
+    }
+    offset += len(content)
+
+header = json.dumps({"files": header_files}, separators=(",", ":")).encode()
+header_padded_size = (len(header) + 3) & ~3
+asar_path.write_bytes(
+    struct.pack("<IIII", 4, header_padded_size + 8, header_padded_size + 4, len(header))
+    + header
+    + (b"\0" * (header_padded_size - len(header)))
+    + b"".join(content for _, content in entries)
+)
+PY
+
+    chmod 755 "${pkgdir}/opt/codex-app/codex-app" 2>/dev/null || true
+    chmod 755 "${pkgdir}/opt/codex-app/resources/codex" 2>/dev/null || true
+    if [[ -f "${pkgdir}/opt/codex-app/chrome-sandbox" ]]; then
+        chmod 0755 "${pkgdir}/opt/codex-app/chrome-sandbox"
+    fi
+
+    mkdir -p "${pkgdir}/usr/bin"
+    ln -sf /opt/codex-app/codex-app "${pkgdir}/usr/bin/codex-app"
+
+    install -Dm644 codex-app.png \
+        "${pkgdir}/usr/share/icons/hicolor/512x512/apps/codex-app.png"
+
+    install -Dm644 "${src}/LICENSE.electron.txt" \
+        "${pkgdir}/usr/share/licenses/codex-app/LICENSE.electron.txt"
+    install -Dm644 "${src}/LICENSES.chromium.html" \
+        "${pkgdir}/usr/share/licenses/codex-app/LICENSES.chromium.html"
+
+    install -Dm644 /dev/stdin "${pkgdir}/usr/share/applications/codex-app.desktop" <<'EOF'
+[Desktop Entry]
+Name=Codex App
+Comment=Desktop coding agent client
+Comment[ru]=Десктопный клиент coding agent
+Exec=/usr/bin/codex-app %U
+Terminal=false
+Type=Application
+Icon=codex-app
+Categories=Development;IDE;
+StartupWMClass=codex-app
+EOF
+}
+
+files() {
+    files-find "/opt/codex-app/**/*"
+    files-find-binary
+    files-find-desktop
+    files-find "/usr/share/icons/hicolor/*/apps/codex-app.png"
+    files-find "/usr/share/licenses/codex-app/*"
+}

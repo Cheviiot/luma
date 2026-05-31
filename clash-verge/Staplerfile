@@ -1,6 +1,6 @@
 name='clash-verge'
-version='2.4.7'
-release=2
+version='2.5.1'
+release=1
 summary='Tauri GUI client for Mihomo/Clash proxy profiles'
 summary_ru='GUI-клиент на Tauri для профилей Mihomo/Clash'
 group='Networking/Other'
@@ -37,11 +37,11 @@ sources_arm64=(
 )
 
 checksums=(
-    'c1fcbaa79e454416e3dff644f83ea30c9437cd9cd7e4d199ac7add651882c65d'
+    'e3089744cf44518328ee6145a020ce4dbb68a1953107565796bbabf7013adc87'
 )
 
 checksums_arm64=(
-    '35f321a498f762175316b231d2fad3a90678016ad19157779758b5420d743a8f'
+    '99cf1f8e230cb9a3a14a5b247eb85c9e6b1def9ff7a84dbe6062b8b8446f73b8'
 )
 
 scripts=(
