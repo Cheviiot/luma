@@ -1,3 +1,24 @@
+## 2026-06-03 19:33 VLAT
+
+### Изменено
+- В `.github/workflows/ci.yml` добавлен отдельный шаг проверки метаданных пакетов.
+- В `.github/workflows/update-packages.yml` добавлен запуск проверки метаданных после автоматического обновления версий.
+
+### Добавлено
+- Добавлен `.github/scripts/validate-repo.py` — структурный валидатор репозитория.
+- Валидатор проверяет синхронизацию списка пакетов с `.github/scripts/package-update.sh`, наличие `latest_version` для каждого пакета, счетчик пакетов в `README.md`, обязательные `provides/replaces`, совпадение `provides` и `replaces`, длину `sources/checksums`, архитектуры и отсутствие неочищенного `portable.txt` в системных `/opt`-пакетах.
+
+### Исправлено
+- Нет.
+
+### Проверено
+- `.github/scripts/validate-repo.py`: проверено 14 пакетов.
+- `python3 -m py_compile .github/scripts/validate-repo.py`.
+- `bash -n`, `shellcheck`, `shfmt -d -i 4` и `git diff --check`.
+
+### Осталось
+- Нет.
+
 ## 2026-06-03 19:26 VLAT
 
 ### Изменено

@@ -73,6 +73,11 @@ jobs:
             xargs -0 -r shfmt -d -i 4
           git diff --check
 
+      - name: Validate package metadata
+        run: |
+          set -euo pipefail
+          .github/scripts/validate-repo.py
+
       - name: Build selected package
         if: github.event_name == 'workflow_dispatch' && inputs.package != ''
         env:

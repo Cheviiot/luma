@@ -71,6 +71,7 @@ jobs:
           find . -path './.git' -prune -o \( -name 'Staplerfile' -o -name '*.sh' -o -path '*/.stapler/*' \) -type f -print0 |
             xargs -0 -r shfmt -d -i 4
           git diff --check
+          .github/scripts/validate-repo.py
 
       - name: Prepare Pull Request body
         if: steps.check.outputs.has_updates == 'true'
