@@ -1,3 +1,31 @@
+## 2026-06-03 21:01 VLAT
+
+### Изменено
+- Обновлен `README.md`: количество пакетов увеличено до 16, NetBird UI добавлен в раздел `Сеть и VPN` и полную сводку.
+- Подключен `netbird-ui` к `.github/scripts/package-update.sh` и общей команде `check-all`.
+
+### Добавлено
+- Добавлен пакет `netbird-ui` версии `0.71.4` для архитектуры `amd64`.
+- Добавлены `netbird-ui/Staplerfile`, `stapler-repo.toml`, `.stapler/update-check`, `postinstall.sh`, `postremove.sh`, `LICENSE` и PNG-иконка.
+- Сборка использует официальный `.deb` `netbird-ui_0.71.4_linux_amd64.deb` из релиза `netbirdio/netbird`, устанавливает `/usr/bin/netbird-ui`, desktop-файл и иконки.
+- В `postinstall.sh` добавлена проверка наличия CLI/daemon `netbird` с понятным предупреждением, если пользователь поставил только UI.
+
+### Исправлено
+- Нет.
+
+### Проверено
+- `.github/scripts/validate-repo.py`: проверено 16 пакетов.
+- `.github/scripts/package-update.sh check netbird-ui`: локальная и upstream-версии совпадают, `0.71.4 0.71.4`.
+- `.github/scripts/package-update.sh check-all`: все 16 пакетов в статусе `current`.
+- `stplr build --clean` для `netbird-ui`: пакет `netbird-ui+stplr-default-0.71.4-alt1.x86_64.rpm` собран успешно.
+- `rpm -qpl` подтвердил наличие `/usr/bin/netbird-ui`, desktop-файла, hicolor-иконки и pixmap-иконки.
+- `rpm -qp --provides` подтвердил короткое имя `netbird-ui`.
+- `rpm -qp --requires` подтвердил системные зависимости `glibc`, `libGL`, `libX11` и `libxcb`.
+- `rpm -qp --scripts` подтвердил postinstall/postremove-скрипты с обновлением desktop/icon cache и предупреждением при отсутствии `netbird`.
+
+### Осталось
+- Linux arm64 для NetBird UI не добавлен, так как upstream-релиз `v0.71.4` публикует UI-артефакт для Linux только под `amd64`.
+
 ## 2026-06-03 20:07 VLAT
 
 ### Изменено

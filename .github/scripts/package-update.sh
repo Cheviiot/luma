@@ -11,6 +11,7 @@ PACKAGES=(
     happ
     hydralauncher
     netbird
+    netbird-ui
     pineconemc
     prismlauncher
     tailscale
@@ -220,6 +221,7 @@ latest_version() {
     happ) github_latest_release "Happ-proxy/happ-desktop" ;;
     hydralauncher) github_latest_release "hydralauncher/hydra" ;;
     netbird) github_latest_release "netbirdio/netbird" ;;
+    netbird-ui) github_latest_release "netbirdio/netbird" ;;
     pineconemc) github_latest_release "ElyPrismLauncher/Launcher" ;;
     prismlauncher) github_latest_release "PrismLauncher/PrismLauncher" ;;
     tailscale) latest_tailscale ;;

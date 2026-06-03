@@ -5,7 +5,7 @@
   <p>Готовые спецификации, реальные upstream-артефакты, postinstall-интеграция и автоматическая проверка новых версий.</p>
   <p>
     <code>stplr &gt;= v0.1.1</code>
-    <code>15 пакетов</code>
+    <code>16 пакетов</code>
     <code>amd64</code>
     <code>arm64</code>
     <code>all</code>
@@ -49,6 +49,7 @@ stplr upgrade
 | <img src=".github/assets/apps/clash-verge.png" width="28" height="28" alt=""> [Clash Verge Rev](./clash-verge)<br><sub>GUI-клиент на Tauri для профилей Mihomo/Clash.</sub> | `2.5.1` | `amd64`, `arm64` | `stplr install luma/clash-verge` |
 | <img src=".github/assets/apps/happ.png" width="28" height="28" alt=""> [Happ](./happ)<br><sub>Удобный GUI-прокси-клиент для xray-core.</sub> | `2.16.2` | `amd64`, `arm64` | `stplr install luma/happ` |
 | <img src=".github/assets/apps/netbird.png" width="28" height="28" alt=""> [NetBird](./netbird)<br><sub>Mesh VPN-клиент на базе WireGuard с SSO и политиками доступа.</sub> | `0.71.4` | `amd64`, `arm64` | `stplr install luma/netbird` |
+| <img src=".github/assets/apps/netbird-ui.png" width="28" height="28" alt=""> [NetBird UI](./netbird-ui)<br><sub>Графический интерфейс для управления NetBird на рабочем столе.</sub> | `0.71.4` | `amd64` | `stplr install luma/netbird && stplr install luma/netbird-ui` |
 | <img src=".github/assets/apps/tailscale.svg" width="28" height="28" alt=""> [Tailscale](./tailscale)<br><sub>Mesh VPN на базе WireGuard для приватных сетей.</sub> | `1.98.4` | `amd64`, `arm64` | `stplr install luma/tailscale` |
 | <img src=".github/assets/apps/vanyavpn.png" width="28" height="28" alt=""> [VanyaVPN](./vanyavpn)<br><sub>Десктопный клиент сервиса VanyaVPN, перепакованный из AppImage.</sub> | `1.12.1+472165` | `amd64` | `stplr install luma/vanyavpn` |
 
@@ -93,6 +94,7 @@ stplr upgrade
 | `happ` | Сеть и VPN | [Happ](https://happ.su/) | `2.16.2` | `custom` | `amd64`, `arm64` |
 | `hydralauncher` | Игры | [Hydra Launcher](https://hydralauncher.app/dl/) | `3.9.9` | `MIT` | `amd64` |
 | `netbird` | Сеть и VPN | [NetBird](https://netbird.io/) | `0.71.4` | `BSD-3-Clause`, `AGPL-3.0-only` | `amd64`, `arm64` |
+| `netbird-ui` | Сеть и VPN | [NetBird UI](https://netbird.io/) | `0.71.4` | `BSD-3-Clause`, `AGPL-3.0-only` | `amd64` |
 | `pineconemc` | Игры | [PineconeMC](https://pineconemc.com/) | `11.0.2` | `GPL-3.0-only` | `amd64`, `arm64` |
 | `prismlauncher` | Игры | [Prism Launcher](https://prismlauncher.org/) | `11.0.2` | `GPL-3.0-only` | `amd64`, `arm64` |
 | `tailscale` | Сеть и VPN | [Tailscale](https://tailscale.com) | `1.98.4` | `BSD-3-Clause` | `amd64`, `arm64` |
