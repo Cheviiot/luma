@@ -1,6 +1,6 @@
 name='codex-app'
 version='26.506.31421'
-release=3
+release=4
 summary='Unofficial Linux repack of the Codex desktop app'
 summary_ru='Неофициальная Linux-перепаковка десктопного приложения Codex'
 group='Development/Tools'
@@ -177,6 +177,104 @@ asar_path.write_bytes(
     + header
     + (b"\0" * (header_padded_size - len(header)))
     + b"".join(content for _, content in entries)
+)
+PY
+
+    # Исправляем projectless workspace: upstream жестко создает ~/Documents/Codex,
+    # игнорируя Electron documents path и XDG user dirs.
+    python3 - "${pkgdir}/opt/codex-app/resources/codex.asar" <<'PY'
+import copy
+import hashlib
+import json
+import struct
+import sys
+from pathlib import Path
+
+asar_path = Path(sys.argv[1])
+data = asar_path.read_bytes()
+_, _, _, header_size = struct.unpack("<IIII", data[:16])
+header = json.loads(data[16 : 16 + header_size])
+base_offset = 16 + ((header_size + 3) & ~3)
+
+target_path = ".vite/build/main-DnQgBHvi.js"
+old = (
+    "async function tn({appServerClient:e,homeDirectory:n}){"
+    "let r=(await e.platformPath()).join(n,`Documents`,`Codex`);return"
+)
+new = (
+    "async function tn({appServerClient:e,homeDirectory:n}){"
+    "let i=await e.platformPath(),r=i.join(process.env.CODEX_APP_DOCUMENTS_DIR||i.join(n,`Documents`),`Codex`);return"
+)
+
+patched = False
+output = bytearray()
+
+
+def integrity_for(content: bytes, block_size: int = 4194304) -> dict:
+    blocks = [
+        hashlib.sha256(content[index : index + block_size]).hexdigest()
+        for index in range(0, len(content), block_size)
+    ]
+    if not blocks:
+        blocks = [hashlib.sha256(b"").hexdigest()]
+    return {
+        "algorithm": "SHA256",
+        "hash": hashlib.sha256(content).hexdigest(),
+        "blockSize": block_size,
+        "blocks": blocks,
+    }
+
+
+def rebuild_node(node: dict, prefix: str = "") -> dict:
+    global patched
+
+    rebuilt = {}
+    for name, child in node.get("files", {}).items():
+        path = f"{prefix}/{name}" if prefix else name
+        if "files" in child:
+            rebuilt[name] = {
+                **{key: value for key, value in child.items() if key != "files"},
+                "files": rebuild_node(child, path),
+            }
+            continue
+
+        entry = copy.deepcopy(child)
+        if entry.get("unpacked"):
+            rebuilt[name] = entry
+            continue
+
+        offset = int(entry["offset"])
+        size = int(entry["size"])
+        content = data[base_offset + offset : base_offset + offset + size]
+
+        if path == target_path:
+            text = content.decode("utf-8")
+            count = text.count(old)
+            if count != 1:
+                raise SystemExit(f"expected one projectless workspace match in {target_path}, got {count}")
+            content = text.replace(old, new).encode("utf-8")
+            entry["size"] = len(content)
+            entry["integrity"] = integrity_for(content, entry.get("integrity", {}).get("blockSize", 4194304))
+            patched = True
+
+        entry["offset"] = str(len(output))
+        output.extend(content)
+        rebuilt[name] = entry
+
+    return rebuilt
+
+
+rebuilt_header = {"files": rebuild_node(header)}
+if not patched:
+    raise SystemExit(f"projectless workspace path was not patched in {target_path}")
+
+header_bytes = json.dumps(rebuilt_header, separators=(",", ":")).encode("utf-8")
+header_padded_size = (len(header_bytes) + 3) & ~3
+asar_path.write_bytes(
+    struct.pack("<IIII", 4, header_padded_size + 8, header_padded_size + 4, len(header_bytes))
+    + header_bytes
+    + (b"\0" * (header_padded_size - len(header_bytes)))
+    + bytes(output)
 )
 PY
 

@@ -1,3 +1,28 @@
+## 2026-06-03 21:28 VLAT
+
+### Изменено
+- Увеличен `release` у `codex-app` до `4`, так как предыдущий фикс `release=3` не затрагивал hardcoded путь projectless workspace.
+- В сборке `codex-app` добавлен патч основного `/opt/codex-app/resources/codex.asar`.
+
+### Добавлено
+- Патч `codex.asar` заменяет создание projectless workspace из `~/Documents/Codex` на `CODEX_APP_DOCUMENTS_DIR/Codex` с fallback на прежний `~/Documents/Codex`.
+
+### Исправлено
+- Исправлена реальная причина создания английской папки: основной код приложения содержал прямой вызов `join(homeDirectory, "Documents", "Codex")`, который игнорировал Electron `app.setPath("documents", ...)`, XDG user dirs и переменные окружения.
+
+### Проверено
+- `.github/scripts/validate-repo.py`: проверено 16 пакетов.
+- `stplr build --clean` для `codex-app`: пакет `codex-app+stplr-default-26.506.31421-alt4.x86_64.rpm` собран успешно.
+- `rpm -qpi` подтвердил версию `26.506.31421` и релиз `alt4`.
+- `rpm -qpl` подтвердил наличие `/usr/bin/codex-app`, `/opt/codex-app/resources/app.asar`, `/opt/codex-app/resources/codex.asar` и desktop-файла.
+- `rpm -qp --provides` подтвердил короткие имена `codex-app` и `codex`.
+- Из собранного RPM извлечен `/opt/codex-app/resources/app.asar`: bootstrap содержит `CODEX_APP_DOCUMENTS_DIR` и `app.setPath("documents", ...)`.
+- Из собранного RPM извлечен `/opt/codex-app/resources/codex.asar`: основной JS содержит `CODEX_APP_DOCUMENTS_DIR||i.join(n,\`Documents\`)`, а старый точный вызов `join(n,\`Documents\`,\`Codex\`)` отсутствует.
+- `bash -n`, `shellcheck`, `shfmt -d -i 4` и `git diff --check`.
+
+### Осталось
+- Нет.
+
 ## 2026-06-03 21:15 VLAT
 
 ### Изменено
