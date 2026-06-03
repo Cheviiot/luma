@@ -10,6 +10,7 @@ PACKAGES=(
     github-plus
     happ
     hydralauncher
+    netbird
     pineconemc
     prismlauncher
     tailscale
@@ -218,6 +219,7 @@ latest_version() {
     github-plus) github_latest_release "pol-rivero/github-desktop-plus" ;;
     happ) github_latest_release "Happ-proxy/happ-desktop" ;;
     hydralauncher) github_latest_release "hydralauncher/hydra" ;;
+    netbird) github_latest_release "netbirdio/netbird" ;;
     pineconemc) github_latest_release "ElyPrismLauncher/Launcher" ;;
     prismlauncher) github_latest_release "PrismLauncher/PrismLauncher" ;;
     tailscale) latest_tailscale ;;

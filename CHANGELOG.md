@@ -1,3 +1,30 @@
+## 2026-06-03 20:07 VLAT
+
+### Изменено
+- Обновлен `README.md`: количество пакетов увеличено до 15, NetBird добавлен в раздел `Сеть и VPN` и полную сводку.
+- Подключен `netbird` к `.github/scripts/package-update.sh` и общей команде `check-all`.
+
+### Добавлено
+- Добавлен пакет `netbird` версии `0.71.4` для архитектур `amd64` и `arm64`.
+- Добавлены `netbird/Staplerfile`, `stapler-repo.toml`, `.stapler/update-check`, `postinstall.sh`, `postremove.sh`, `LICENSE` и PNG-иконка.
+- Сборка использует официальные `.deb` из релиза `netbirdio/netbird` и устанавливает `/usr/bin/netbird`; сервис создается upstream-командой `netbird service install` на этапе postinstall.
+
+### Исправлено
+- Нет.
+
+### Проверено
+- `.github/scripts/validate-repo.py`: проверено 15 пакетов.
+- `.github/scripts/package-update.sh check netbird`: локальная и upstream-версии совпадают, `0.71.4 0.71.4`.
+- `.github/scripts/package-update.sh check-all`: все 15 пакетов в статусе `current`.
+- `stplr build --clean` для `netbird`: пакет `netbird+stplr-default-0.71.4-alt1.x86_64.rpm` собран успешно.
+- `rpm -qpl` подтвердил наличие `/usr/bin/netbird` и PNG-иконки в hicolor.
+- `rpm -qp --provides` подтвердил короткое имя `netbird`.
+- `rpm -qp --scripts` подтвердил POSIX-совместимые postinstall/postremove-скрипты с установкой и удалением сервиса через `netbird service ...`.
+- `bash -n`, `shellcheck`, `shfmt -d -i 4` и `git diff --check`.
+
+### Осталось
+- Нет.
+
 ## 2026-06-03 19:33 VLAT
 
 ### Изменено
