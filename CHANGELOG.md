@@ -1,3 +1,30 @@
+## 2026-06-03 21:15 VLAT
+
+### Изменено
+- Увеличен `release` у `codex-app` до `3`, так как исправлено runtime-поведение без изменения upstream-версии `26.506.31421`.
+- `/usr/bin/codex-app` теперь устанавливается как wrapper-скрипт вместо прямой ссылки на `/opt/codex-app/codex-app`.
+- Bootstrap Electron в `app.asar` теперь выставляет локализованный путь документов через `app.setPath("documents", ...)` до загрузки основного `codex.asar`.
+
+### Добавлено
+- Wrapper определяет существующую пользовательскую директорию документов через `xdg-user-dir DOCUMENTS` и предпочитает `~/Документы`, если XDG возвращает английский дефолт `~/Documents`.
+- Для дочерних процессов выставляются `CODEX_APP_DOCUMENTS_DIR` и `XDG_DOCUMENTS_DIR`.
+
+### Исправлено
+- Исправлено создание английской папки `~/Documents` при запуске `codex-app` на системах, где уже используется локализованная папка `~/Документы`.
+
+### Проверено
+- `.github/scripts/validate-repo.py`: проверено 16 пакетов.
+- `stplr build --clean` для `codex-app`: пакет `codex-app+stplr-default-26.506.31421-alt3.x86_64.rpm` собран успешно.
+- `rpm -qpi` подтвердил версию `26.506.31421` и релиз `alt3`.
+- `rpm -qpl` подтвердил наличие `/usr/bin/codex-app`, `/opt/codex-app/resources/app.asar` и desktop-файла.
+- `rpm -qp --provides` подтвердил короткие имена `codex-app` и `codex`.
+- Из собранного RPM извлечен `/usr/bin/codex-app`: wrapper выбирает XDG Documents, предпочитает `~/Документы` и запускает `/opt/codex-app/codex-app`.
+- Из собранного RPM извлечен `/opt/codex-app/resources/app.asar`: bootstrap содержит `configureLocalizedDocumentsPath`, `app.setPath("documents", ...)`, `path.join(home, "Документы")` и прежнее отключение меню Electron.
+- `bash -n`, `shellcheck`, `shfmt -d -i 4` и `git diff --check`.
+
+### Осталось
+- Нет.
+
 ## 2026-06-03 21:01 VLAT
 
 ### Изменено

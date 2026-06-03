@@ -1,6 +1,6 @@
 name='codex-app'
 version='26.506.31421'
-release=2
+release=3
 summary='Unofficial Linux repack of the Codex desktop app'
 summary_ru='Неофициальная Linux-перепаковка десктопного приложения Codex'
 group='Development/Tools'
@@ -66,11 +66,45 @@ from pathlib import Path
 asar_path = Path(sys.argv[1])
 app_version = sys.argv[2]
 
-bootstrap = b'''"use strict";
+bootstrap = '''"use strict";
+const fs = require("fs");
+const os = require("os");
 const path = require("path");
 const electron = require("electron");
 
 const { app, Menu } = electron;
+
+function firstExistingDirectory(paths) {
+  for (const candidate of paths) {
+    if (!candidate) {
+      continue;
+    }
+    try {
+      if (fs.statSync(candidate).isDirectory()) {
+        return candidate;
+      }
+    } catch {}
+  }
+  return "";
+}
+
+function configureLocalizedDocumentsPath() {
+  const home = os.homedir();
+  const envDocuments = process.env.CODEX_APP_DOCUMENTS_DIR;
+  const configuredDocuments = firstExistingDirectory([
+    envDocuments,
+    path.join(home, "Документы"),
+  ]);
+
+  if (!configuredDocuments) {
+    return;
+  }
+
+  process.env.XDG_DOCUMENTS_DIR = configuredDocuments;
+  try {
+    app.setPath("documents", configuredDocuments);
+  } catch {}
+}
 
 function disableNativeMenus() {
   const setNullMenu = () => {
@@ -95,12 +129,13 @@ function disableNativeMenus() {
 }
 
 disableNativeMenus();
+configureLocalizedDocumentsPath();
 
 process.env.ELECTRON_FORCE_IS_PACKAGED = "1";
 process.env.NODE_ENV = "production";
 process.env.CODEX_CLI_PATH = path.join(process.resourcesPath, "codex");
 require(path.join(process.resourcesPath, "codex.asar"));
-'''
+'''.encode()
 
 package_json = json.dumps(
     {
@@ -151,8 +186,42 @@ PY
         chmod 0755 "${pkgdir}/opt/codex-app/chrome-sandbox"
     fi
 
-    mkdir -p "${pkgdir}/usr/bin"
-    ln -sf /opt/codex-app/codex-app "${pkgdir}/usr/bin/codex-app"
+    install -Dm755 /dev/stdin "${pkgdir}/usr/bin/codex-app" <<'EOF'
+#!/bin/bash
+
+set -e
+
+find_documents_dir() {
+    local xdg_dir russian_dir
+
+    russian_dir="${HOME}/Документы"
+
+    if command -v xdg-user-dir >/dev/null 2>&1; then
+        xdg_dir="$(xdg-user-dir DOCUMENTS 2>/dev/null || true)"
+        if [[ -n "${xdg_dir}" && "${xdg_dir}" != "${HOME}/Documents" && -d "${xdg_dir}" ]]; then
+            printf '%s\n' "${xdg_dir}"
+            return
+        fi
+    fi
+
+    if [[ -d "${russian_dir}" ]]; then
+        printf '%s\n' "${russian_dir}"
+        return
+    fi
+
+    if [[ -n "${xdg_dir:-}" && -d "${xdg_dir}" ]]; then
+        printf '%s\n' "${xdg_dir}"
+    fi
+}
+
+documents_dir="$(find_documents_dir)"
+if [[ -n "${documents_dir}" ]]; then
+    export CODEX_APP_DOCUMENTS_DIR="${documents_dir}"
+    export XDG_DOCUMENTS_DIR="${documents_dir}"
+fi
+
+exec /opt/codex-app/codex-app "$@"
+EOF
 
     install -Dm644 codex-app.png \
         "${pkgdir}/usr/share/icons/hicolor/512x512/apps/codex-app.png"
