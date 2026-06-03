@@ -1,3 +1,25 @@
+## 2026-06-03 19:22 VLAT
+
+### Изменено
+- Увеличен `release` до `4` у `pineconemc` и `prismlauncher`, так как исправлены метаданные поиска/сопоставления установленного пакета.
+- Для `pineconemc` добавлены явные `provides/replaces`: `pineconemc`, `pinecone-mc`, `elyprismlauncher`, `ely-prism-launcher`.
+- Для `prismlauncher` добавлены явные `provides/replaces`: `prismlauncher`, `prism-launcher`.
+
+### Добавлено
+- Нет.
+
+### Исправлено
+- Исправлено поведение, при котором Stapler видел установленный RPM как `pineconemc+stplr-luma` или `prismlauncher+stplr-luma`, но не мог надежно сопоставить его с коротким именем/алиасом пакета.
+
+### Проверено
+- `stplr build --clean` для `pineconemc`: пакет `pineconemc+stplr-default-11.0.2-alt4.x86_64.rpm` собран успешно.
+- `stplr build --clean` для `prismlauncher`: пакет `prismlauncher+stplr-default-11.0.2-alt4.x86_64.rpm` собран успешно.
+- `rpm -qp --provides` подтвердил aliases `pineconemc`, `pinecone-mc`, `elyprismlauncher`, `ely-prism-launcher`, `prismlauncher`, `prism-launcher`.
+- `bash -n`, `shellcheck`, `shfmt -d -i 4` и `git diff --check`.
+
+### Осталось
+- Нет.
+
 ## 2026-06-03 19:10 VLAT
 
 ### Изменено

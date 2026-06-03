@@ -1,6 +1,6 @@
 name='prismlauncher'
 version='11.0.2'
-release=3
+release=4
 summary='Custom launcher for Minecraft and modded instances'
 summary_ru='Лаунчер Minecraft для управления ванильными и модифицированными сборками'
 group='Games/Other'
@@ -12,6 +12,9 @@ maintainer='Prism Launcher contributors <https://github.com/PrismLauncher/PrismL
 architectures=('amd64' 'arm64')
 
 license=('GPL-3.0-only')
+
+provides=('prismlauncher' 'prism-launcher')
+replaces=('prismlauncher' 'prism-launcher')
 
 auto_reqprov_method="dirty"
 auto_req=0

@@ -1,6 +1,6 @@
 name='pineconemc'
 version='11.0.2'
-release=3
+release=4
 summary='Prism Launcher fork with Ely.by and offline account support'
 summary_ru='Форк Prism Launcher с поддержкой Ely.by и offline-аккаунтов'
 group='Games/Other'
@@ -12,6 +12,9 @@ maintainer='PineconeMC contributors <https://github.com/ElyPrismLauncher/Launche
 architectures=('amd64' 'arm64')
 
 license=('GPL-3.0-only')
+
+provides=('pineconemc' 'pinecone-mc' 'elyprismlauncher' 'ely-prism-launcher')
+replaces=('pineconemc' 'pinecone-mc' 'elyprismlauncher' 'ely-prism-launcher')
 
 auto_reqprov_method="dirty"
 auto_req=0
