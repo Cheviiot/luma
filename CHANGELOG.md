@@ -1,3 +1,24 @@
+## 2026-06-03 19:05 VLAT
+
+### Изменено
+- Увеличен `release` до `2` у `pineconemc` и `prismlauncher`, так как исправлена упаковка без изменения upstream-версии `11.0.2`.
+- В `files()` для `pineconemc` и `prismlauncher` явно добавлены `/opt` и базовые директории приложений: `/opt/pineconemc`, `/opt/prismlauncher`.
+
+### Добавлено
+- Нет.
+
+### Исправлено
+- Исправлена установка PineconeMC и Prism Launcher на системах, где менеджер пакетов не создавал базовую директорию приложения в `/opt` из-за отсутствия явного ownership в RPM.
+
+### Проверено
+- `stplr build --clean` для `pineconemc`: пакет `pineconemc+stplr-default-11.0.2-alt2.x86_64.rpm` собран успешно.
+- `stplr build --clean` для `prismlauncher`: пакет `prismlauncher+stplr-default-11.0.2-alt2.x86_64.rpm` собран успешно.
+- `rpm -qpl` подтвердил, что оба RPM теперь явно содержат `/opt`, `/opt/pineconemc` и `/opt/prismlauncher`.
+- `bash -n`, `shellcheck`, `shfmt -d -i 4` и `git diff --check`.
+
+### Осталось
+- Нет.
+
 ## 2026-06-03 18:53 VLAT
 
 ### Изменено

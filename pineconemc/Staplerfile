@@ -1,6 +1,6 @@
 name='pineconemc'
 version='11.0.2'
-release=1
+release=2
 summary='Prism Launcher fork with Ely.by and offline account support'
 summary_ru='Форк Prism Launcher с поддержкой Ely.by и offline-аккаунтов'
 group='Games/Other'
@@ -79,6 +79,8 @@ files() {
     files-find-binary
     files-find-desktop
     files-find \
+        "/opt" \
+        "/opt/pineconemc" \
         "/opt/pineconemc/**/*" \
         "/usr/share/icons/hicolor/*/apps/io.github.elyprismlauncher.ElyPrismLauncher.*" \
         "/usr/share/man/man6/elyprismlauncher.6" \
