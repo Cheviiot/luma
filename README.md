@@ -82,6 +82,7 @@ stplr upgrade
 | Несвободные пакеты | Proprietary-приложения помечены `nonfree=1` и содержат ссылку на условия upstream. |
 | Postinstall | Скрипты обновляют desktop-базу, кэш иконок, systemd-сервисы и права исполняемых файлов там, где это нужно. |
 | Обновления | `.stapler/update-check` у каждого пакета совместим с `stplr-spec`, а общий скрипт проверяет весь каталог. |
+| Аудит | [docs/STAPLER_AUDIT.md](./docs/STAPLER_AUDIT.md) фиксирует сверку Luma с документацией Stapler и дальнейшие шаги развития. |
 
 ## Полная сводка
 
@@ -89,9 +90,9 @@ stplr upgrade
 |:--|:--|:--|:--|:--|:--|
 | `adwyra` | Рабочий стол | [Adwyra](https://github.com/Cheviiot/Adwyra) | `0.5.0` | `GPL-3.0-or-later` | `all` |
 | `clash-verge` | Сеть и VPN | [Clash Verge Rev](https://www.clashverge.dev) | `2.5.1` | `GPL-3.0-only` | `amd64`, `arm64` |
-| `codex-app` | Разработка | [Codex App Linux](https://github.com/Boria138/codex-app-linux) | `26.506.31421` | `custom` | `amd64` |
+| `codex-app` | Разработка | [Codex App Linux](https://github.com/Boria138/codex-app-linux) | `26.506.31421` | `Custom` | `amd64` |
 | `github-plus` | Разработка | [GitHub Desktop Plus](https://github.com/pol-rivero/github-desktop-plus) | `3.5.12.0` | `MIT` | `amd64`, `arm64` |
-| `happ` | Сеть и VPN | [Happ](https://happ.su/) | `2.16.2` | `custom` | `amd64`, `arm64` |
+| `happ` | Сеть и VPN | [Happ](https://happ.su/) | `2.16.2` | `Custom` | `amd64`, `arm64` |
 | `hydralauncher` | Игры | [Hydra Launcher](https://hydralauncher.app/dl/) | `3.9.9` | `MIT` | `amd64` |
 | `netbird` | Сеть и VPN | [NetBird](https://netbird.io/) | `0.71.4` | `BSD-3-Clause`, `AGPL-3.0-only` | `amd64`, `arm64` |
 | `netbird-ui` | Сеть и VPN | [NetBird UI](https://netbird.io/) | `0.71.4` | `BSD-3-Clause`, `AGPL-3.0-only` | `amd64` |
@@ -99,10 +100,10 @@ stplr upgrade
 | `prismlauncher` | Игры | [Prism Launcher](https://prismlauncher.org/) | `11.0.2` | `GPL-3.0-only` | `amd64`, `arm64` |
 | `tailscale` | Сеть и VPN | [Tailscale](https://tailscale.com) | `1.98.4` | `BSD-3-Clause` | `amd64`, `arm64` |
 | `terax` | Разработка | [Terax](https://terax.app) | `0.7.3` | `Apache-2.0` | `amd64` |
-| `vanyavpn` | Сеть и VPN | [VanyaVPN](https://vanyavpn.es) | `1.12.1+472165` | `custom` | `amd64` |
+| `vanyavpn` | Сеть и VPN | [VanyaVPN](https://vanyavpn.es) | `1.12.1+472165` | `Custom` | `amd64` |
 | `vual` | Игры | [Vual](https://github.com/Cheviiot/Vual) | `0.3.1` | `GPL-3.0-or-later` | `all` |
 | `warp` | Разработка | [Warp](https://warp.dev/) | `0.2026.05.27.15.44.stable.01` | `AGPL-3.0-only`, `MIT` | `amd64`, `arm64` |
-| `windsurf` | Разработка | [Windsurf](https://windsurf.com/) | `2.3.15` | `custom` | `amd64` |
+| `windsurf` | Разработка | [Windsurf](https://windsurf.com/) | `2.3.15` | `Custom` | `amd64` |
 
 ## Сопровождение
 

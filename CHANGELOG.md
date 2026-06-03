@@ -1,3 +1,27 @@
+## 2026-06-03 21:38 VLAT
+
+### Изменено
+- Расширен `.github/scripts/validate-repo.py` по результатам сверки с официальной документацией Stapler: добавлена проверка корневого `stapler-repo.toml`, пакетных `stapler-repo.toml`, `LICENSE`, `.stapler/update-check`, lifecycle-скриптов, локальных `local:///` источников и обязательных русскоязычных metadata-полей.
+- В `.github/workflows/ci.yml` и `.github/workflows/update-packages.yml` добавлена компиляционная проверка валидатора перед запуском.
+- В `README.md` добавлена ссылка на аудит соответствия документации Stapler.
+- Нестандартные лицензии `codex-app`, `happ`, `vanyavpn` и `windsurf` приведены к документированному значению `Custom`; `release` этих пакетов увеличен для корректной переустановки metadata.
+
+### Добавлено
+- Добавлен `docs/STAPLER_AUDIT.md` с анализом Luma относительно разделов документации Stapler: `Введение`, `Stapler-репозиторий`, `Staplerfile` и `stplr-spec`.
+
+### Исправлено
+- Валидатор теперь корректно разбирает строки в двойных кавычках, многострочные scalar-поля и реально проверяет `sources`, а не только `checksums`.
+- Устранены устаревшие значения `license=('custom')` в пакетах с нестандартной лицензией.
+
+### Проверено
+- `.github/scripts/validate-repo.py`: проверено 16 пакетов.
+- `.github/scripts/package-update.sh check-all`: все 16 пакетов в статусе `current`.
+- `python3 -m py_compile .github/scripts/validate-repo.py`.
+- `bash -n`, `shellcheck`, `shfmt -d -i 4` и `git diff --check`.
+
+### Осталось
+- Добавить выборочную CI-сборку измененных пакетов и приоритетно проверить `stplr-spec clean-build` для критичных пакетов.
+
 ## 2026-06-03 21:28 VLAT
 
 ### Изменено

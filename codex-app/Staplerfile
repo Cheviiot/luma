@@ -1,6 +1,6 @@
 name='codex-app'
 version='26.506.31421'
-release=4
+release=5
 summary='Unofficial Linux repack of the Codex desktop app'
 summary_ru='Неофициальная Linux-перепаковка десктопного приложения Codex'
 group='Development/Tools'
@@ -11,7 +11,7 @@ maintainer='Boria138 <https://github.com/Boria138>'
 
 architectures=('amd64')
 
-license=('custom')
+license=('Custom')
 nonfree=1
 nonfree_msg='Codex App Linux is an unofficial repack of proprietary desktop application artifacts. Usage is subject to the applicable upstream service terms.'
 nonfree_url='https://github.com/Boria138/codex-app-linux'

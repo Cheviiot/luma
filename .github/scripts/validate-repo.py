@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import re
 import sys
+import tomllib
 from pathlib import Path
 
 
@@ -16,10 +17,10 @@ def read_text(path: Path) -> str:
 
 
 def scalar(text: str, name: str, file: Path) -> str:
-    match = re.search(rf"^{re.escape(name)}='([^']*)'", text, re.MULTILINE)
+    match = re.search(rf"^{re.escape(name)}=(['\"])(.*?)\1", text, re.MULTILINE | re.DOTALL)
     if not match:
         raise ValueError(f"{file}: поле {name!r} не найдено")
-    return match.group(1)
+    return match.group(2)
 
 
 def number(text: str, name: str, file: Path) -> int:
@@ -34,10 +35,14 @@ def array(text: str, name: str, file: Path) -> list[str]:
     if not match:
         raise ValueError(f"{file}: массив {name!r} не найден")
 
-    values = re.findall(r"'([^']*)'", match.group(1))
+    values = quoted_values(match.group(1))
     if not values:
         raise ValueError(f"{file}: массив {name!r} пустой")
     return values
+
+
+def quoted_values(text: str) -> list[str]:
+    return [match.group(2) for match in re.finditer(r"(['\"])(.*?)\1", text, re.DOTALL)]
 
 
 def update_script_packages() -> list[str]:
@@ -68,13 +73,81 @@ def optional_array(text: str, name: str) -> list[str]:
     match = re.search(rf"^{re.escape(name)}=\((.*?)\)", text, re.MULTILINE | re.DOTALL)
     if not match:
         return []
-    return re.findall(r"'([^']*)'", match.group(1))
+    return quoted_values(match.group(1))
+
+
+def script_paths(text: str) -> list[str]:
+    match = re.search(r"^scripts=\((.*?)\)", text, re.MULTILINE | re.DOTALL)
+    if not match:
+        return []
+    return [
+        script.group(2)
+        for script in re.finditer(r"\[['\"][^'\"]+['\"]\]=(['\"])(.*?)\1", match.group(1))
+    ]
+
+
+def local_source_path(source: str) -> str | None:
+    real_source = source.split("?~", 1)[0].split("&~", 1)[0]
+    if not real_source.startswith("local:///"):
+        return None
+    return real_source.removeprefix("local:///")
+
+
+def executable(path: Path) -> bool:
+    return path.is_file() and path.stat().st_mode & 0o111 != 0
+
+
+def validate_repo_toml(errors: list[str]) -> None:
+    repo_file = ROOT / "stapler-repo.toml"
+    try:
+        data = tomllib.loads(read_text(repo_file))
+    except tomllib.TOMLDecodeError as exc:
+        errors.append(f"stapler-repo.toml: TOML не разбирается: {exc}")
+        return
+
+    repo = data.get("repo")
+    if not isinstance(repo, dict):
+        errors.append("stapler-repo.toml: секция [repo] не найдена")
+        return
+
+    required = ("minVersion", "title", "summary", "description", "homepage", "icon", "url", "ref", "report_url")
+    for field in required:
+        value = repo.get(field)
+        if not isinstance(value, str) or not value.strip():
+            errors.append(f"stapler-repo.toml: поле repo.{field} должно быть непустой строкой")
+
+    min_version = repo.get("minVersion", "")
+    if isinstance(min_version, str) and not re.fullmatch(r"v[0-9]+(?:\.[0-9]+){2}", min_version):
+        errors.append("stapler-repo.toml: repo.minVersion должен иметь формат vX.Y.Z")
+
+    report_url = repo.get("report_url", "")
+    if isinstance(report_url, str) and "{{ .BasePackageName }}" not in report_url:
+        errors.append("stapler-repo.toml: repo.report_url должен содержать {{ .BasePackageName }}")
+
+
+def validate_package_repo_toml(package_dir: Path, errors: list[str]) -> None:
+    rel = package_dir.relative_to(ROOT) / "stapler-repo.toml"
+    file = package_dir / "stapler-repo.toml"
+    if not file.is_file():
+        errors.append(f"{rel}: файл не найден")
+        return
+    try:
+        data = tomllib.loads(read_text(file))
+    except tomllib.TOMLDecodeError as exc:
+        errors.append(f"{rel}: TOML не разбирается: {exc}")
+        return
+    if data.get("include") == "../stapler-repo.toml":
+        return
+    if isinstance(data.get("inherit"), dict):
+        return
+    errors.append(f"{rel}: должен использовать include = \"../stapler-repo.toml\" или секцию [inherit]")
 
 
 def main() -> int:
     errors: list[str] = []
     package_files = sorted(ROOT.glob("*/Staplerfile"))
     package_dirs = [path.parent.name for path in package_files]
+    validate_repo_toml(errors)
 
     try:
         packages = update_script_packages()
@@ -114,7 +187,15 @@ def main() -> int:
         try:
             name = scalar(text, "name", rel)
             version = scalar(text, "version", rel)
+            summary = scalar(text, "summary", rel)
+            summary_ru = scalar(text, "summary_ru", rel)
+            group = scalar(text, "group", rel)
+            desc = scalar(text, "desc", rel)
+            desc_ru = scalar(text, "desc_ru", rel)
+            homepage = scalar(text, "homepage", rel)
+            maintainer = scalar(text, "maintainer", rel)
             release = number(text, "release", rel)
+            license = array(text, "license", rel)
             provides = array(text, "provides", rel)
             replaces = array(text, "replaces", rel)
             architectures = array(text, "architectures", rel)
@@ -124,8 +205,23 @@ def main() -> int:
 
         if name != file.parent.name:
             errors.append(f"{rel}: name={name!r} не совпадает с каталогом {file.parent.name!r}")
+        for field_name, value in (
+            ("summary", summary),
+            ("summary_ru", summary_ru),
+            ("group", group),
+            ("desc", desc),
+            ("desc_ru", desc_ru),
+            ("homepage", homepage),
+            ("maintainer", maintainer),
+        ):
+            if not value.strip():
+                errors.append(f"{rel}: поле {field_name} не должно быть пустым")
         if release < 1:
             errors.append(f"{rel}: release должен быть >= 1")
+        if "custom" in license:
+            errors.append(f"{rel}: для нестандартной лицензии используйте `Custom`, а не `custom`")
+        if "Custom" in license and "nonfree=1" not in text:
+            errors.append(f"{rel}: license содержит `Custom`, но пакет не помечен как nonfree=1")
         if name not in provides:
             errors.append(f"{rel}: provides не содержит короткое имя {name!r}")
         if name not in replaces:
@@ -149,6 +245,29 @@ def main() -> int:
             errors.append(f"{rel}: sources/checksums разной длины")
         if sources_arm64 and len(sources_arm64) != len(checksums_arm64):
             errors.append(f"{rel}: sources_arm64/checksums_arm64 разной длины")
+        for array_name, values in (("sources", sources), ("sources_arm64", sources_arm64)):
+            for source in values:
+                local_path = local_source_path(source)
+                if local_path is not None and not (file.parent / local_path).is_file():
+                    errors.append(f"{rel}: {array_name} ссылается на отсутствующий local:///{local_path}")
+
+        validate_package_repo_toml(file.parent, errors)
+
+        license_file = file.parent / "LICENSE"
+        if not license_file.is_file():
+            errors.append(f"{license_file.relative_to(ROOT)}: файл не найден")
+
+        update_check = file.parent / ".stapler/update-check"
+        if not executable(update_check):
+            errors.append(f"{update_check.relative_to(ROOT)}: файл должен существовать и быть исполняемым")
+
+        for script in script_paths(text):
+            script_file = file.parent / script
+            if not executable(script_file):
+                errors.append(f"{script_file.relative_to(ROOT)}: script из массива scripts должен быть исполняемым")
+
+        if f"[{name}](./{name})" not in readme and f"`{name}`" not in readme:
+            errors.append(f"README.md: пакет {name} не найден в витрине или полной сводке")
 
         if re.search(r"/opt/[a-z0-9+_.-]+/\*\*\*", text) and "portable.txt" in text:
             if "rm -f" not in text:

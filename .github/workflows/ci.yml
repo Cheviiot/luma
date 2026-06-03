@@ -76,6 +76,7 @@ jobs:
       - name: Validate package metadata
         run: |
           set -euo pipefail
+          python3 -m py_compile .github/scripts/validate-repo.py
           .github/scripts/validate-repo.py
 
       - name: Build selected package

@@ -1,6 +1,6 @@
 name='windsurf'
 version='2.3.15'
-release=2
+release=3
 summary="Tomorrow's Editor, Today"
 summary_ru='AI-редактор кода для сохранения flow state'
 group='Development/Tools'
@@ -11,7 +11,7 @@ maintainer='Exafunction, Inc. <https://windsurf.com/>'
 
 architectures=('amd64')
 
-license=('custom')
+license=('Custom')
 nonfree=1
 nonfree_msg='Windsurf is proprietary software by Exafunction, Inc. Usage is subject to the Terms of Service.'
 nonfree_url='https://windsurf.com/terms-of-service-individual'
