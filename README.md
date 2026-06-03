@@ -5,7 +5,7 @@
   <p>Готовые спецификации, реальные upstream-артефакты, postinstall-интеграция и автоматическая проверка новых версий.</p>
   <p>
     <code>stplr &gt;= v0.1.1</code>
-    <code>12 пакетов</code>
+    <code>14 пакетов</code>
     <code>amd64</code>
     <code>arm64</code>
     <code>all</code>
@@ -35,6 +35,8 @@ stplr refresh
 stplr search --query "name.contains('vpn')"
 stplr info luma/codex-app
 stplr install luma/codex-app
+stplr install luma/pineconemc
+stplr install luma/prismlauncher
 stplr upgrade
 ```
 
@@ -54,7 +56,7 @@ stplr upgrade
 | Приложение | Версия | Архитектуры | Установка |
 |:--|:--|:--|:--|
 | <img src=".github/assets/apps/codex-app.png" width="28" height="28" alt=""> [Codex App](./codex-app)<br><sub>Неофициальная Linux-перепаковка десктопного приложения Codex.</sub> | `26.506.31421` | `amd64` | `stplr install luma/codex-app` |
-| <img src=".github/assets/apps/github-plus.png" width="28" height="28" alt=""> [GitHub Desktop Plus](./github-plus)<br><sub>Форк GitHub Desktop с интеграцией Bitbucket и GitLab.</sub> | `3.5.11.0` | `amd64`, `arm64` | `stplr install luma/github-plus` |
+| <img src=".github/assets/apps/github-plus.png" width="28" height="28" alt=""> [GitHub Desktop Plus](./github-plus)<br><sub>Форк GitHub Desktop с интеграцией Bitbucket и GitLab.</sub> | `3.5.12.0` | `amd64`, `arm64` | `stplr install luma/github-plus` |
 | <img src=".github/assets/apps/terax.png" width="28" height="28" alt=""> [Terax](./terax)<br><sub>AI-native эмулятор терминала на Tauri, Rust и React.</sub> | `0.7.3` | `amd64` | `stplr install luma/terax` |
 | <img src=".github/assets/apps/warp.png" width="28" height="28" alt=""> [Warp](./warp)<br><sub>Терминал на Rust для разработчиков и команд.</sub> | `0.2026.05.27.15.44.stable.01` | `amd64`, `arm64` | `stplr install luma/warp` |
 | <img src=".github/assets/apps/windsurf.png" width="28" height="28" alt=""> [Windsurf](./windsurf)<br><sub>AI-редактор кода для сохранения flow state.</sub> | `2.3.15` | `amd64` | `stplr install luma/windsurf` |
@@ -65,6 +67,8 @@ stplr upgrade
 |:--|:--|:--|:--|
 | <img src=".github/assets/apps/adwyra.png" width="28" height="28" alt=""> [Adwyra](./adwyra)<br><sub>Минималистичный лаунчер приложений для GNOME.</sub> | `0.5.0` | `all` | `stplr install luma/adwyra` |
 | <img src=".github/assets/apps/hydralauncher.png" width="28" height="28" alt=""> [Hydra Launcher](./hydralauncher)<br><sub>Открытый игровой лаунчер со встроенной поддержкой BitTorrent.</sub> | `3.9.9` | `amd64` | `stplr install luma/hydralauncher` |
+| <img src=".github/assets/apps/pineconemc.svg" width="28" height="28" alt=""> [PineconeMC](./pineconemc)<br><sub>Форк Prism Launcher с поддержкой Ely.by и offline-аккаунтов.</sub> | `11.0.2` | `amd64`, `arm64` | `stplr install luma/pineconemc` |
+| <img src=".github/assets/apps/prismlauncher.svg" width="28" height="28" alt=""> [Prism Launcher](./prismlauncher)<br><sub>Лаунчер Minecraft для ванильных и модифицированных сборок.</sub> | `11.0.2` | `amd64`, `arm64` | `stplr install luma/prismlauncher` |
 | <img src=".github/assets/apps/vual.png" width="28" height="28" alt=""> [Vual](./vual)<br><sub>Запуск Cheat Engine для Steam-игр через Proton.</sub> | `0.3.1` | `all` | `stplr install luma/vual` |
 
 ## Что важно знать
@@ -84,9 +88,11 @@ stplr upgrade
 | `adwyra` | Рабочий стол | [Adwyra](https://github.com/Cheviiot/Adwyra) | `0.5.0` | `GPL-3.0-or-later` | `all` |
 | `clash-verge` | Сеть и VPN | [Clash Verge Rev](https://www.clashverge.dev) | `2.5.1` | `GPL-3.0-only` | `amd64`, `arm64` |
 | `codex-app` | Разработка | [Codex App Linux](https://github.com/Boria138/codex-app-linux) | `26.506.31421` | `custom` | `amd64` |
-| `github-plus` | Разработка | [GitHub Desktop Plus](https://github.com/pol-rivero/github-desktop-plus) | `3.5.11.0` | `MIT` | `amd64`, `arm64` |
+| `github-plus` | Разработка | [GitHub Desktop Plus](https://github.com/pol-rivero/github-desktop-plus) | `3.5.12.0` | `MIT` | `amd64`, `arm64` |
 | `happ` | Сеть и VPN | [Happ](https://happ.su/) | `2.16.2` | `custom` | `amd64`, `arm64` |
 | `hydralauncher` | Игры | [Hydra Launcher](https://hydralauncher.app/dl/) | `3.9.9` | `MIT` | `amd64` |
+| `pineconemc` | Игры | [PineconeMC](https://pineconemc.com/) | `11.0.2` | `GPL-3.0-only` | `amd64`, `arm64` |
+| `prismlauncher` | Игры | [Prism Launcher](https://prismlauncher.org/) | `11.0.2` | `GPL-3.0-only` | `amd64`, `arm64` |
 | `tailscale` | Сеть и VPN | [Tailscale](https://tailscale.com) | `1.98.4` | `BSD-3-Clause` | `amd64`, `arm64` |
 | `terax` | Разработка | [Terax](https://terax.app) | `0.7.3` | `Apache-2.0` | `amd64` |
 | `vanyavpn` | Сеть и VPN | [VanyaVPN](https://vanyavpn.es) | `1.12.1+472165` | `custom` | `amd64` |

@@ -1,3 +1,55 @@
+## 2026-06-03 18:53 VLAT
+
+### Изменено
+- Обновлен `README.md`: количество пакетов увеличено до 14, PineconeMC добавлен в игровой раздел каталога и полную сводку.
+- Подключен `pineconemc` к `.github/scripts/package-update.sh` и общей команде `check-all`.
+
+### Добавлено
+- Добавлен пакет `pineconemc` версии `11.0.2` для архитектур `amd64` и `arm64`.
+- Добавлены `pineconemc/Staplerfile`, `stapler-repo.toml`, `.stapler/update-check`, `postinstall.sh`, `postremove.sh`, `LICENSE` и SVG-иконка.
+- Сборка использует официальные portable Qt6 tar.gz из релиза `ElyPrismLauncher/Launcher` и устанавливает `/opt/pineconemc`, `/usr/bin/pineconemc`, `/usr/bin/elyprismlauncher`, desktop-файл, AppStream metainfo, MIME-описание, manpage и hicolor-иконки.
+
+### Исправлено
+- Для PineconeMC добавлена системная регистрация MIME, desktop database, hicolor icon cache и KDE sycoca после установки и удаления.
+- Распаковка PineconeMC выполняется с `tar --no-same-owner --no-same-permissions`, чтобы upstream `uid/gid` из portable-архива не ломали сборку в fakeroot-среде.
+
+### Проверено
+- `stplr build --clean` для `pineconemc`: пакет `pineconemc+stplr-default-11.0.2-alt1.x86_64.rpm` собран успешно.
+- `rpm -qpl` для PineconeMC: подтверждены `/usr/bin/pineconemc`, `/usr/bin/elyprismlauncher`, desktop-файл, MIME XML, AppStream metainfo, manpage и hicolor-иконки.
+- `.github/scripts/package-update.sh check pineconemc`: `11.0.2 11.0.2`.
+- `.github/scripts/package-update.sh check-all`: все 14 пакетов в статусе `current`.
+- `bash -n`, `shellcheck`, `shfmt -d -i 4`, `git diff --check` и Python-сверка README/TOML.
+
+### Осталось
+- Нет.
+
+## 2026-06-03 18:41 VLAT
+
+### Изменено
+- Обновлен `README.md`: количество пакетов увеличено до 13, Prism Launcher добавлен в игровой раздел каталога и полную сводку.
+- Подключен `prismlauncher` к `.github/scripts/package-update.sh` и общей команде `check-all`.
+- Обновлен `github-plus` с `3.5.11.0` до `3.5.12.0` с пересчетом checksums для `amd64` и `arm64`.
+- Уточнена проверка Windsurf: transitional-пакет `windsurf -> devin-desktop` больше не считается обновлением текущего пакета `windsurf`.
+
+### Добавлено
+- Добавлен пакет `prismlauncher` версии `11.0.2` для архитектур `amd64` и `arm64`.
+- Добавлены `prismlauncher/Staplerfile`, `stapler-repo.toml`, `.stapler/update-check`, `postinstall.sh`, `postremove.sh`, `LICENSE` и SVG-иконка.
+- Сборка использует официальные portable Qt6 tar.gz из релиза `PrismLauncher/PrismLauncher` и устанавливает `/opt/prismlauncher`, `/usr/bin/prismlauncher`, desktop-файл, AppStream metainfo, MIME-описание, manpage и hicolor-иконки.
+
+### Исправлено
+- Для Prism Launcher добавлена системная регистрация MIME, desktop database, hicolor icon cache и KDE sycoca после установки и удаления.
+- Распаковка Prism Launcher выполняется с `tar --no-same-owner --no-same-permissions`, чтобы upstream `uid/gid` из portable-архива не ломали сборку в fakeroot-среде.
+
+### Проверено
+- `stplr build --clean` для `prismlauncher`: пакет `prismlauncher+stplr-default-11.0.2-alt1.x86_64.rpm` собран успешно.
+- `rpm -qpl` для Prism Launcher: подтверждены `/usr/bin/prismlauncher`, desktop-файл, MIME XML, AppStream metainfo, manpage и hicolor-иконки.
+- `stplr build --clean` для `github-plus`: пакет `github-plus+stplr-default-3.5.12.0-alt1.x86_64.rpm` собран успешно.
+- `.github/scripts/package-update.sh check-all`: все 13 пакетов в статусе `current`.
+- `bash -n`, `shellcheck`, `shfmt -d -i 4`, `git diff --check` и Python-сверка README/TOML.
+
+### Осталось
+- Нет.
+
 ## 2026-05-31 22:08 VLAT
 
 ### Изменено

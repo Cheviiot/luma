@@ -10,6 +10,8 @@ PACKAGES=(
     github-plus
     happ
     hydralauncher
+    pineconemc
+    prismlauncher
     tailscale
     terax
     vanyavpn
@@ -120,16 +122,33 @@ latest_warp() {
 }
 
 latest_windsurf() {
-    local version
+    local packages version
+
+    packages="$(
+        curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 30 --max-time 120 -fsSL \
+            "https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/apt/dists/stable/main/binary-amd64/Packages"
+    )"
 
     version="$(
-        curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 30 --max-time 120 -fsSL \
-            "https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/apt/dists/stable/main/binary-amd64/Packages" |
+        printf '%s\n' "$packages" |
             awk '
-                /^Package: windsurf$/ {found=1; next}
-                found && /^Version: / {print $2; exit}
+                /^Package: windsurf$/ {found=1; version=""; filename=""; next}
+                found && /^Version: / {version=$2; next}
+                found && /^Filename: / {filename=$2; next}
+                found && /^$/ {
+                    if (filename ~ /Windsurf-linux-x64-.*\.deb$/ && version != "") {
+                        print version
+                        exit
+                    }
+                    found=0
+                }
             '
     )"
+
+    if [[ -z "$version" ]] && printf '%s\n' "$packages" | grep -q 'Devin-linux-x64-.*-transitional\.deb'; then
+        current_version windsurf
+        return
+    fi
 
     version="${version#*:}"
     version="${version%%-*}"
@@ -199,6 +218,8 @@ latest_version() {
     github-plus) github_latest_release "pol-rivero/github-desktop-plus" ;;
     happ) github_latest_release "Happ-proxy/happ-desktop" ;;
     hydralauncher) github_latest_release "hydralauncher/hydra" ;;
+    pineconemc) github_latest_release "ElyPrismLauncher/Launcher" ;;
+    prismlauncher) github_latest_release "PrismLauncher/PrismLauncher" ;;
     tailscale) latest_tailscale ;;
     terax) github_latest_release "crynta/terax-ai" ;;
     vanyavpn) latest_vanyavpn ;;
