@@ -1,6 +1,6 @@
 name='warp'
 version='0.2026.05.27.15.44.stable.01'
-release=1
+release=2
 summary='Rust-based terminal for developers and teams'
 summary_ru='Терминал на Rust для разработчиков и команд'
 group='Development/Tools'
@@ -13,8 +13,8 @@ architectures=('amd64' 'arm64')
 
 license=('AGPL-3.0-only' 'MIT')
 
-provides=('warp-terminal')
-replaces=('warp-terminal')
+provides=('warp' 'warp-terminal')
+replaces=('warp' 'warp-terminal')
 
 auto_reqprov_method="dirty"
 auto_req=0

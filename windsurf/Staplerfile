@@ -1,6 +1,6 @@
 name='windsurf'
 version='2.3.15'
-release=1
+release=2
 summary="Tomorrow's Editor, Today"
 summary_ru='AI-редактор кода для сохранения flow state'
 group='Development/Tools'
@@ -16,8 +16,8 @@ nonfree=1
 nonfree_msg='Windsurf is proprietary software by Exafunction, Inc. Usage is subject to the Terms of Service.'
 nonfree_url='https://windsurf.com/terms-of-service-individual'
 
-provides=('visual-studio-windsurf')
-replaces=('visual-studio-windsurf')
+provides=('windsurf' 'visual-studio-windsurf')
+replaces=('windsurf' 'visual-studio-windsurf')
 
 auto_reqprov_method="dirty"
 auto_req=0

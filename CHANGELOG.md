@@ -1,3 +1,24 @@
+## 2026-06-03 19:26 VLAT
+
+### Изменено
+- Для всех пакетов каталога стандартизированы явные `provides/replaces`, чтобы Stapler и системный пакетный менеджер могли сопоставлять установленный пакет по короткому имени и распространенным upstream-алиасам.
+- Увеличен `release` до `2` у пакетов, где aliases добавлены или расширены: `adwyra`, `clash-verge`, `codex-app`, `github-plus`, `happ`, `hydralauncher`, `tailscale`, `terax`, `vanyavpn`, `vual`, `warp`, `windsurf`.
+
+### Добавлено
+- Добавлены aliases: `codex`, `happ-desktop`, `hydra-launcher`, `tailscaled`, `terax-ai`, `warp-terminal`, `visual-studio-windsurf`, `github-desktop-plus`, `clash-verge-rev` и короткие имена соответствующих пакетов.
+
+### Исправлено
+- Исправлена общая проблема, при которой Stapler мог видеть установленный RPM только по имени с суффиксом репозитория, но не мог надежно сопоставить его с коротким именем пакета.
+
+### Проверено
+- Python-сверка подтвердила, что все 14 `Staplerfile` содержат явные `provides/replaces`, а `provides` у каждого пакета включает короткое имя пакета.
+- `stplr build --clean` и `rpm -qp --provides` выполнены для `adwyra`, `clash-verge`, `codex-app`, `github-plus`, `happ`, `hydralauncher`, `tailscale`, `terax`, `vanyavpn`, `vual`, `warp`, `windsurf`.
+- `rpm -qp --provides` подтвердил короткие имена и aliases: `adwyra`, `clash-verge`, `codex-app`, `github-plus`, `happ`, `hydralauncher`, `tailscale`, `terax`, `vanyavpn`, `vual`, `warp`, `windsurf`.
+- `bash -n`, `shellcheck`, `shfmt -d -i 4` и `git diff --check`.
+
+### Осталось
+- Нет.
+
 ## 2026-06-03 19:22 VLAT
 
 ### Изменено

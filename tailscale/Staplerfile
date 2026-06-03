@@ -1,6 +1,6 @@
 name='tailscale'
 version='1.98.4'
-release=1
+release=2
 summary='Mesh VPN built on WireGuard'
 summary_ru='Mesh VPN на базе WireGuard'
 group='Networking/Other'
@@ -13,8 +13,8 @@ architectures=('amd64' 'arm64')
 
 license=('BSD-3-Clause')
 
-provides=('tailscale')
-replaces=('tailscale')
+provides=('tailscale' 'tailscaled')
+replaces=('tailscale' 'tailscaled')
 
 auto_reqprov_method="dirty"
 auto_req=0

@@ -1,6 +1,6 @@
 name='happ'
 version='2.16.2'
-release=1
+release=2
 summary='User-friendly GUI proxy client for xray-core'
 summary_ru='Удобный GUI-прокси-клиент для xray-core'
 group='Networking/Other'
@@ -15,6 +15,9 @@ license=('custom')
 nonfree=1
 nonfree_msg='Happ contains proprietary xray-core components. Usage is subject to license at https://happ.su/license'
 nonfree_url='https://happ.su/license'
+
+provides=('happ' 'happ-desktop')
+replaces=('happ' 'happ-desktop')
 
 # auto_req отключен - Electron-приложение с bundled библиотеками
 auto_reqprov_method="dirty"

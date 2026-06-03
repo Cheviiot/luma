@@ -1,6 +1,6 @@
 name='clash-verge'
 version='2.5.1'
-release=1
+release=2
 summary='Tauri GUI client for Mihomo/Clash proxy profiles'
 summary_ru='GUI-клиент на Tauri для профилей Mihomo/Clash'
 group='Networking/Other'
@@ -13,8 +13,8 @@ architectures=('amd64' 'arm64')
 
 license=('GPL-3.0-only')
 
-provides=('clash-verge-rev')
-replaces=('clash-verge-rev')
+provides=('clash-verge' 'clash-verge-rev')
+replaces=('clash-verge' 'clash-verge-rev')
 
 auto_reqprov_method="dirty"
 auto_req=0

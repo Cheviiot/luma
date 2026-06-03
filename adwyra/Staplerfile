@@ -1,6 +1,6 @@
 name='adwyra'
 version='0.5.0'
-release=1
+release=2
 summary='Minimal GNOME application launcher'
 summary_ru='Минималистичный лаунчер приложений для GNOME'
 desc='Adwyra is a compact GTK 4/libadwaita application launcher for GNOME with an application grid, search, folders, pinned apps, drag-and-drop ordering, themes, hotkeys and plugin support.'
@@ -12,6 +12,9 @@ maintainer='Cheviiot <https://github.com/Cheviiot>'
 architectures=('all')
 
 license=('GPL-3.0-or-later')
+
+provides=('adwyra')
+replaces=('adwyra')
 
 auto_reqprov_method="dirty"
 auto_req=0

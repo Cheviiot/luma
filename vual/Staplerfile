@@ -1,6 +1,6 @@
 name='vual'
 version='0.3.1'
-release=1
+release=2
 summary='Launch Cheat Engine for Steam games through Proton'
 summary_ru='Запуск Cheat Engine для Steam-игр через Proton'
 group='Games'
@@ -16,6 +16,9 @@ maintainer='Cheviiot <https://github.com/Cheviiot>'
 architectures=('all')
 
 license=('GPL-3.0-or-later')
+
+provides=('vual')
+replaces=('vual')
 
 auto_reqprov_method="dirty"
 auto_req=0

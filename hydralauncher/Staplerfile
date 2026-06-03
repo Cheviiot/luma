@@ -1,6 +1,6 @@
 name='hydralauncher'
 version='3.9.9'
-release=1
+release=2
 summary='Open-source game launcher with embedded BitTorrent support'
 summary_ru='Открытый игровой лаунчер со встроенной поддержкой BitTorrent'
 group='Games/Other'
@@ -12,6 +12,9 @@ maintainer='Hydra Launcher contributors <https://github.com/hydralauncher/hydra>
 architectures=('amd64')
 
 license=('MIT')
+
+provides=('hydralauncher' 'hydra-launcher')
+replaces=('hydralauncher' 'hydra-launcher')
 
 auto_reqprov_method="dirty"
 auto_req=0

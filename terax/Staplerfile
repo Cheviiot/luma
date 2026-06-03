@@ -1,6 +1,6 @@
 name='terax'
 version='0.7.3'
-release=1
+release=2
 summary='AI-native terminal emulator'
 summary_ru='AI-native эмулятор терминала'
 group='Development/Tools'
@@ -13,8 +13,8 @@ architectures=('amd64')
 
 license=('Apache-2.0')
 
-provides=('terax-ai')
-replaces=('terax-ai')
+provides=('terax' 'terax-ai')
+replaces=('terax' 'terax-ai')
 
 auto_reqprov_method="dirty"
 auto_req=0

@@ -1,6 +1,6 @@
 name='vanyavpn'
 version='1.12.1+472165'
-release=1
+release=2
 summary='Desktop client for the VanyaVPN service'
 summary_ru='Десктопный клиент сервиса VanyaVPN'
 group='Networking/Other'
@@ -15,6 +15,9 @@ license=('custom')
 nonfree=1
 nonfree_msg='VanyaVPN is proprietary software by CODE ASSET LTD. Usage is subject to the terms at https://vanyavpn.es'
 nonfree_url='https://vanyavpn.es'
+
+provides=('vanyavpn')
+replaces=('vanyavpn')
 
 auto_reqprov_method="dirty"
 auto_req=0

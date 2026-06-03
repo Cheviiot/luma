@@ -1,6 +1,6 @@
 name='github-plus'
 version='3.5.12.0'
-release=1
+release=2
 summary='GitHub Desktop fork with Bitbucket and GitLab integration'
 summary_ru='Форк GitHub Desktop с интеграцией Bitbucket и GitLab'
 group='Development/Tools'
@@ -13,8 +13,8 @@ architectures=('amd64' 'arm64')
 
 license=('MIT')
 
-provides=('github-desktop-plus')
-replaces=('github-desktop-plus')
+provides=('github-plus' 'github-desktop-plus')
+replaces=('github-plus' 'github-desktop-plus')
 
 auto_reqprov_method="dirty"
 auto_req=0
