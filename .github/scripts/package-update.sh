@@ -332,7 +332,7 @@ refresh_checksums() {
     local sources_arm64=()
     mapfile -t sources_arm64 < <(package_sources "$package" sources_arm64)
 
-    if [[ "${#sources_arm64[@]}" -gt 0 ]]; then
+    if [[ -n "${sources_arm64[*]}" ]]; then
         local checksums_arm64=()
         for source in "${sources_arm64[@]}"; do
             [[ -n "$source" ]] || continue
@@ -344,6 +344,47 @@ refresh_checksums() {
     if command -v shfmt >/dev/null 2>&1; then
         shfmt -w -i 4 "$file"
     fi
+}
+
+join_markdown_codes() {
+    local result=""
+    local value
+
+    for value in "$@"; do
+        if [[ -n "$result" ]]; then
+            result+=", "
+        fi
+        result+="\`${value}\`"
+    done
+
+    printf '%s\n' "$result"
+}
+
+sync_readme_package() {
+    local package="$1"
+    local file="${repo_root}/README.md"
+    local version arch_text license_text
+    local architectures=()
+    local licenses=()
+
+    version="$(current_version "$package")"
+    mapfile -t architectures < <(package_sources "$package" architectures)
+    mapfile -t licenses < <(package_sources "$package" license)
+    arch_text="$(join_markdown_codes "${architectures[@]}")"
+    license_text="$(join_markdown_codes "${licenses[@]}")"
+
+    PACKAGE="$package" VERSION="$version" ARCHITECTURES="$arch_text" LICENSES="$license_text" perl -0pi -e '
+        my $package = quotemeta($ENV{"PACKAGE"});
+        my $version = $ENV{"VERSION"};
+        my $architectures = $ENV{"ARCHITECTURES"};
+        my $licenses = $ENV{"LICENSES"};
+
+        s{^(\|[^\n]*\]\(\./$package\)<br>[^\n]*?\| )`[^`]+`( \| )[^|]+(\|[^\n]*\|)$}{$1`$version`$2$architectures $3}gm
+            or die "README catalog row not found for $ENV{PACKAGE}\n";
+
+        s{^(\| `$package` \| [^|]+ \| [^|]+ \| )`[^`]+`( \| )[^|]+( \| )[^|]+(\|)$}{$1`$version`$2$licenses$3$architectures $4}gm
+            or die "README summary row not found for $ENV{PACKAGE}\n";
+    ' "$file"
 }
 
 check_package() {
@@ -392,6 +433,7 @@ apply_package() {
     echo "${package}: ${current} -> ${latest}"
     set_version "$package" "$latest"
     refresh_checksums "$package"
+    sync_readme_package "$package"
 }
 
 apply_all() {
