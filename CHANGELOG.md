@@ -1,3 +1,25 @@
+## 2026-06-03 19:10 VLAT
+
+### Изменено
+- Увеличен `release` до `3` у `pineconemc` и `prismlauncher`, так как исправлено runtime-поведение системной установки без изменения upstream-версии `11.0.2`.
+
+### Добавлено
+- Нет.
+
+### Исправлено
+- Из пакетов `pineconemc` и `prismlauncher` удаляется upstream-маркер `portable.txt`, из-за которого лаунчеры запускались в portable-режиме и пытались писать логи/данные в `/opt/pineconemc` и `/opt/prismlauncher`.
+- Системная установка теперь должна использовать пользовательскую директорию данных вместо read-only каталога приложения в `/opt`.
+
+### Проверено
+- `stplr build --clean` для `pineconemc`: пакет `pineconemc+stplr-default-11.0.2-alt3.x86_64.rpm` собран успешно.
+- `stplr build --clean` для `prismlauncher`: пакет `prismlauncher+stplr-default-11.0.2-alt3.x86_64.rpm` собран успешно.
+- `rpm -qpl` подтвердил, что `/opt/pineconemc` и `/opt/prismlauncher` остались в RPM, а `portable.txt` больше не входит в оба пакета.
+- `rpm -qpl` подтвердил наличие CLI-оберток, desktop-файлов, MIME XML и AppStream metainfo в обоих пакетах.
+- `bash -n`, `shellcheck`, `shfmt -d -i 4` и `git diff --check`.
+
+### Осталось
+- Нет.
+
 ## 2026-06-03 19:05 VLAT
 
 ### Изменено

@@ -1,6 +1,6 @@
 name='pineconemc'
 version='11.0.2'
-release=2
+release=3
 summary='Prism Launcher fork with Ely.by and offline account support'
 summary_ru='Форк Prism Launcher с поддержкой Ely.by и offline-аккаунтов'
 group='Games/Other'
@@ -55,6 +55,7 @@ package() {
 
     mkdir -p "${pkgdir}/opt/pineconemc"
     tar --no-same-owner --no-same-permissions -xzf pineconemc.tar.gz -C "${pkgdir}/opt/pineconemc"
+    rm -f "${pkgdir}/opt/pineconemc/portable.txt"
 
     chmod 755 "${pkgdir}/opt/pineconemc/bin/elyprismlauncher"
     chmod 755 "${pkgdir}/opt/pineconemc/bin/elyprismlauncher_updater"

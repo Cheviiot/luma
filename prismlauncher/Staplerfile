@@ -1,6 +1,6 @@
 name='prismlauncher'
 version='11.0.2'
-release=2
+release=3
 summary='Custom launcher for Minecraft and modded instances'
 summary_ru='Лаунчер Minecraft для управления ванильными и модифицированными сборками'
 group='Games/Other'
@@ -55,6 +55,7 @@ package() {
 
     mkdir -p "${pkgdir}/opt/prismlauncher"
     tar --no-same-owner --no-same-permissions -xzf prismlauncher.tar.gz -C "${pkgdir}/opt/prismlauncher"
+    rm -f "${pkgdir}/opt/prismlauncher/portable.txt"
 
     chmod 755 "${pkgdir}/opt/prismlauncher/bin/prismlauncher"
     chmod 755 "${pkgdir}/opt/prismlauncher/bin/prismlauncher_updater"
