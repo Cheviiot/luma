@@ -5,7 +5,7 @@
   <p>Готовые спецификации, реальные upstream-артефакты, postinstall-интеграция и автоматическая проверка новых версий.</p>
   <p>
     <code>stplr &gt;= v0.1.1</code>
-    <code>16 пакетов</code>
+    <code>17 пакетов</code>
     <code>amd64</code>
     <code>arm64</code>
     <code>all</code>
@@ -69,6 +69,7 @@ stplr upgrade
 |:--|:--|:--|:--|
 | <img src=".github/assets/apps/adwyra.png" width="28" height="28" alt=""> [Adwyra](./adwyra)<br><sub>Минималистичный лаунчер приложений для GNOME.</sub> | `0.5.0` | `all` | `stplr install luma/adwyra` |
 | <img src=".github/assets/apps/hydralauncher.png" width="28" height="28" alt=""> [Hydra Launcher](./hydralauncher)<br><sub>Открытый игровой лаунчер со встроенной поддержкой BitTorrent.</sub> | `3.9.9` | `amd64` | `stplr install luma/hydralauncher` |
+| <img src=".github/assets/apps/parsec.png" width="28" height="28" alt=""> [Parsec](./parsec)<br><sub>Удаленный рабочий стол и игровой стриминг с низкой задержкой.</sub> | `150-97c` | `amd64` | `stplr install luma/parsec` |
 | <img src=".github/assets/apps/pineconemc.svg" width="28" height="28" alt=""> [PineconeMC](./pineconemc)<br><sub>Форк Prism Launcher с поддержкой Ely.by и offline-аккаунтов.</sub> | `11.0.2` | `amd64`, `arm64` | `stplr install luma/pineconemc` |
 | <img src=".github/assets/apps/prismlauncher.svg" width="28" height="28" alt=""> [Prism Launcher](./prismlauncher)<br><sub>Лаунчер Minecraft для ванильных и модифицированных сборок.</sub> | `11.0.2` | `amd64`, `arm64` | `stplr install luma/prismlauncher` |
 | <img src=".github/assets/apps/vual.png" width="28" height="28" alt=""> [Vual](./vual)<br><sub>Запуск Cheat Engine для Steam-игр через Proton.</sub> | `0.3.1` | `all` | `stplr install luma/vual` |
@@ -96,6 +97,7 @@ stplr upgrade
 | `hydralauncher` | Игры | [Hydra Launcher](https://hydralauncher.app/dl/) | `3.9.9` | `MIT` | `amd64` |
 | `netbird` | Сеть и VPN | [NetBird](https://netbird.io/) | `0.71.4` | `BSD-3-Clause`, `AGPL-3.0-only` | `amd64`, `arm64` |
 | `netbird-ui` | Сеть и VPN | [NetBird UI](https://netbird.io/) | `0.71.4` | `BSD-3-Clause`, `AGPL-3.0-only` | `amd64` |
+| `parsec` | Рабочий стол и игры | [Parsec](https://parsec.app/downloads) | `150-97c` | `Custom` | `amd64` |
 | `pineconemc` | Игры | [PineconeMC](https://pineconemc.com/) | `11.0.2` | `GPL-3.0-only` | `amd64`, `arm64` |
 | `prismlauncher` | Игры | [Prism Launcher](https://prismlauncher.org/) | `11.0.2` | `GPL-3.0-only` | `amd64`, `arm64` |
 | `tailscale` | Сеть и VPN | [Tailscale](https://tailscale.com) | `1.98.4` | `BSD-3-Clause` | `amd64`, `arm64` |

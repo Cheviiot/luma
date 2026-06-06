@@ -1,3 +1,31 @@
+## 2026-06-06 13:10 VLAT
+
+### Изменено
+- Обновлен `README.md`: количество пакетов увеличено до 17, Parsec добавлен в раздел `Рабочий стол и игры` и полную сводку.
+- `parsec` подключен к `.github/scripts/package-update.sh` и общей команде `check-all`; актуальная версия определяется из control metadata официального `.deb`.
+
+### Добавлено
+- Добавлен пакет `parsec` версии `150-97c` для архитектуры `amd64`.
+- Добавлены `parsec/Staplerfile`, `stapler-repo.toml`, `.stapler/update-check`, `postinstall.sh`, `postremove.sh`, `LICENSE` и PNG-иконка.
+- Сборка использует официальный Linux `.deb` `https://builds.parsec.app/package/parsec-linux.deb`, устанавливает `/usr/bin/parsecd`, desktop-файл, hicolor-иконку и runtime-данные `/usr/share/parsec`.
+
+### Исправлено
+- Нет.
+
+### Проверено
+- `.github/scripts/validate-repo.py`: проверено 17 пакетов.
+- `.github/scripts/package-update.sh check parsec` и `parsec/.stapler/update-check`: локальная и upstream-версии совпадают, `150-97c 150-97c`.
+- `stplr build --clean` для `parsec`: пакет `parsec+stplr-default-150-97c-alt1.x86_64.rpm` собран успешно.
+- `rpm -qpl` подтвердил наличие `/usr/bin/parsecd`, desktop-файла, hicolor-иконки и `/usr/share/parsec`.
+- `rpm -qp --provides` подтвердил короткие имена `parsec` и `parsecd`.
+- `rpm -qp --requires` подтвердил системные зависимости `glibc`, `libGL`, `libX11`, `libcurl`, `libavcodec`, `libalsa`, `libssl3`, `libvulkan1` и другие runtime-библиотеки.
+- `rpm -qp --scripts` подтвердил postinstall/postremove-скрипты с обновлением desktop/icon cache.
+- В временной копии репозитория: `package-update.sh apply parsec` после искусственного отката версии `150-97c -> 150-old`, README и `Staplerfile` вернулись к `150-97c`, валидатор прошел 17 пакетов.
+- `bash -n`, `shellcheck`, `shfmt -d -i 4` и `git diff --check`.
+
+### Осталось
+- Отдельно обновить пакеты, которые уже имеют новые upstream-версии по `check-all`: `codex-app`, `netbird`, `netbird-ui`, `warp`.
+
 ## 2026-06-03 21:46 VLAT
 
 ### Изменено

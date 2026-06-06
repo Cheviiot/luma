@@ -12,6 +12,7 @@ PACKAGES=(
     hydralauncher
     netbird
     netbird-ui
+    parsec
     pineconemc
     prismlauncher
     tailscale
@@ -123,6 +124,10 @@ latest_warp() {
     deb_control_field "https://app.warp.dev/download?package=deb" Version
 }
 
+latest_parsec() {
+    deb_control_field "https://builds.parsec.app/package/parsec-linux.deb" Version
+}
+
 latest_windsurf() {
     local packages version
 
@@ -222,6 +227,7 @@ latest_version() {
     hydralauncher) github_latest_release "hydralauncher/hydra" ;;
     netbird) github_latest_release "netbirdio/netbird" ;;
     netbird-ui) github_latest_release "netbirdio/netbird" ;;
+    parsec) latest_parsec ;;
     pineconemc) github_latest_release "ElyPrismLauncher/Launcher" ;;
     prismlauncher) github_latest_release "PrismLauncher/PrismLauncher" ;;
     tailscale) latest_tailscale ;;
