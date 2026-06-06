@@ -1,3 +1,29 @@
+## 2026-06-06 14:08 VLAT
+
+### Изменено
+- Увеличен `release` у `parsec` до `3`, так как уточнена совместимая JPEG-зависимость для ALT без изменения upstream-версии `150-97c`.
+- В `parsec/Staplerfile` зависимость ALT `libjpeg` заменена на `libjpeg8`, соответствующую upstream-требованию `libjpeg8` из официального `.deb`.
+
+### Добавлено
+- Нет.
+
+### Исправлено
+- Исправлена потенциальная runtime-ошибка Parsec из-за установки обычного `libjpeg`, который в ALT предоставляет `libjpeg.so.62`, а не совместимый `libjpeg8`.
+
+### Проверено
+- `apt-cache search '^libjpeg'` подтвердил наличие `libjpeg8` в ALT.
+- `apt-cache policy libjpeg8` подтвердил кандидата `3.0.3-alt1`.
+- `rpm -q --provides libjpeg` показал, что обычный `libjpeg` предоставляет `libjpeg.so.62`, поэтому он не подходит под upstream-требование `libjpeg8`.
+- `stplr build --clean` для `parsec`: пакет `parsec+stplr-default-150-97c-alt3.x86_64.rpm` собран успешно.
+- `rpm -qp --requires` подтвердил, что RPM теперь требует `libjpeg8`.
+- `apt-cache policy` подтвердил кандидатов в репозиториях ALT для всех ALT-зависимостей Parsec.
+- `.github/scripts/validate-repo.py`: проверено 17 пакетов.
+- `.github/scripts/package-update.sh check parsec`: локальная и upstream-версии совпадают, `150-97c 150-97c`.
+- `bash -n`, `shellcheck`, `shfmt -d -i 4` и `git diff --check`.
+
+### Осталось
+- Нет.
+
 ## 2026-06-06 13:21 VLAT
 
 ### Изменено
