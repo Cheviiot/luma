@@ -10,6 +10,7 @@ PACKAGES=(
     github-plus
     happ
     hydralauncher
+    modrinth-app
     netbird
     netbird-ui
     parsec
@@ -225,6 +226,7 @@ latest_version() {
     github-plus) github_latest_release "pol-rivero/github-desktop-plus" ;;
     happ) github_latest_release "Happ-proxy/happ-desktop" ;;
     hydralauncher) github_latest_release "hydralauncher/hydra" ;;
+    modrinth-app) github_latest_release "modrinth/code" ;;
     netbird) github_latest_release "netbirdio/netbird" ;;
     netbird-ui) github_latest_release "netbirdio/netbird" ;;
     parsec) latest_parsec ;;

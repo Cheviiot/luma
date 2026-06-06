@@ -1,3 +1,33 @@
+## 2026-06-06 17:11 VLAT
+
+### Изменено
+- README обновлен под 18 пакетов: Modrinth App добавлен в каталог игр и полную сводку.
+- `.github/scripts/package-update.sh` подключен к GitHub Releases `modrinth/code` для проверки актуальной версии `modrinth-app`.
+
+### Добавлено
+- Добавлен пакет `modrinth-app` версии `0.14.4` для архитектуры `amd64`.
+- Добавлены `modrinth-app/Staplerfile`, `stapler-repo.toml`, `.stapler/update-check`, `postinstall.sh`, `postremove.sh`, `LICENSE` и PNG-иконка витрины.
+- Пакет использует официальный Linux `.deb` из GitHub Releases, устанавливает `/usr/bin/ModrinthApp`, desktop-файл и hicolor-иконки.
+- Добавлены короткие имена `modrinth-app` и `modrinth` через `provides`/`replaces`.
+
+### Исправлено
+- Нет.
+
+### Проверено
+- Официальная страница Modrinth App и GitHub Releases сверены для выбора актуального Linux-артефакта.
+- Официальные файлы `apps/app/LICENSE` и `apps/app/COPYING.md` сверены для лицензии GPL-3.0-only и ограничений бренда Modrinth.
+- `.github/scripts/validate-repo.py`: проверено 18 пакетов.
+- `.github/scripts/package-update.sh check modrinth-app` и `modrinth-app/.stapler/update-check`: локальная и upstream-версии совпадают, `0.14.4 0.14.4`.
+- `stplr build --clean` для `modrinth-app`: пакет `modrinth-app+stplr-default-0.14.4-alt1.x86_64.rpm` собран успешно.
+- `rpm -qpl` подтвердил наличие `/usr/bin/ModrinthApp`, desktop-файла и hicolor-иконок.
+- `rpm -qp --provides` подтвердил короткие имена `modrinth-app` и `modrinth`.
+- `rpm -qp --requires` подтвердил ALT-зависимости `libgtk+3` и `libwebkit2gtk4.1`.
+- `apt-cache policy` подтвердил наличие `libgtk+3` и `libwebkit2gtk4.1` в текущих репозиториях ALT.
+- `bash -n`, `shellcheck`, `shfmt -d -i 4` и `git diff --check`.
+
+### Осталось
+- Нет.
+
 ## 2026-06-06 14:24 VLAT
 
 ### Изменено

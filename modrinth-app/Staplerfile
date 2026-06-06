@@ -1,0 +1,66 @@
+name='modrinth-app'
+version='0.14.4'
+release=1
+summary='Official Modrinth launcher for Minecraft mods and modpacks'
+summary_ru='Официальный лаунчер Modrinth для модов и модпаков Minecraft'
+group='Games/Other'
+desc='Modrinth App is the official open source desktop launcher for managing Minecraft mods, modpacks, resource packs, shaders and instances from Modrinth.'
+desc_ru='Modrinth App — официальный открытый десктопный лаунчер для управления модами, модпаками, ресурс-паками, шейдерами и инстансами Minecraft из Modrinth.'
+homepage='https://modrinth.com/app'
+maintainer='Rinth, Inc. <https://modrinth.com/>'
+
+architectures=('amd64')
+
+license=('GPL-3.0-only')
+
+provides=('modrinth-app' 'modrinth')
+replaces=('modrinth-app' 'modrinth')
+
+auto_reqprov_method="dirty"
+auto_req=0
+auto_prov=0
+
+deps=()
+deps_debian=('libwebkit2gtk-4.1-0' 'libgtk-3-0')
+deps_ubuntu=("${deps_debian[@]}")
+deps_fedora=('webkit2gtk4.1' 'gtk3')
+deps_arch=('webkit2gtk-4.1' 'gtk3')
+deps_opensuse=('libwebkit2gtk-4_1-0' 'gtk3')
+deps_altlinux=('libwebkit2gtk4.1' 'libgtk+3')
+
+sources=(
+    "https://github.com/modrinth/code/releases/download/v${version}/Modrinth.App_${version}_amd64.deb?~archive=false&~name=modrinth-app.deb"
+)
+
+checksums=(
+    'b22615205f44a65c6692aca075900d6200bdbd63ddcde202a364a8bddee93274'
+)
+
+scripts=(
+    ['postinstall']='postinstall.sh'
+    ['postremove']='postremove.sh'
+)
+
+package() {
+    cd "${srcdir}"
+
+    mkdir -p "${srcdir}/extracted"
+    ar x modrinth-app.deb
+    tar -xf data.tar.* -C "${srcdir}/extracted"
+
+    install -Dm755 "${srcdir}/extracted/usr/bin/ModrinthApp" "${pkgdir}/usr/bin/ModrinthApp"
+    install -Dm644 "${srcdir}/extracted/usr/share/applications/Modrinth App.desktop" \
+        "${pkgdir}/usr/share/applications/Modrinth App.desktop"
+    install -Dm644 "${srcdir}/extracted/usr/share/icons/hicolor/128x128/apps/ModrinthApp.png" \
+        "${pkgdir}/usr/share/icons/hicolor/128x128/apps/ModrinthApp.png"
+    install -Dm644 "${srcdir}/extracted/usr/share/icons/hicolor/256x256@2/apps/ModrinthApp.png" \
+        "${pkgdir}/usr/share/icons/hicolor/256x256@2/apps/ModrinthApp.png"
+}
+
+files() {
+    files-find-binary
+    files-find-desktop
+    files-find \
+        "/usr/share/icons/hicolor/128x128/apps/ModrinthApp.png" \
+        "/usr/share/icons/hicolor/256x256@2/apps/ModrinthApp.png"
+}
