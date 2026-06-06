@@ -1,6 +1,6 @@
 name='modrinth-app'
 version='0.14.4'
-release=2
+release=3
 summary='Official Modrinth launcher for Minecraft mods and modpacks'
 summary_ru='Официальный лаунчер Modrinth для модов и модпаков Minecraft'
 group='Games/Other'
@@ -98,20 +98,26 @@ package() {
     cd "${srcdir}/code-${version}"
 
     install -Dm755 "${srcdir}/code-${version}/target/release/theseus_gui" "${pkgdir}/usr/bin/ModrinthApp"
-    install -Dm644 /dev/stdin "${pkgdir}/usr/share/applications/Modrinth App.desktop" <<'EOF'
+    install -Dm644 /dev/stdin "${pkgdir}/usr/share/applications/modrinth-app.desktop" <<'EOF'
 [Desktop Entry]
 Categories=Game;
 Exec=ModrinthApp
-Icon=ModrinthApp
+Icon=modrinth-app
 Name=Modrinth App
 Terminal=false
 Type=Application
 MimeType=application/x-modrinth-modpack+zip;x-scheme-handler/modrinth
 EOF
     install -Dm644 "${srcdir}/code-${version}/apps/app/icons/128x128.png" \
+        "${pkgdir}/usr/share/icons/hicolor/128x128/apps/modrinth-app.png"
+    install -Dm644 "${srcdir}/code-${version}/apps/app/icons/128x128.png" \
         "${pkgdir}/usr/share/icons/hicolor/128x128/apps/ModrinthApp.png"
     install -Dm644 "${srcdir}/code-${version}/apps/app/icons/128x128@2x.png" \
+        "${pkgdir}/usr/share/icons/hicolor/256x256/apps/modrinth-app.png"
+    install -Dm644 "${srcdir}/code-${version}/apps/app/icons/128x128@2x.png" \
         "${pkgdir}/usr/share/icons/hicolor/256x256@2/apps/ModrinthApp.png"
+    install -Dm644 "${srcdir}/code-${version}/apps/app/icons/128x128@2x.png" \
+        "${pkgdir}/usr/share/icons/hicolor/256x256@2/apps/modrinth-app.png"
 
     install -Dm644 "${srcdir}/code-${version}/apps/app/LICENSE" \
         "${pkgdir}/usr/share/licenses/modrinth-app/LICENSE"
@@ -124,6 +130,9 @@ files() {
     files-find-desktop
     files-find-license
     files-find \
+        "/usr/share/icons/hicolor/128x128/apps/modrinth-app.png" \
         "/usr/share/icons/hicolor/128x128/apps/ModrinthApp.png" \
+        "/usr/share/icons/hicolor/256x256/apps/modrinth-app.png" \
+        "/usr/share/icons/hicolor/256x256@2/apps/modrinth-app.png" \
         "/usr/share/icons/hicolor/256x256@2/apps/ModrinthApp.png"
 }

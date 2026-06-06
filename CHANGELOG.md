@@ -1,3 +1,28 @@
+## 2026-06-06 19:10 VLAT
+
+### Изменено
+- У `modrinth-app` увеличен `release` до `3`, так как исправлены устанавливаемые desktop/icon-файлы без изменения upstream-версии.
+- Desktop-файл переименован в `/usr/share/applications/modrinth-app.desktop`.
+- В desktop-файле `Icon=ModrinthApp` заменен на стабильное имя `Icon=modrinth-app`.
+
+### Добавлено
+- Добавлены hicolor-иконки `modrinth-app.png` в размерах `128x128`, `256x256` и `256x256@2`.
+- Оставлены совместимые иконки `ModrinthApp.png`, чтобы старые кэши меню и сторонние окружения не теряли значок.
+
+### Исправлено
+- Исправлена ситуация, когда Modrinth App устанавливался и запускался, но меню приложений не показывало его иконку.
+
+### Проверено
+- `stplr build` собрал пакет `modrinth-app+stplr-default-0.14.4-alt3.x86_64.rpm`.
+- `rpm -qpl` подтвердил наличие `/usr/share/applications/modrinth-app.desktop` и hicolor-иконок `modrinth-app.png`.
+- Извлеченный desktop-файл содержит `Icon=modrinth-app`.
+- `file` подтвердил корректные PNG-иконки `128x128` и `256x256`.
+- `desktop-file-validate` не нашел ошибок в desktop-файле.
+- `bash -n`, `.github/scripts/validate-repo.py`, `.github/scripts/package-update.sh check modrinth-app`, `modrinth-app/.stapler/update-check`, `shellcheck` и `shfmt -d` прошли успешно.
+
+### Осталось
+- Нет.
+
 ## 2026-06-06 18:03 VLAT
 
 ### Изменено
