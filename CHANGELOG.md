@@ -1,3 +1,34 @@
+## 2026-06-06 18:03 VLAT
+
+### Изменено
+- `modrinth-app` переведен с перепаковки официального `.deb` на сборку актуального исходного кода `v0.14.4`.
+- В `modrinth-app/Staplerfile` добавлены сборочные источники: архив `modrinth/code`, Node.js `24.15.0` только для этапа сборки и локально проверяемый Gradle `9.1.0`.
+- В recipe добавлены `prepare()`, `build()` и ручная установка бинарника, desktop-файла, иконок и upstream-лицензий.
+- Для Gradle-сборки Java-части Modrinth App отключен configuration cache, удален build-time-only toolchain resolver и отключен Spotless, так как форматирование не нужно для production-сборки Java-агента.
+- Gradle wrapper переведен на локальный `gradle.zip` из `sources`, чтобы сборка не падала на 10-секундном таймауте загрузки Gradle во время `cargo build`.
+- `modrinth-app/LICENSE` обновлен: описана причина сборки из исходников вместо официального Linux-бинарника.
+
+### Добавлено
+- Добавлены build-зависимости для Rust/Cargo, Java 17 JDK, WebKitGTK/GTK devel, OpenSSL, librsvg и базовых инструментов сборки.
+
+### Исправлено
+- Исправлен отказ запуска `ModrinthApp` на ALT p11: официальный бинарник `0.14.4` требовал `GLIBC_2.39`, а локальная система предоставляет `glibc 2.38`.
+- Исправлена чистая сборка `modrinth-app` на ALT: `tar` больше не пытается восстанавливать владельцев из внешних архивов, Java 17 берется из `java-17-openjdk-devel`, а Gradle не скачивается внутри build step.
+
+### Проверено
+- `/usr/bin/ModrinthApp` из установленного прежнего пакета воспроизвел ошибку `GLIBC_2.39 not found`.
+- AppImage `0.14.4` проверен и подтвердил ту же проблему `GLIBC_2.39`.
+- Тестовая сборка из исходников `0.14.4` на ALT p11 с Node.js `24.15.0` и Rust `1.95.0` успешно собрала `target/release/theseus_gui`.
+- Собранный на ALT бинарник требует максимум `GLIBC_2.34`, что совместимо с локальной `glibc 2.38`.
+- `stplr build --clean` для `modrinth-app`: собран RPM `modrinth-app+stplr-default-0.14.4-alt2.x86_64.rpm`.
+- `rpm -qpl` подтвердил наличие `/usr/bin/ModrinthApp`, desktop-файла, hicolor-иконок и upstream-лицензий.
+- `rpm -qp --provides` подтвердил короткие имена `modrinth-app` и `modrinth`.
+- `rpm -qp --requires` подтвердил явные ALT-зависимости `libgtk+3` и `libwebkit2gtk4.1`.
+- Распакованный из RPM `/usr/bin/ModrinthApp` проверен через `strings`, `readelf` и `ldd`: максимум `GLIBC_2.34`, отсутствуют `not found` и требования `GLIBC_2.39`.
+
+### Осталось
+- Нет.
+
 ## 2026-06-06 17:11 VLAT
 
 ### Изменено
