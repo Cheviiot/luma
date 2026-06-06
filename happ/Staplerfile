@@ -1,6 +1,6 @@
 name='happ'
 version='2.16.2'
-release=3
+release=4
 summary='User-friendly GUI proxy client for xray-core'
 summary_ru='Удобный GUI-прокси-клиент для xray-core'
 group='Networking/Other'
@@ -13,7 +13,7 @@ architectures=('amd64' 'arm64')
 
 license=('Custom')
 nonfree=1
-nonfree_msg='Happ contains proprietary xray-core components. Usage is subject to license at https://happ.su/license'
+nonfree_msg='Happ является проприетарным приложением FlyFrog LLC. Использование клиента, подписок и сетевых функций регулируется условиями Happ.'
 nonfree_url='https://happ.su/license'
 
 provides=('happ' 'happ-desktop')

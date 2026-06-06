@@ -1,6 +1,6 @@
 name='parsec'
 version='150-97c'
-release=3
+release=4
 summary='Low-latency remote desktop and game streaming client'
 summary_ru='Клиент удаленного рабочего стола и игрового стриминга с низкой задержкой'
 group='Networking/Remote access'
@@ -13,7 +13,7 @@ architectures=('amd64')
 
 license=('Custom')
 nonfree=1
-nonfree_msg='Parsec is proprietary software distributed by Unity Technologies SF. Usage is subject to the upstream terms of service and privacy policy.'
+nonfree_msg='Parsec является проприетарным приложением Unity Technologies SF. Использование клиента, учетной записи, удаленного доступа и сетевых функций регулируется условиями Parsec/Unity.'
 nonfree_url='https://parsec.app/terms'
 
 provides=('parsec' 'parsecd')

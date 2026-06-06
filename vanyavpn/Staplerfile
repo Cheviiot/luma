@@ -1,11 +1,11 @@
 name='vanyavpn'
 version='1.12.1+472165'
-release=3
+release=4
 summary='Desktop client for the VanyaVPN service'
 summary_ru='Десктопный клиент сервиса VanyaVPN'
 group='Networking/Other'
-desc='VanyaVPN is the desktop client for the Uncle Vanya VPN service. This package repacks the upstream Linux AppImage into a native filesystem layout instead of installing the AppImage as a portable binary.'
-desc_ru='Дядя Ваня VPN — десктопный клиент одноимённого VPN-сервиса. Пакет распаковывает upstream Linux AppImage в нативную файловую структуру вместо установки AppImage как портативного бинарника.'
+desc='VanyaVPN is the desktop client for the Uncle Vanya VPN service. This package repacks the Linux AppImage from the original project into a native filesystem layout instead of installing the AppImage as a portable binary.'
+desc_ru='Дядя Ваня VPN — десктопный клиент одноимённого VPN-сервиса. Пакет распаковывает исходный Linux AppImage в нативную файловую структуру вместо установки AppImage как портативного бинарника.'
 homepage='https://vanyavpn.es'
 maintainer='CODE ASSET LTD <support@vanyavpn.es>'
 
@@ -13,7 +13,7 @@ architectures=('amd64')
 
 license=('Custom')
 nonfree=1
-nonfree_msg='VanyaVPN is proprietary software by CODE ASSET LTD. Usage is subject to the terms at https://vanyavpn.es'
+nonfree_msg='VanyaVPN является проприетарным приложением CODE ASSET LTD. Использование клиента, учетной записи, подписки и VPN-подключений регулируется условиями сервиса VanyaVPN.'
 nonfree_url='https://vanyavpn.es'
 
 provides=('vanyavpn')
@@ -76,7 +76,7 @@ WRAPPER
             "${pkgdir}/usr/share/applications/vanyavpn.desktop"
     fi
 
-    # Корневые outline-client.png/.DirIcon в AppImage принадлежат upstream-базе Outline,
+    # Корневые outline-client.png/.DirIcon в AppImage принадлежат исходной базе Outline,
     # поэтому для desktop-иконки используем фирменную иконку VanyaVPN.
     icon_dest="${pkgdir}/usr/share/icons/hicolor/512x512/apps/vanyavpn.png"
     install -Dm644 "${srcdir}/vanyavpn.png" "$icon_dest"

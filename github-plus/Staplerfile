@@ -57,7 +57,7 @@ package() {
     ar x github-desktop-plus.deb
     tar -xf data.tar.* -C "${srcdir}/extracted"
 
-    # Всё из upstream .deb: бинарник, /usr/lib/github-desktop-plus, .desktop, github-desktop-plus.png
+    # Всё из исходного .deb: бинарник, /usr/lib/github-desktop-plus, .desktop, github-desktop-plus.png
     # (раньше в files() попадали только иконки github-plus.png, не совпадающие с Icon= в .desktop)
     cp -a "${srcdir}/extracted/usr" "${pkgdir}/usr"
 

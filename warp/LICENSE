@@ -1,11 +1,17 @@
-Warp Terminal upstream licensing
+Сведения о лицензии пакета Warp
 
-Warp client source is published by warpdotdev under AGPL-3.0, with selected
-components under MIT.
+Лицензии: AGPL-3.0-only и MIT.
+Исходный проект: https://github.com/warpdotdev/warp
+Официальный сайт: https://warp.dev/
+Источник Linux-пакета: https://app.warp.dev/download?package=deb
 
-License references:
-- https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL
-- https://github.com/warpdotdev/warp/blob/master/LICENSE-MIT
+Нюансы пакета:
+- Пакет перепаковывает официальный Linux deb-артефакт Warp.
+- Открытая часть клиента Warp опубликована под AGPL-3.0, отдельные компоненты - под MIT.
+- Устанавливаемый бинарный артефакт может включать дополнительные компоненты исходного проекта и сервисную интеграцию.
+- Учетная запись, командные функции и сетевые сервисы Warp регулируются условиями Warp.
+- При распространении измененных версий открытых частей нужно учитывать требования AGPL-3.0.
 
-The packaged binary is downloaded from the official Warp Linux package URL:
-https://app.warp.dev/download?package=deb
+Официальные тексты лицензий:
+- https://www.gnu.org/licenses/agpl-3.0.txt
+- https://opensource.org/license/mit

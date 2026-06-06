@@ -1,6 +1,12 @@
-Proprietary License
+Сведения о лицензии пакета Happ
 
-Happ Desktop is proprietary software developed by FlyFrog LLC.
-All rights reserved.
+Лицензия: Custom.
+Официальный сайт: https://happ.su/
+Условия лицензии: https://happ.su/license
 
-For license details, visit: https://happ.su/license
+Нюансы пакета:
+- Пакет перепаковывает официальный deb-артефакт Happ Desktop для Linux.
+- Happ является проприетарным приложением FlyFrog LLC.
+- В составе приложения могут использоваться проприетарные компоненты и сетевые функции, связанные с xray-core/sing-box-сценариями.
+- Использование клиента, подписок и подключений регулируется условиями Happ и провайдера сервиса.
+- Пакет помечен как несвободный через `nonfree=1`.

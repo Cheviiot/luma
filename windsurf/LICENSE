@@ -1,9 +1,14 @@
-Windsurf Editor proprietary license
+Сведения о лицензии пакета Windsurf
 
-Windsurf Editor is proprietary software from Exafunction, Inc.
-The packaged binary is distributed under Windsurf's terms of service.
+Лицензия: Custom.
+Официальный сайт: https://windsurf.com/
+Условия для пользователей: https://windsurf.com/terms-of-service-individual
+Условия для команд: https://windsurf.com/terms-of-service-teams
+Лицензии открытых компонентов: https://windsurf.com/oss-licenses
 
-License references:
-- https://windsurf.com/terms-of-service-individual
-- https://windsurf.com/terms-of-service-teams
-- https://windsurf.com/oss-licenses
+Нюансы пакета:
+- Пакет перепаковывает официальный deb-артефакт Windsurf Editor для Linux.
+- Windsurf является проприетарным приложением Exafunction, Inc.
+- В составе приложения могут присутствовать открытые компоненты с отдельными лицензиями; исходный проект публикует список таких лицензий отдельно.
+- Использование редактора, учетной записи, сетевых функций и сервисной интеграции регулируется условиями Windsurf.
+- Пакет помечен как несвободный через `nonfree=1`.

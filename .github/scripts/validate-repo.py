@@ -256,6 +256,12 @@ def main() -> int:
         license_file = file.parent / "LICENSE"
         if not license_file.is_file():
             errors.append(f"{license_file.relative_to(ROOT)}: файл не найден")
+        else:
+            license_text = read_text(license_file)
+            if "Сведения о лицензии пакета" not in license_text:
+                errors.append(f"{license_file.relative_to(ROOT)}: должен содержать русское описание лицензии пакета")
+            if "Нюансы пакета:" not in license_text:
+                errors.append(f"{license_file.relative_to(ROOT)}: должен содержать раздел `Нюансы пакета:`")
 
         update_check = file.parent / ".stapler/update-check"
         if not executable(update_check):

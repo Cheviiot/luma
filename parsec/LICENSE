@@ -1,9 +1,17 @@
-Proprietary License
+Сведения о лицензии пакета Parsec
 
-Parsec is proprietary software distributed by Unity Technologies SF.
-The packaged binary is downloaded from the official Parsec Linux package URL:
-https://builds.parsec.app/package/parsec-linux.deb
+Лицензия: Custom.
+Официальная страница загрузки: https://parsec.app/downloads
+Источник Linux-пакета: https://builds.parsec.app/package/parsec-linux.deb
 
-Usage is subject to upstream terms and policies:
+Нюансы пакета:
+- Пакет перепаковывает официальный deb-артефакт Parsec для Linux.
+- Parsec является проприетарным приложением Unity Technologies SF.
+- Использование клиента, учетной записи, удаленного доступа и сетевых функций регулируется условиями Parsec/Unity.
+- Пакет устанавливает клиентский бинарник `/usr/bin/parsecd` и runtime-данные `/usr/share/parsec`; учетная запись и удаленные хосты в пакет не входят.
+- Для совместимости на ALT пакет явно требует `libjpeg8` и `libavcodec61`.
+- Пакет помечен как несвободный через `nonfree=1`.
+
+Справочные ссылки:
 - https://parsec.app/terms
 - https://unity.com/legal/privacy-policy

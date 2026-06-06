@@ -1,6 +1,6 @@
 name='codex-app'
 version='26.506.31421'
-release=5
+release=6
 summary='Unofficial Linux repack of the Codex desktop app'
 summary_ru='Неофициальная Linux-перепаковка десктопного приложения Codex'
 group='Development/Tools'
@@ -13,7 +13,7 @@ architectures=('amd64')
 
 license=('Custom')
 nonfree=1
-nonfree_msg='Codex App Linux is an unofficial repack of proprietary desktop application artifacts. Usage is subject to the applicable upstream service terms.'
+nonfree_msg='codex-app устанавливает неофициальную Linux-перепаковку проприетарного настольного приложения. Использование приложения и сетевых функций регулируется условиями исходного сервиса.'
 nonfree_url='https://github.com/Boria138/codex-app-linux'
 
 provides=('codex-app' 'codex')
@@ -180,7 +180,7 @@ asar_path.write_bytes(
 )
 PY
 
-    # Исправляем projectless workspace: upstream жестко создает ~/Documents/Codex,
+    # Исправляем projectless workspace: исходное приложение жестко создает ~/Documents/Codex,
     # игнорируя Electron documents path и XDG user dirs.
     python3 - "${pkgdir}/opt/codex-app/resources/codex.asar" <<'PY'
 import copy
