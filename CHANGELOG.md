@@ -1,3 +1,28 @@
+## 2026-06-06 13:21 VLAT
+
+### Изменено
+- Увеличен `release` у `parsec` до `2`, так как исправлены зависимости для установки на ALT без изменения upstream-версии `150-97c`.
+- В `parsec/Staplerfile` зависимость ALT `libavcodec` заменена на реальный пакет `libavcodec61`.
+
+### Добавлено
+- Нет.
+
+### Исправлено
+- Исправлена ошибка установки `parsec+stplr-luma`: `Depends: libavcodec но пакет не может быть установлен`.
+
+### Проверено
+- `apt-cache search '^libavcodec'` подтвердил наличие `libavcodec61` в ALT.
+- `rpm -q --whatprovides 'libavcodec.so.61()(64bit)'` подтвердил пакет `libavcodec61`.
+- `stplr build --clean` для `parsec`: пакет `parsec+stplr-default-150-97c-alt2.x86_64.rpm` собран успешно.
+- `rpm -qp --requires` подтвердил, что RPM теперь требует `libavcodec61`, а не `libavcodec`.
+- `rpm -q --whatprovides` подтвердил локальных провайдеров для всех ALT-зависимостей Parsec.
+- `apt-cache policy` подтвердил кандидатов в репозиториях ALT для всех ALT-зависимостей Parsec.
+- `.github/scripts/validate-repo.py`: проверено 17 пакетов.
+- `.github/scripts/package-update.sh check parsec`: локальная и upstream-версии совпадают, `150-97c 150-97c`.
+
+### Осталось
+- Нет.
+
 ## 2026-06-06 13:10 VLAT
 
 ### Изменено
