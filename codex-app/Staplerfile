@@ -1,6 +1,6 @@
 name='codex-app'
-version='26.506.31421'
-release=6
+version='26.608.12217'
+release=1
 summary='Unofficial Linux repack of the Codex desktop app'
 summary_ru='Неофициальная Linux-перепаковка десктопного приложения Codex'
 group='Development/Tools'
@@ -37,7 +37,7 @@ sources=(
 )
 
 checksums=(
-    '41c74bf9f40f7eacf6a393aff82eaccef689487c28e263b5e4c381a27667d62e'
+    'deedb7ae19e31e2ad35f2c74b752b1e190d4530b19abb426e6bf4c21d085973f'
     '5c4fe03d5777a9684e37ec9a2331302abf525f53db83762e6adaafd2fc5eb510'
 )
 
