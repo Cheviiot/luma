@@ -1,3 +1,27 @@
+## 2026-06-18 21:22 VLAT
+
+### Изменено
+- У `codex-app` увеличен `release` до `8`, так как исправлено runtime-поведение открытия файлового менеджера без изменения upstream-версии `26.611.62324`.
+
+### Добавлено
+- Нет.
+
+### Исправлено
+- Исправлено открытие пункта `File Manager` в `codex-app`: для файлов теперь используется `Electron shell.showItemInFolder`, для папок сначала пробуется `shell.openPath`, а при ошибке Electron/GIO выполняется fallback через `xdg-open`, `gio open`, `kde-open` или `exo-open`.
+- `linuxFileManagerDetect` снова возвращает реальный системный opener, если он найден, а `system-default` оставлен только последним fallback.
+
+### Проверено
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/codex-app/Staplerfile` успешно собрал `codex-app+stplr-default-26.611.62324-alt8.x86_64.rpm`.
+- Из собранного RPM извлечен `/opt/codex-app/resources/codex.asar`: подтверждены маркеры `linuxPathSearch(\`gio\`)`, `a.shell.showItemInFolder(n);return`, `await Do(s,e);return`; старая логика `function linuxFileManagerDetect(){return \`system-default\`}` и `let r=await a.shell.openPath(n);if(r)throw Error(r)` отсутствует.
+- `rpm -qp --provides` подтвердил короткие имена `codex-app` и `codex`.
+- `find ... | xargs bash -n` прошел успешно для `Staplerfile`, shell-скриптов и `.stapler/update-check`.
+- `python3 -m py_compile .github/scripts/validate-repo.py` и `.github/scripts/validate-repo.py` прошли успешно; валидатор проверил 12 пакетов.
+- `shellcheck` прошел успешно для shell-скриптов и `.stapler/update-check`.
+- `git diff --check` прошел успешно.
+
+### Осталось
+- Нет.
+
 ## 2026-06-18 20:50 VLAT
 
 ### Изменено

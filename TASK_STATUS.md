@@ -17,6 +17,11 @@ Completed items:
 - `adwyra+stplr-default-0.6.1-alt1.noarch.rpm` собран успешно.
 - Повторно проверено отсутствие файлового конфликта `adwyra` и `vual`.
 - Финальная валидация после обновления `adwyra` прошла успешно.
+- Подтверждено, что проблема `codex-app` осталась в action открытия `File Manager`: target есть, но Electron `shell.openPath` может возвращать ошибку `Failed to open object`.
+- `codex-app` обновлен до `26.611.62324-alt8` с fallback-открытием файлового менеджера через `xdg-open`, `gio open`, `kde-open` или `exo-open`.
+- Собран RPM `codex-app+stplr-default-26.611.62324-alt8.x86_64.rpm`.
+- Из собранного ASAR подтверждено наличие новой fallback-логики и отсутствие старой `shell.openPath`-only логики.
+- Финальная структурная валидация после исправления `codex-app` прошла успешно.
 
 Blocked items:
 - Нет.
@@ -34,6 +39,14 @@ Last checks:
 - `git diff --check`
 - `.github/scripts/package-update.sh check adwyra`
 - `.github/scripts/package-update.sh apply adwyra`
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/codex-app/Staplerfile`
+- `rpm -qp --provides codex-app+stplr-default-26.611.62324-alt8.x86_64.rpm`
+- `find ... | xargs bash -n`
+- `python3 -m py_compile .github/scripts/validate-repo.py`
+- `.github/scripts/validate-repo.py`
+- `shellcheck`
+- `git diff --check`
 
 Notes:
 - Нужно сохранить исправление лицензионного конфликта `adwyra` и `vual` после обновления `adwyra`.
+- Для применения на машине пользователя нужно запушить `codex-app` `26.611.62324-alt8`, иначе `stplr` продолжит ставить старый `alt7`.

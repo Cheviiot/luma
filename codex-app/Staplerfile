@@ -1,6 +1,6 @@
 name='codex-app'
 version='26.611.62324'
-release=7
+release=8
 summary='Unofficial Linux repack of the Codex desktop app'
 summary_ru='Неофициальная Linux-перепаковка десктопного приложения Codex'
 group='Development/Tools'
@@ -263,12 +263,12 @@ replacements = [
     (
         "linux file manager detect",
         "function linuxFileManagerDetect(){return linuxPathSearch(`xdg-open`)??linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)}",
-        "function linuxFileManagerDetect(){return `system-default`}",
+        "function linuxFileManagerDetect(){return linuxPathSearch(`xdg-open`)??linuxPathSearch(`gio`)??linuxPathSearch(`kde-open5`)??linuxPathSearch(`kde-open`)??linuxPathSearch(`exo-open`)??linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)??linuxResolveAbsoluteCommand(`/usr/bin/gio`)??`system-default`}",
     ),
     (
         "linux file manager open",
         "function linuxOpenFileManagerPath(e){let t=e;for(;;){if((0,o.existsSync)(t))break;let e=(0,i.dirname)(t);if(e===t){t=null;break}t=e}let n=t??e;if((0,o.existsSync)(n)&&(0,o.statSync)(n).isFile())n=(0,i.dirname)(n);return se(n)}",
-        "async function linuxOpenFileManagerPath(e){let t=e;for(;;){if((0,o.existsSync)(t))break;let e=(0,i.dirname)(t);if(e===t){t=null;break}t=e}let n=t??e;if((0,o.existsSync)(n)&&(0,o.statSync)(n).isFile())n=(0,i.dirname)(n);let r=await a.shell.openPath(n);if(r)throw Error(r)}",
+        "async function linuxOpenFileManagerPath(e){let t=e;for(;;){if((0,o.existsSync)(t))break;let e=(0,i.dirname)(t);if(e===t){t=null;break}t=e}let n=t??e;if((0,o.existsSync)(n)&&(0,o.statSync)(n).isFile()){a.shell.showItemInFolder(n);return}let r=await a.shell.openPath(n);if(!r)return;let s=linuxFileManagerDetect();if(s&&s!==`system-default`){let e=(0,i.basename)(s)===`gio`?[`open`,n]:[n];await Do(s,e);return}throw Error(r)}",
     ),
 ]
 
