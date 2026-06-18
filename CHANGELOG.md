@@ -1,3 +1,26 @@
+## 2026-06-18 19:56 VLAT
+
+### Изменено
+- У `codex-app` увеличен `release` до `5`, так как исправлен встроенный asset интерфейса без изменения upstream-версии `26.611.62324`.
+
+### Добавлено
+- Нет.
+
+### Исправлено
+- В `codex-app` заменен `webview/apps/file-explorer.png`: вместо Windows Explorer-style иконки теперь используется нейтральная Linux/GTK-папка для `Default app` и связанных fallback-сценариев открытия файлов.
+- В сборочный патч добавлена обязательная проверка замены иконки, чтобы при изменении структуры upstream ASAR сборка падала явно.
+
+### Проверено
+- `bash -n codex-app/Staplerfile` прошел успешно.
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/codex-app/Staplerfile` успешно собрал `codex-app+stplr-default-26.611.62324-alt5.x86_64.rpm`.
+- Из собранного RPM потоково проверен `/opt/codex-app/resources/codex.asar`: файл `webview/apps/file-explorer.png` имеет формат PNG 48x48, размер 1564 байта, SHA256 `6e738a6ba5a8f0ca4a4922ccc6e933125ba3f22cd21296b2adfe9b7ec7896c97`; integrity в ASAR совпадает.
+- `.github/scripts/package-update.sh check codex-app` вернул `26.611.62324 26.611.62324`.
+- `python3 -m py_compile .github/scripts/validate-repo.py` и `.github/scripts/validate-repo.py` прошли успешно; валидатор проверил 12 пакетов.
+- `git diff --check` прошел успешно.
+
+### Осталось
+- Нет.
+
 ## 2026-06-18 19:23 VLAT
 
 ### Изменено

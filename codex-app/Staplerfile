@@ -1,6 +1,6 @@
 name='codex-app'
 version='26.611.62324'
-release=4
+release=5
 summary='Unofficial Linux repack of the Codex desktop app'
 summary_ru='Неофициальная Linux-перепаковка десктопного приложения Codex'
 group='Development/Tools'
@@ -174,6 +174,7 @@ PY
     # игнорируя Electron documents path и XDG user dirs.
     python3 - "${pkgdir}/opt/codex-app/resources/codex.asar" <<'PY'
 import copy
+import base64
 import hashlib
 import json
 import re
@@ -263,6 +264,27 @@ replacements = [
 
 matched_replacements = []
 output = bytearray()
+
+linux_file_manager_icon = base64.b64decode(
+    "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"
+)
 
 linux_ui_fallback_keys = [
     (
@@ -383,6 +405,12 @@ def rebuild_node(node: dict, prefix: str = "") -> dict:
         size = int(entry["size"])
         content = data[base_offset + offset : base_offset + offset + size]
 
+        if path == "webview/apps/file-explorer.png":
+            content = linux_file_manager_icon
+            entry["size"] = len(content)
+            entry["integrity"] = integrity_for(content, entry.get("integrity", {}).get("blockSize", 4194304))
+            matched_replacements.append(f"linux file manager icon: {path}")
+
         text = None
         for label, old, new in replacements:
             old_bytes = old.encode("utf-8")
@@ -432,6 +460,7 @@ required_replacements = {
     "linux follow-up shortcut wording",
     "linux computer use prompt wording",
     "linux computer use tool wording",
+    "linux file manager icon",
 }
 matched_labels = {entry.split(":", 1)[0] for entry in matched_replacements}
 missing_replacements = sorted(required_replacements - matched_labels)
