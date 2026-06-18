@@ -1,6 +1,6 @@
 name='codex-app'
 version='26.611.62324'
-release=3
+release=4
 summary='Unofficial Linux repack of the Codex desktop app'
 summary_ru='Неофициальная Linux-перепаковка десктопного приложения Codex'
 group='Development/Tools'
@@ -176,6 +176,7 @@ PY
 import copy
 import hashlib
 import json
+import re
 import struct
 import sys
 from pathlib import Path
@@ -233,10 +234,77 @@ replacements = [
         "(0,h.jsx)(s,{reference:n(e),cwd:i,hostId:a},`${t}-file-${d}`)",
         "(0,h.jsx)(s,{reference:n(e),cwd:i,hostId:a,openInSidePanel:!0},`${t}-file-${d}`)",
     ),
+    (
+        "linux dock icon setting wording",
+        "description:`Preferred macOS Dock icon`",
+        "description:`Preferred Linux app icon`",
+    ),
+    (
+        "linux menu bar setting wording",
+        "description:`Whether the macOS menu bar is shown`",
+        "description:`Whether the app menu bar is shown`",
+    ),
+    (
+        "linux follow-up shortcut wording",
+        "Press Cmd/Ctrl+Shift+Enter to do the opposite for a single in-progress follow-up.",
+        "Press Ctrl+Shift+Enter to do the opposite for a single in-progress follow-up.",
+    ),
+    (
+        "linux computer use prompt wording",
+        "Control desktop apps on macOS through Computer Use.",
+        "Control Linux desktop apps through Computer Use.",
+    ),
+    (
+        "linux computer use tool wording",
+        "defaultMessage:`List Mac apps`",
+        "defaultMessage:`List PC apps`",
+    ),
 ]
 
 matched_replacements = []
 output = bytearray()
+
+linux_ui_fallback_keys = [
+    (
+        "codexMobile.setupDialog.connected.computerUse.description",
+        "codexMobile.setupDialog.connected.computerUse.description.windows",
+    ),
+    (
+        "codexMobile.setupDialog.connected.keepAwake.title",
+        "codexMobile.setupDialog.connected.keepAwake.title.windows",
+    ),
+    (
+        "codexMobile.setupDialog.connected.keepAwake.toggle",
+        "codexMobile.setupDialog.connected.keepAwake.toggle.windows",
+    ),
+    (
+        "codexMobile.setupDialog.initial.heading",
+        "codexMobile.setupDialog.initial.heading.windows",
+    ),
+    (
+        "codexMobile.setupDialog.initial.heading.desktop",
+        "codexMobile.setupDialog.initial.heading.windows",
+    ),
+    (
+        "codexMobile.setupDialog.initial.title.desktop",
+        "codexMobile.setupDialog.initial.title.windows",
+    ),
+    (
+        "codexMobile.setupDialog.waiting.heading.mac",
+        "codexMobile.setupDialog.waiting.heading.pc",
+    ),
+    (
+        "settings.remoteConnections.localHost.keepLive.label",
+        "settings.remoteConnections.localHost.keepLive.label.windows",
+    ),
+]
+
+linux_ui_pc_keys = [
+    "codexMobile.setupDialog.connected.lockedComputerUse.description",
+    "codexMobile.setupDialog.connected.lockedComputerUse.title",
+    "codexMobile.setupDialog.connected.lockedComputerUse.toggle",
+    "codex.mcpTool.computerUse.listMacApps",
+]
 
 
 def integrity_for(content: bytes, block_size: int = 4194304) -> dict:
@@ -252,6 +320,47 @@ def integrity_for(content: bytes, block_size: int = 4194304) -> dict:
         "blockSize": block_size,
         "blocks": blocks,
     }
+
+
+def replace_template_value(text: str, key: str, new_value: str) -> tuple[str, bool]:
+    pattern = re.compile(rf'("{re.escape(key)}":`)([^`]*)(`)')
+    match = pattern.search(text)
+    if not match or match.group(2) == new_value:
+        return text, False
+    return text[: match.start(2)] + new_value + text[match.end(2) :], True
+
+
+def template_value(text: str, key: str) -> str | None:
+    match = re.search(rf'"{re.escape(key)}":`([^`]*)`', text)
+    return None if match is None else match.group(1)
+
+
+def patch_linux_ui_text(path: str, text: str) -> tuple[str, list[str]]:
+    if not path.startswith("webview/assets/"):
+        return text, []
+
+    changes = []
+    for key, fallback_key in linux_ui_fallback_keys:
+        fallback_value = template_value(text, fallback_key)
+        if fallback_value is None:
+            continue
+        text, changed = replace_template_value(text, key, fallback_value)
+        if changed:
+            changes.append(f"linux ui windows fallback {key}: {path}")
+
+    for key in linux_ui_pc_keys:
+        value = template_value(text, key)
+        if value is None:
+            continue
+        pc_value = value.replace("Mac", "PC").replace("macOS", "Linux")
+        if "webview/assets/ru-RU-" in path:
+            pc_value = pc_value.replace("PC", "ПК")
+            pc_value = pc_value.replace("приложения ПК, пока он заблокирован", "приложения ПК, пока компьютер заблокирован")
+        text, changed = replace_template_value(text, key, pc_value)
+        if changed:
+            changes.append(f"linux ui pc wording {key}: {path}")
+
+    return text, changes
 
 
 def rebuild_node(node: dict, prefix: str = "") -> dict:
@@ -290,6 +399,20 @@ def rebuild_node(node: dict, prefix: str = "") -> dict:
             entry["integrity"] = integrity_for(content, entry.get("integrity", {}).get("blockSize", 4194304))
             matched_replacements.append(f"{label}: {path}")
 
+        if text is None and path.startswith("webview/assets/"):
+            try:
+                text = content.decode("utf-8")
+            except UnicodeDecodeError:
+                text = None
+
+        if text is not None:
+            text, linux_ui_changes = patch_linux_ui_text(path, text)
+            if linux_ui_changes:
+                content = text.encode("utf-8")
+                entry["size"] = len(content)
+                entry["integrity"] = integrity_for(content, entry.get("integrity", {}).get("blockSize", 4194304))
+                matched_replacements.extend(linux_ui_changes)
+
         entry["offset"] = str(len(output))
         output.extend(content)
         rebuilt[name] = entry
@@ -304,11 +427,20 @@ required_replacements = {
     "chat attachment opens in side panel",
     "markdown file link opens in side panel",
     "file mention opens in side panel",
+    "linux dock icon setting wording",
+    "linux menu bar setting wording",
+    "linux follow-up shortcut wording",
+    "linux computer use prompt wording",
+    "linux computer use tool wording",
 }
 matched_labels = {entry.split(":", 1)[0] for entry in matched_replacements}
 missing_replacements = sorted(required_replacements - matched_labels)
 if missing_replacements:
     raise SystemExit(f"file-link side panel patch was not applied: {', '.join(missing_replacements)}")
+if not any(entry.startswith("linux ui windows fallback ") for entry in matched_replacements):
+    raise SystemExit("linux UI locale windows fallback patch was not applied")
+if not any(entry.startswith("linux ui pc wording ") for entry in matched_replacements):
+    raise SystemExit("linux UI locale PC wording patch was not applied")
 
 header_bytes = json.dumps(rebuilt_header, separators=(",", ":")).encode("utf-8")
 header_padded_size = (len(header_bytes) + 3) & ~3

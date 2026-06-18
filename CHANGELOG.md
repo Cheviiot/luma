@@ -1,3 +1,28 @@
+## 2026-06-18 19:23 VLAT
+
+### Изменено
+- У `codex-app` увеличен `release` до `4`, так как исправлены Linux-формулировки интерфейса без изменения upstream-версии `26.611.62324`.
+
+### Добавлено
+- Нет.
+
+### Исправлено
+- В `codex-app` заменены видимые macOS/Mac-формулировки в базовых строках интерфейса: настройка Dock icon, настройка menu bar, подсказка `Cmd/Ctrl+Shift+Enter`, описание Computer Use и подпись инструмента списка приложений.
+- В webview-локалях `codex-app` активные Linux/desktop-ключи мобильного подключения и удаленного доступа теперь используют PC/Windows fallback-строки, если они есть.
+- В русской локали `codex-app` активные ключи мобильного подключения, удаленного доступа и Computer Use теперь используют `ПК`/`компьютер` вместо `Mac`.
+
+### Проверено
+- `bash -n codex-app/Staplerfile` прошел успешно.
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/codex-app/Staplerfile` успешно собрал `codex-app+stplr-default-26.611.62324-alt4.x86_64.rpm`.
+- Из собранного RPM потоково проверен `/opt/codex-app/resources/codex.asar`: присутствуют маркеры `Preferred Linux app icon`, `Whether the app menu bar is shown`, `Press Ctrl+Shift+Enter`, `Control Linux desktop apps through Computer Use`, `List PC apps`.
+- В `webview/assets/ru-RU-*.js` из собранного ASAR проверены активные ключи `codexMobile`, `settings.remoteConnections.localHost.keepLive.label` и `codex.mcpTool.computerUse.listMacApps`: значения больше не содержат `Mac` или `macOS`.
+- `.github/scripts/package-update.sh check codex-app` вернул `26.611.62324 26.611.62324`.
+- `python3 -m py_compile .github/scripts/validate-repo.py` и `.github/scripts/validate-repo.py` прошли успешно; валидатор проверил 12 пакетов.
+- `git diff --check` прошел успешно.
+
+### Осталось
+- Нет.
+
 ## 2026-06-18 19:13 VLAT
 
 ### Изменено
