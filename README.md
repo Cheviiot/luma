@@ -75,7 +75,7 @@ stplr upgrade
 
 | Приложение | Версия | Архитектуры | Первоисточник | Установка |
 |:--|:--:|:--:|:--|:--|
-| <img src=".github/assets/apps/codex-app.png" width="28" height="28" alt=""> [Codex App](./codex-app)<br><sub>Неофициальная Linux-перепаковка десктопного приложения Codex.</sub> | `26.608.12217` | `amd64` | [Boria138/codex-app-linux](https://github.com/Boria138/codex-app-linux) | `stplr install luma/codex-app` |
+| <img src=".github/assets/apps/codex-app.png" width="28" height="28" alt=""> [Codex App](./codex-app)<br><sub>Неофициальная Linux-перепаковка десктопного приложения Codex.</sub> | `26.611.62324` | `amd64` | [Boria138/codex-app-linux](https://github.com/Boria138/codex-app-linux) | `stplr install luma/codex-app` |
 | <img src=".github/assets/apps/github-plus.png" width="28" height="28" alt=""> [GitHub Desktop Plus](./github-plus)<br><sub>Форк GitHub Desktop с интеграцией Bitbucket и GitLab.</sub> | `3.5.13.0` | `amd64`, `arm64` | [pol-rivero/github-desktop-plus](https://github.com/pol-rivero/github-desktop-plus) | `stplr install luma/github-plus` |
 | <img src=".github/assets/apps/terax.png" width="28" height="28" alt=""> [Terax](./terax)<br><sub>AI-native эмулятор терминала на Tauri, Rust и React.</sub> | `0.8.0` | `amd64` | [terax.app](https://terax.app) | `stplr install luma/terax` |
 | <img src=".github/assets/apps/warp.png" width="28" height="28" alt=""> [Warp](./warp)<br><sub>Терминал на Rust для разработчиков и команд.</sub> | `0.2026.06.10.09.27.stable.01` | `amd64`, `arm64` | [warp.dev](https://warp.dev/) | `stplr install luma/warp` |
@@ -86,7 +86,7 @@ stplr upgrade
 | Приложение | Версия | Архитектуры | Первоисточник | Установка |
 |:--|:--:|:--:|:--|:--|
 | <img src=".github/assets/apps/adwyra.png" width="28" height="28" alt=""> [Adwyra](./adwyra)<br><sub>Минималистичный лаунчер приложений для GNOME.</sub> | `0.5.0` | `all` | [Cheviiot/Adwyra](https://github.com/Cheviiot/Adwyra) | `stplr install luma/adwyra` |
-| <img src=".github/assets/apps/hydralauncher.png" width="28" height="28" alt=""> [Hydra Launcher](./hydralauncher)<br><sub>Открытый игровой лаунчер со встроенной поддержкой BitTorrent.</sub> | `4.0.0` | `amd64` | [hydralauncher.app](https://hydralauncher.app/dl/) | `stplr install luma/hydralauncher` |
+| <img src=".github/assets/apps/hydralauncher.png" width="28" height="28" alt=""> [Hydra Launcher](./hydralauncher)<br><sub>Открытый игровой лаунчер со встроенной поддержкой BitTorrent.</sub> | `4.0.1` | `amd64` | [hydralauncher.app](https://hydralauncher.app/dl/) | `stplr install luma/hydralauncher` |
 | <img src=".github/assets/apps/modrinth-app.png" width="28" height="28" alt=""> [Modrinth App](./modrinth-app)<br><sub>Официальный лаунчер Modrinth для модов и модпаков Minecraft.</sub> | `0.14.6` | `amd64` | [modrinth.com/app](https://modrinth.com/app) | `stplr install luma/modrinth-app` |
 | <img src=".github/assets/apps/parsec.png" width="28" height="28" alt=""> [Parsec](./parsec)<br><sub>Удаленный рабочий стол и игровой стриминг с низкой задержкой.</sub> | `150-97c` | `amd64` | [parsec.app/downloads](https://parsec.app/downloads) | `stplr install luma/parsec` |
 | <img src=".github/assets/apps/pineconemc.svg" width="28" height="28" alt=""> [PineconeMC](./pineconemc)<br><sub>Форк Prism Launcher с поддержкой Ely.by и offline-аккаунтов.</sub> | `11.0.2` | `amd64`, `arm64` | [pineconemc.com](https://pineconemc.com/) | `stplr install luma/pineconemc` |
@@ -109,10 +109,10 @@ stplr upgrade
 |:--|:--|:--|:--:|:--|:--:|
 | `adwyra` | Рабочий стол | [Adwyra](https://github.com/Cheviiot/Adwyra) | `0.5.0` | `GPL-3.0-or-later` | `all` |
 | `clash-verge` | Сеть и VPN | [Clash Verge Rev](https://www.clashverge.dev) | `2.5.1` | `GPL-3.0-only` | `amd64`, `arm64` |
-| `codex-app` | Разработка | [Codex App Linux](https://github.com/Boria138/codex-app-linux) | `26.608.12217` | `Custom` | `amd64` |
+| `codex-app` | Разработка | [Codex App Linux](https://github.com/Boria138/codex-app-linux) | `26.611.62324` | `Custom` | `amd64` |
 | `github-plus` | Разработка | [GitHub Desktop Plus](https://github.com/pol-rivero/github-desktop-plus) | `3.5.13.0` | `MIT` | `amd64`, `arm64` |
 | `happ` | Сеть и VPN | [Happ](https://happ.su/) | `2.17.1` | `Custom` | `amd64`, `arm64` |
-| `hydralauncher` | Игры | [Hydra Launcher](https://hydralauncher.app/dl/) | `4.0.0` | `MIT` | `amd64` |
+| `hydralauncher` | Игры | [Hydra Launcher](https://hydralauncher.app/dl/) | `4.0.1` | `MIT` | `amd64` |
 | `modrinth-app` | Игры | [Modrinth App](https://modrinth.com/app) | `0.14.6` | `GPL-3.0-only` | `amd64` |
 | `netbird` | Сеть и VPN | [NetBird](https://netbird.io/) | `0.72.4` | `BSD-3-Clause`, `AGPL-3.0-only` | `amd64`, `arm64` |
 | `netbird-ui` | Сеть и VPN | [NetBird UI](https://netbird.io/) | `0.72.4` | `BSD-3-Clause`, `AGPL-3.0-only` | `amd64` |

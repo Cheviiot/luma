@@ -1,5 +1,5 @@
 name='codex-app'
-version='26.608.12217'
+version='26.611.62324'
 release=1
 summary='Unofficial Linux repack of the Codex desktop app'
 summary_ru='Неофициальная Linux-перепаковка десктопного приложения Codex'
@@ -37,7 +37,7 @@ sources=(
 )
 
 checksums=(
-    'deedb7ae19e31e2ad35f2c74b752b1e190d4530b19abb426e6bf4c21d085973f'
+    '7550823423373bd3a83f2957684cd92e4a5e7529cff99ca7f9383dc5f28f9794'
     '5c4fe03d5777a9684e37ec9a2331302abf525f53db83762e6adaafd2fc5eb510'
 )
 
@@ -213,9 +213,24 @@ replacements = [
         "function ew({desktopPaths:e,homeDir:t,platform:n}){return nw(t,e.getPath(`home`),n)?e.getPath(`documents`):rw(n).join(t,`Documents`)}",
         "function ew({desktopPaths:e,homeDir:t,platform:n}){let r=process.env.CODEX_APP_DOCUMENTS_DIR;return r&&r.trim()!==``?r:nw(t,e.getPath(`home`),n)?e.getPath(`documents`):rw(n).join(t,`Documents`)}",
     ),
+    (
+        "documentsDir fallback",
+        "function Sy({desktopPaths:e,homeDir:t,platform:n}){return wy(t,e.getPath(`home`),n)?e.getPath(`documents`):Ty(n).join(t,`Documents`)}",
+        "function Sy({desktopPaths:e,homeDir:t,platform:n}){let r=process.env.CODEX_APP_DOCUMENTS_DIR;return r&&r.trim()!==``?r:wy(t,e.getPath(`home`),n)?e.getPath(`documents`):Ty(n).join(t,`Documents`)}",
+    ),
+    (
+        "projectless workspace path",
+        "function Xb({homeDirectory:e,path:t}){return t.join(e,`Documents`,`Codex`)}",
+        "function Xb({homeDirectory:e,path:t}){return t.join(process.env.CODEX_APP_DOCUMENTS_DIR||t.join(e,`Documents`),`Codex`)}",
+    ),
+    (
+        "documentsDir fallback",
+        "function eE({desktopPaths:e,homeDir:t,platform:n}){return iE(t,e.getPath(`home`),n)?e.getPath(`documents`):aE(n).join(t,`Documents`)}",
+        "function eE({desktopPaths:e,homeDir:t,platform:n}){let r=process.env.CODEX_APP_DOCUMENTS_DIR;return r&&r.trim()!==``?r:iE(t,e.getPath(`home`),n)?e.getPath(`documents`):aE(n).join(t,`Documents`)}",
+    ),
 ]
 
-patched = False
+matched_replacements = []
 output = bytearray()
 
 
@@ -235,8 +250,6 @@ def integrity_for(content: bytes, block_size: int = 4194304) -> dict:
 
 
 def rebuild_node(node: dict, prefix: str = "") -> dict:
-    global patched
-
     rebuilt = {}
     for name, child in node.get("files", {}).items():
         path = f"{prefix}/{name}" if prefix else name
@@ -270,7 +283,7 @@ def rebuild_node(node: dict, prefix: str = "") -> dict:
             text = content.decode("utf-8")
             entry["size"] = len(content)
             entry["integrity"] = integrity_for(content, entry.get("integrity", {}).get("blockSize", 4194304))
-            patched = True
+            matched_replacements.append(f"{label}: {path}")
 
         entry["offset"] = str(len(output))
         output.extend(content)
@@ -280,17 +293,20 @@ def rebuild_node(node: dict, prefix: str = "") -> dict:
 
 
 rebuilt_header = {"files": rebuild_node(header)}
-if not patched:
+if not matched_replacements:
     raise SystemExit("projectless workspace/documents path was not patched in codex.asar")
 
 header_bytes = json.dumps(rebuilt_header, separators=(",", ":")).encode("utf-8")
 header_padded_size = (len(header_bytes) + 3) & ~3
-asar_path.write_bytes(
+patched_data = (
     struct.pack("<IIII", 4, header_padded_size + 8, header_padded_size + 4, len(header_bytes))
     + header_bytes
     + (b"\0" * (header_padded_size - len(header_bytes)))
     + bytes(output)
 )
+if b"CODEX_APP_DOCUMENTS_DIR" not in patched_data:
+    raise SystemExit("projectless workspace/documents env override is missing in patched codex.asar")
+asar_path.write_bytes(patched_data)
 PY
 
     chmod 755 "${pkgdir}/opt/codex-app/codex-app" 2>/dev/null || true
