@@ -1,0 +1,206 @@
+name='mindustry'
+version='158.1'
+release=1
+summary='Sandbox tower-defense and factory strategy game'
+summary_ru='Песочница, tower defense и фабричная стратегия'
+group='Games/Strategy'
+desc='Mindustry is an open source sandbox tower-defense game about building supply chains, defending bases and playing campaign or multiplayer maps.'
+desc_ru='Mindustry — открытая игра-песочница в жанре tower defense про производственные цепочки, защиту базы, кампанию и сетевые карты.'
+homepage='https://anuke.itch.io/mindustry'
+maintainer='Anuken <https://anuke.itch.io/>'
+
+architectures=('amd64')
+
+license=('GPL-3.0-only')
+
+provides=('mindustry')
+replaces=('mindustry')
+
+auto_reqprov_method="dirty"
+auto_req=0
+auto_prov=0
+
+deps=()
+
+build_deps=()
+build_deps_debian=('curl' 'python3' 'unzip')
+build_deps_ubuntu=("${build_deps_debian[@]}")
+build_deps_fedora=('curl' 'python3' 'unzip')
+build_deps_arch=('curl' 'python' 'unzip')
+build_deps_opensuse=('curl' 'python3' 'unzip')
+build_deps_altlinux=('curl' 'python3' 'unzip')
+
+itch_game_url='https://anuke.itch.io/mindustry'
+itch_upload_id='1615336'
+itch_zip_sha256='76610396623690669fbc1f5a8279ed0b3e4766e1cb22f5a2b00207f89c2297e5'
+
+sources=(
+    "local:///mindustry.png"
+    "local:///LICENSE"
+)
+
+checksums=(
+    'fa08765cf04131956a26b4bb05d0e44ba19b40fc1ba3033d399676040b8b22a3'
+    '843bbd538fee85ac2b5ccae62e079f2ac48fb05683988f34eb48382c37a90efa'
+)
+
+scripts=(
+    ['postinstall']='postinstall.sh'
+    ['postremove']='postremove.sh'
+)
+
+prepare() {
+    cd "${srcdir}"
+
+    tmp="$(mktemp -d)"
+    csrf=''
+    download_page_url=''
+    file_url=''
+    user_agent='Mozilla/5.0'
+
+    curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 30 --max-time 120 \
+        -fsSL -A "${user_agent}" -c "${tmp}/cookies" -b "${tmp}/cookies" \
+        -o "${tmp}/purchase.html" "${itch_game_url}/purchase"
+
+    csrf="$(
+        python3 - "${tmp}/purchase.html" <<'PY'
+from pathlib import Path
+import re
+import sys
+
+text = Path(sys.argv[1]).read_text(errors="ignore")
+match = re.search(r'<meta name="csrf_token" value="([^"]+)"', text)
+if not match:
+    raise SystemExit("CSRF token was not found on itch.io purchase page")
+print(match.group(1))
+PY
+    )"
+
+    curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 30 --max-time 120 \
+        -fsSL -A "${user_agent}" -c "${tmp}/cookies" -b "${tmp}/cookies" \
+        -H "Referer: ${itch_game_url}/purchase" \
+        -H "X-Requested-With: XMLHttpRequest" \
+        --data-urlencode "csrf_token=${csrf}" \
+        -o "${tmp}/download-url.json" "${itch_game_url}/download_url"
+
+    download_page_url="$(
+        python3 - "${tmp}/download-url.json" <<'PY'
+import json
+import sys
+
+with open(sys.argv[1], encoding="utf-8") as fh:
+    data = json.load(fh)
+url = data.get("url")
+if not url:
+    raise SystemExit("itch.io did not return a download page URL")
+print(url)
+PY
+    )"
+
+    curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 30 --max-time 120 \
+        -fsSL -A "${user_agent}" -c "${tmp}/cookies" -b "${tmp}/cookies" \
+        -o "${tmp}/download.html" "${download_page_url}"
+
+    python3 - "${tmp}/download.html" "${version}" "${itch_upload_id}" <<'PY'
+from pathlib import Path
+import re
+import sys
+
+text = Path(sys.argv[1]).read_text(errors="ignore")
+version = sys.argv[2]
+upload_id = sys.argv[3]
+pattern = (
+    r'data-upload_id="' + re.escape(upload_id) + r'".*?'
+    r'\[Linux-64bit\]Mindustry\.zip.*?'
+    r'Version\s+' + re.escape(version)
+)
+if not re.search(pattern, text, re.S):
+    raise SystemExit("expected itch.io Linux build was not found")
+PY
+
+    csrf="$(
+        python3 - "${tmp}/download.html" <<'PY'
+from pathlib import Path
+import re
+import sys
+
+text = Path(sys.argv[1]).read_text(errors="ignore")
+match = re.search(r'<meta name="csrf_token" value="([^"]+)"', text)
+if not match:
+    raise SystemExit("CSRF token was not found on itch.io download page")
+print(match.group(1))
+PY
+    )"
+
+    curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 30 --max-time 120 \
+        -fsSL -A "${user_agent}" -c "${tmp}/cookies" -b "${tmp}/cookies" \
+        -H "Referer: ${download_page_url}" \
+        -H "X-Requested-With: XMLHttpRequest" \
+        --data-urlencode "csrf_token=${csrf}" \
+        -o "${tmp}/file-url.json" \
+        "${itch_game_url}/file/${itch_upload_id}?source=game_download"
+
+    file_url="$(
+        python3 - "${tmp}/file-url.json" <<'PY'
+import json
+import sys
+
+with open(sys.argv[1], encoding="utf-8") as fh:
+    data = json.load(fh)
+url = data.get("url")
+if not url:
+    raise SystemExit("itch.io did not return a file URL")
+print(url)
+PY
+    )"
+
+    curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 30 --max-time 300 \
+        -fsSL -A "${user_agent}" -o mindustry-linux.zip "${file_url}"
+
+    printf '%s  %s\n' "${itch_zip_sha256}" mindustry-linux.zip | sha256sum -c -
+    rm -rf mindustry-linux
+    mkdir -p mindustry-linux
+    unzip -q mindustry-linux.zip -d mindustry-linux
+    rm -rf "${tmp}"
+}
+
+package() {
+    cd "${srcdir}"
+
+    install -dm755 "${pkgdir}/opt/mindustry"
+    cp -a mindustry-linux/. "${pkgdir}/opt/mindustry/"
+    chmod 755 "${pkgdir}/opt/mindustry/Mindustry" "${pkgdir}/opt/mindustry/jre/bin/java"
+
+    install -Dm755 /dev/stdin "${pkgdir}/usr/bin/mindustry" <<'EOF'
+#!/bin/bash
+set -e
+cd /opt/mindustry
+exec ./Mindustry "$@"
+EOF
+
+    install -Dm644 mindustry.png \
+        "${pkgdir}/usr/share/icons/hicolor/64x64/apps/mindustry.png"
+    install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/mindustry/LICENSE.luma"
+
+    install -Dm644 /dev/stdin "${pkgdir}/usr/share/applications/mindustry.desktop" <<'EOF'
+[Desktop Entry]
+Name=Mindustry
+Comment=Sandbox tower-defense and factory strategy game
+Comment[ru]=Песочница, tower defense и фабричная стратегия
+Exec=mindustry
+Terminal=false
+Type=Application
+Icon=mindustry
+Categories=Game;StrategyGame;
+StartupNotify=true
+EOF
+}
+
+files() {
+    files-find-binary
+    files-find-desktop
+    files-find-license
+    files-find \
+        "/opt/mindustry/**/*" \
+        "/usr/share/icons/hicolor/64x64/apps/mindustry.png"
+}

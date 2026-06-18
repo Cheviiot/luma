@@ -10,6 +10,7 @@ PACKAGES=(
     github-plus
     happ
     hydralauncher
+    mindustry
     modrinth-app
     netbird
     netbird-ui
@@ -129,6 +130,77 @@ latest_parsec() {
     deb_control_field "https://builds.parsec.app/package/parsec-linux.deb" Version
 }
 
+latest_mindustry() (
+    local tmp csrf download_page_url version
+
+    tmp="$(mktemp -d)"
+    trap 'rm -rf "$tmp"' EXIT
+
+    curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 30 --max-time 120 \
+        -fsSL -A "Mozilla/5.0" -c "${tmp}/cookies" -b "${tmp}/cookies" \
+        -o "${tmp}/purchase.html" "https://anuke.itch.io/mindustry/purchase"
+
+    csrf="$(
+        python3 - "${tmp}/purchase.html" <<'PY'
+from pathlib import Path
+import re
+import sys
+
+text = Path(sys.argv[1]).read_text(errors="ignore")
+match = re.search(r'<meta name="csrf_token" value="([^"]+)"', text)
+if not match:
+    raise SystemExit("cannot find itch.io CSRF token")
+print(match.group(1))
+PY
+    )"
+
+    curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 30 --max-time 120 \
+        -fsSL -A "Mozilla/5.0" -c "${tmp}/cookies" -b "${tmp}/cookies" \
+        -H "Referer: https://anuke.itch.io/mindustry/purchase" \
+        -H "X-Requested-With: XMLHttpRequest" \
+        --data-urlencode "csrf_token=${csrf}" \
+        -o "${tmp}/download-url.json" "https://anuke.itch.io/mindustry/download_url"
+
+    download_page_url="$(
+        python3 - "${tmp}/download-url.json" <<'PY'
+import json
+import sys
+
+with open(sys.argv[1], encoding="utf-8") as fh:
+    data = json.load(fh)
+url = data.get("url")
+if not url:
+    raise SystemExit("itch.io did not return a download page URL")
+print(url)
+PY
+    )"
+
+    curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 30 --max-time 120 \
+        -fsSL -A "Mozilla/5.0" -c "${tmp}/cookies" -b "${tmp}/cookies" \
+        -o "${tmp}/download.html" "${download_page_url}"
+
+    version="$(
+        python3 - "${tmp}/download.html" <<'PY'
+from pathlib import Path
+import re
+import sys
+
+text = Path(sys.argv[1]).read_text(errors="ignore")
+match = re.search(
+    r'data-upload_id="1615336".*?\[Linux-64bit\]Mindustry\.zip.*?Version\s+([^<\s]+)',
+    text,
+    re.S,
+)
+if not match:
+    raise SystemExit("cannot determine latest Mindustry Linux version from itch.io")
+print(match.group(1))
+PY
+    )"
+
+    [[ -n "$version" ]] || die "cannot determine latest Mindustry version"
+    echo "$version"
+)
+
 latest_windsurf() {
     local packages version
 
@@ -226,6 +298,7 @@ latest_version() {
     github-plus) github_latest_release "pol-rivero/github-desktop-plus" ;;
     happ) github_latest_release "Happ-proxy/happ-desktop" ;;
     hydralauncher) github_latest_release "hydralauncher/hydra" ;;
+    mindustry) latest_mindustry ;;
     modrinth-app) github_latest_release "modrinth/code" ;;
     netbird) github_latest_release "netbirdio/netbird" ;;
     netbird-ui) github_latest_release "netbirdio/netbird" ;;

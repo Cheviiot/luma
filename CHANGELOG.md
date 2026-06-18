@@ -1,3 +1,26 @@
+## 2026-06-18 18:33 VLAT
+
+### Изменено
+- `README.md` обновлен под 19 пакетов: Mindustry добавлен в каталог игр и полную сводку.
+- `.github/scripts/package-update.sh` подключен к странице загрузки itch.io и проверяет версию Linux-архива `[Linux-64bit]Mindustry.zip`.
+
+### Добавлено
+- Добавлен пакет `mindustry` версии `158.1` для архитектуры `amd64`.
+- Добавлены `mindustry/Staplerfile`, `stapler-repo.toml`, `.stapler/update-check`, `postinstall.sh`, `postremove.sh`, `LICENSE` и PNG-иконка.
+- Пакет скачивает официальный Linux-архив itch.io через публичный download-flow, проверяет SHA256, устанавливает `/opt/mindustry`, wrapper `/usr/bin/mindustry`, desktop-файл, hicolor-иконку и лицензионные заметки.
+
+### Исправлено
+- Нет.
+
+### Проверено
+- Официальная страница itch.io проверена: Linux upload `1615336` содержит `[Linux-64bit]Mindustry.zip` версии `158.1`.
+- SHA256 для Linux zip itch.io и иконки `icon_64.png` рассчитаны по фактически скачанным источникам.
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/mindustry/Staplerfile` успешно собрал RPM; в пакете 70 файлов, включая `/opt/mindustry/Mindustry`, встроенную JRE, desktop-файл, иконку и лицензионные заметки.
+- `.github/scripts/package-update.sh check mindustry` вернул `158.1 158.1`; `.github/scripts/validate-repo.py` проверил 19 пакетов.
+
+### Осталось
+- Нет.
+
 ## 2026-06-18 17:54 VLAT
 
 ### Изменено
