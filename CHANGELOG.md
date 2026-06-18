@@ -1,3 +1,26 @@
+## 2026-06-18 19:59 VLAT
+
+### Изменено
+- У `codex-app` увеличен `release` до `6`, так как исправлена доступность Linux target для меню открытия файлов без изменения upstream-версии `26.611.62324`.
+
+### Добавлено
+- Для `codex-app` добавлен Linux-вариант `fileManager` target с подписью `File Manager`, нейтральной Linux-иконкой папки и открытием через системный обработчик Electron.
+
+### Исправлено
+- Исправлен пустой выпадающий список у кнопки `Open in default app` в открытом проекте: на Linux теперь есть доступный пункт `File Manager`, даже если сторонние IDE не обнаружены.
+
+### Проверено
+- `bash -n codex-app/Staplerfile` прошел успешно.
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/codex-app/Staplerfile` успешно собрал `codex-app+stplr-default-26.611.62324-alt6.x86_64.rpm`.
+- Из собранного RPM потоково проверен `/opt/codex-app/resources/codex.asar`: в `.vite/build/main-DLo8G5hp.js` присутствует `linux:{label:\`File Manager\`,icon:\`apps/file-explorer.png\`,detect:()=>\`system-default\`,args:e=>To(e),open:async({path:e})=>HA(e)}`, а старая запись `fileManager` без Linux-ветки отсутствует.
+- Повторно проверена встроенная иконка `webview/apps/file-explorer.png`: SHA256 `6e738a6ba5a8f0ca4a4922ccc6e933125ba3f22cd21296b2adfe9b7ec7896c97`, integrity в ASAR совпадает.
+- `.github/scripts/package-update.sh check codex-app` вернул `26.611.62324 26.611.62324`.
+- `python3 -m py_compile .github/scripts/validate-repo.py` и `.github/scripts/validate-repo.py` прошли успешно; валидатор проверил 12 пакетов.
+- `git diff --check` прошел успешно.
+
+### Осталось
+- Нет.
+
 ## 2026-06-18 19:56 VLAT
 
 ### Изменено

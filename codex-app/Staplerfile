@@ -1,6 +1,6 @@
 name='codex-app'
 version='26.611.62324'
-release=5
+release=6
 summary='Unofficial Linux repack of the Codex desktop app'
 summary_ru='Неофициальная Linux-перепаковка десктопного приложения Codex'
 group='Development/Tools'
@@ -260,6 +260,11 @@ replacements = [
         "defaultMessage:`List Mac apps`",
         "defaultMessage:`List PC apps`",
     ),
+    (
+        "linux file manager target",
+        "BA=sA({id:`fileManager`,label:`Finder`,icon:`apps/finder.png`,kind:`fileManager`,darwin:{detect:()=>`open`,args:e=>To(e)},win32:{label:`File Explorer`,icon:`apps/file-explorer.png`,detect:VA,args:e=>To(e),open:async({path:e})=>HA(e)}})",
+        "BA=sA({id:`fileManager`,label:`Finder`,icon:`apps/finder.png`,kind:`fileManager`,darwin:{detect:()=>`open`,args:e=>To(e)},win32:{label:`File Explorer`,icon:`apps/file-explorer.png`,detect:VA,args:e=>To(e),open:async({path:e})=>HA(e)},linux:{label:`File Manager`,icon:`apps/file-explorer.png`,detect:()=>`system-default`,args:e=>To(e),open:async({path:e})=>HA(e)}})",
+    ),
 ]
 
 matched_replacements = []
@@ -460,6 +465,7 @@ required_replacements = {
     "linux follow-up shortcut wording",
     "linux computer use prompt wording",
     "linux computer use tool wording",
+    "linux file manager target",
     "linux file manager icon",
 }
 matched_labels = {entry.split(":", 1)[0] for entry in matched_replacements}
