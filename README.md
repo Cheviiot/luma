@@ -81,7 +81,7 @@ stplr upgrade
 
 | Приложение | Версия | Архитектуры | Первоисточник | Установка |
 |:--|:--:|:--:|:--|:--|
-| <img src=".github/assets/apps/adwyra.png" width="28" height="28" alt=""> [Adwyra](./adwyra)<br><sub>Минималистичный лаунчер приложений для GNOME.</sub> | `0.5.0` | `all` | [Cheviiot/Adwyra](https://github.com/Cheviiot/Adwyra) | `stplr install luma/adwyra` |
+| <img src=".github/assets/apps/adwyra.png" width="28" height="28" alt=""> [Adwyra](./adwyra)<br><sub>Минималистичный лаунчер приложений для GNOME.</sub> | `0.6.1` | `all` | [Cheviiot/Adwyra](https://github.com/Cheviiot/Adwyra) | `stplr install luma/adwyra` |
 | <img src=".github/assets/apps/mindustry.png" width="28" height="28" alt=""> [Mindustry](./mindustry)<br><sub>Песочница, tower defense и фабричная стратегия.</sub> | `158.1` | `amd64` | [anuke.itch.io/mindustry](https://anuke.itch.io/mindustry) | `stplr install luma/mindustry` |
 | <img src=".github/assets/apps/parsec.png" width="28" height="28" alt=""> [Parsec](./parsec)<br><sub>Удаленный рабочий стол и игровой стриминг с низкой задержкой.</sub> | `150-97c` | `amd64` | [parsec.app/downloads](https://parsec.app/downloads) | `stplr install luma/parsec` |
 | <img src=".github/assets/apps/pineconemc.svg" width="28" height="28" alt=""> [PineconeMC](./pineconemc)<br><sub>Форк Prism Launcher с поддержкой Ely.by и offline-аккаунтов.</sub> | `11.0.2` | `amd64`, `arm64` | [pineconemc.com](https://pineconemc.com/) | `stplr install luma/pineconemc` |
@@ -101,7 +101,7 @@ stplr upgrade
 
 | Пакет | Категория | Upstream | Версия | Лицензия | Архитектуры |
 |:--|:--|:--|:--:|:--|:--:|
-| `adwyra` | Рабочий стол | [Adwyra](https://github.com/Cheviiot/Adwyra) | `0.5.0` | `GPL-3.0-or-later` | `all` |
+| `adwyra` | Рабочий стол | [Adwyra](https://github.com/Cheviiot/Adwyra) | `0.6.1` | `GPL-3.0-or-later` | `all` |
 | `clash-verge` | Сеть и VPN | [Clash Verge Rev](https://www.clashverge.dev) | `2.5.1` | `GPL-3.0-only` | `amd64`, `arm64` |
 | `codex-app` | Разработка | [Codex App Linux](https://github.com/Boria138/codex-app-linux) | `26.611.62324` | `Custom` | `amd64` |
 | `github-plus` | Разработка | [GitHub Desktop Plus](https://github.com/pol-rivero/github-desktop-plus) | `3.5.13.0` | `MIT` | `amd64`, `arm64` |

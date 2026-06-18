@@ -1,6 +1,6 @@
 name='vual'
 version='0.3.1'
-release=2
+release=3
 summary='Launch Cheat Engine for Steam games through Proton'
 summary_ru='Запуск Cheat Engine для Steam-игр через Proton'
 group='Games'
@@ -116,16 +116,16 @@ package() {
         "${pkgdir}/usr/share/metainfo/io.github.vual.metainfo.xml"
 
     # Лицензия
-    install-license "${src}/LICENSE"
+    install -Dm644 "${src}/LICENSE" "${pkgdir}/usr/share/licenses/vual/LICENSE"
 }
 
 files() {
     files-find-binary
     files-find-desktop
-    files-find-license
     files-find \
         "/usr/lib/vual/vual/**/*" \
         "/usr/lib/vual/po/**/*" \
         "/usr/share/icons/hicolor/*/apps/io.github.vual.png" \
+        "/usr/share/licenses/vual/LICENSE" \
         "/usr/share/metainfo/io.github.vual.metainfo.xml"
 }

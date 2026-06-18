@@ -1,6 +1,6 @@
 name='adwyra'
-version='0.5.0'
-release=2
+version='0.6.1'
+release=1
 summary='Minimal GNOME application launcher'
 summary_ru='Минималистичный лаунчер приложений для GNOME'
 desc='Adwyra is a compact GTK 4/libadwaita application launcher for GNOME with an application grid, search, folders, pinned apps, drag-and-drop ordering, themes, hotkeys and plugin support.'
@@ -69,7 +69,7 @@ sources=(
     "https://github.com/Cheviiot/adwyra/archive/refs/tags/v${version}.tar.gz"
 )
 checksums=(
-    'fc4f7e26a95a1bf8cfab60856099ebbf2318b5f926241aaf3119ac5a2494da3f'
+    '4acb67460a6d302d5c60c369fe68e616baff2aeafb760c421cb65a54dc8df39a'
 )
 
 # AppStream
@@ -105,15 +105,15 @@ package() {
         "${pkgdir}/usr/share/metainfo/com.github.adwyra.metainfo.xml"
 
     # Лицензия
-    install-license "${src}/LICENSE"
+    install -Dm644 "${src}/LICENSE" "${pkgdir}/usr/share/licenses/adwyra/LICENSE"
 }
 
 files() {
     files-find-binary
     files-find-desktop
-    files-find-license
     files-find \
         "/usr/lib/adwyra/adwyra/**/*" \
         "/usr/share/icons/hicolor/*/apps/com.github.adwyra.png" \
+        "/usr/share/licenses/adwyra/LICENSE" \
         "/usr/share/metainfo/com.github.adwyra.metainfo.xml"
 }

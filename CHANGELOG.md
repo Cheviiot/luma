@@ -1,3 +1,33 @@
+## 2026-06-18 20:50 VLAT
+
+### Изменено
+- `adwyra` обновлен с `0.5.0` до `0.6.1`; `release` сброшен до `1`, контрольная сумма источника пересчитана.
+- У `vual` увеличен `release` до `3`, так как изменен файловый состав пакета без изменения upstream-версии `0.3.1`.
+
+### Добавлено
+- Нет.
+
+### Исправлено
+- Исправлен файловый конфликт `adwyra` и `vual`: оба пакета больше не устанавливают общий файл `/usr/share/licenses/LICENSE`.
+- Лицензия `adwyra` теперь устанавливается в `/usr/share/licenses/adwyra/LICENSE`.
+- Лицензия `vual` теперь устанавливается в `/usr/share/licenses/vual/LICENSE`.
+
+### Проверено
+- `.github/scripts/package-update.sh check adwyra` вернул `0.5.0 0.6.1` перед обновлением.
+- `.github/scripts/package-update.sh apply adwyra` обновил `Staplerfile`, README и checksum.
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/adwyra/Staplerfile` успешно собрал `adwyra+stplr-default-0.6.1-alt1.noarch.rpm`.
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/vual/Staplerfile` успешно собрал `vual+stplr-default-0.3.1-alt3.noarch.rpm`.
+- `comm -12` по спискам файлов собранных RPM не нашел общих путей.
+- `rpm -qpl` подтвердил раздельные каталоги лицензий `/usr/share/licenses/adwyra/LICENSE` и `/usr/share/licenses/vual/LICENSE`.
+- `.github/scripts/package-update.sh check-all` с `GITHUB_TOKEN` подтвердил, что все 12 пакетов из автообновлятора актуальны; во время проверки были сетевые retry/timeout от `curl`, но итоговые версии получены.
+- `find ... | xargs bash -n` прошел успешно для `Staplerfile`, shell-скриптов и `.stapler/update-check`.
+- `python3 -m py_compile .github/scripts/validate-repo.py` и `.github/scripts/validate-repo.py` прошли успешно; валидатор проверил 12 пакетов.
+- `shellcheck` прошел успешно для shell-скриптов и `.stapler/update-check`.
+- `git diff --check` прошел успешно.
+
+### Осталось
+- Нет.
+
 ## 2026-06-18 20:23 VLAT
 
 ### Изменено
