@@ -1,6 +1,6 @@
 name='codex-app'
 version='26.611.62324'
-release=1
+release=2
 summary='Unofficial Linux repack of the Codex desktop app'
 summary_ru='Неофициальная Linux-перепаковка десктопного приложения Codex'
 group='Development/Tools'
@@ -55,7 +55,8 @@ package() {
     install -dm755 "${pkgdir}/opt/codex-app"
     cp -a "${src}/." "${pkgdir}/opt/codex-app/"
 
-    # Отключаем стандартное меню Electron на Linux/Windows до загрузки основного codex.asar.
+    # Прячем нативную строку меню окна, но оставляем application menu доступным
+    # для встроенного меню File/Edit/View/Help нового интерфейса.
     python3 - "${pkgdir}/opt/codex-app/resources/app.asar" "${version}" <<'PY'
 import hashlib
 import json
@@ -72,7 +73,7 @@ const os = require("os");
 const path = require("path");
 const electron = require("electron");
 
-const { app, Menu } = electron;
+const { app } = electron;
 
 function firstExistingDirectory(paths) {
   for (const candidate of paths) {
@@ -106,29 +107,18 @@ function configureLocalizedDocumentsPath() {
   } catch {}
 }
 
-function disableNativeMenus() {
-  const setNullMenu = () => {
-    try {
-      Menu.setApplicationMenu(null);
-    } catch {}
-  };
-
-  const originalSetApplicationMenu = Menu.setApplicationMenu.bind(Menu);
-  Menu.setApplicationMenu = () => originalSetApplicationMenu(null);
-
+function hideNativeMenuBars() {
   app.on("browser-window-created", (_event, window) => {
     try {
-      window.setMenu(null);
+      window.setAutoHideMenuBar(true);
     } catch {}
     try {
       window.setMenuBarVisibility(false);
     } catch {}
   });
-
-  setNullMenu();
 }
 
-disableNativeMenus();
+hideNativeMenuBars();
 configureLocalizedDocumentsPath();
 
 process.env.ELECTRON_FORCE_IS_PACKAGED = "1";
