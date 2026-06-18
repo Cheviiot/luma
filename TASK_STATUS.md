@@ -22,6 +22,14 @@ Completed items:
 - Собран RPM `codex-app+stplr-default-26.611.62324-alt8.x86_64.rpm`.
 - Из собранного ASAR подтверждено наличие новой fallback-логики и отсутствие старой `shell.openPath`-only логики.
 - Финальная структурная валидация после исправления `codex-app` прошла успешно.
+- Найден официальный Linux deb Devolutions RDM `RemoteDesktopManager_2026.2.0.7_amd64.deb`.
+- Deb разобран: команда `remotedesktopmanager`, desktop id `com.devolutions.remotedesktopmanager`, AppStream и MIME XML присутствуют.
+- Добавлен пакет `remote-desktop-manager` с aliases `remotedesktopmanager`, `devolutions-rdm`, `rdm`.
+- `remote-desktop-manager/.stapler/update-check` вернул `2026.2.0.7 2026.2.0.7`.
+- Собран RPM `remote-desktop-manager+stplr-default-2026.2.0.7-alt1.x86_64.rpm`.
+- Проверены provides, requires, desktop-файл, AppStream metadata и MIME XML.
+- Финальная структурная валидация после добавления `remote-desktop-manager` прошла успешно.
+- `.github/scripts/package-update.sh check-all` подтвердил актуальность `remote-desktop-manager`, но отдельно нашел обновления `github-plus 3.5.13.1` и `netbird 0.73.0`.
 
 Blocked items:
 - Нет.
@@ -37,6 +45,17 @@ Last checks:
 - `.github/scripts/validate-repo.py`
 - `shellcheck`
 - `git diff --check`
+- `remote-desktop-manager/.stapler/update-check`
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/remote-desktop-manager/Staplerfile`
+- `rpm -qp --provides remote-desktop-manager+stplr-default-2026.2.0.7-alt1.x86_64.rpm`
+- `rpm -qpl remote-desktop-manager+stplr-default-2026.2.0.7-alt1.x86_64.rpm`
+- `desktop-file-validate`
+- `find ... | xargs bash -n`
+- `python3 -m py_compile .github/scripts/validate-repo.py`
+- `.github/scripts/validate-repo.py`
+- `shellcheck`
+- `git diff --check`
+- `.github/scripts/package-update.sh check-all`
 - `.github/scripts/package-update.sh check adwyra`
 - `.github/scripts/package-update.sh apply adwyra`
 - `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/codex-app/Staplerfile`
@@ -50,3 +69,5 @@ Last checks:
 Notes:
 - Нужно сохранить исправление лицензионного конфликта `adwyra` и `vual` после обновления `adwyra`.
 - Для применения на машине пользователя нужно запушить `codex-app` `26.611.62324-alt8`, иначе `stplr` продолжит ставить старый `alt7`.
+- Для нового пакета нужно добавить `Staplerfile`, служебные файлы, README, автообновлятор, changelog и пройти сборку.
+- Обновления `github-plus` и `netbird`, найденные `check-all`, не входят в текущую итерацию добавления RDM.

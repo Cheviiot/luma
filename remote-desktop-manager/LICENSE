@@ -1,0 +1,18 @@
+Сведения о лицензии пакета Devolutions Remote Desktop Manager
+
+Лицензия: Custom.
+Официальная страница загрузки: https://devolutions.net/remote-desktop-manager/download/
+Источник Linux-пакета: https://cdn.devolutions.net/download/Linux/RDM/
+
+Нюансы пакета:
+- Пакет перепаковывает официальный deb-артефакт Devolutions Remote Desktop Manager для Linux.
+- Devolutions Remote Desktop Manager является проприетарным приложением Devolutions.
+- Использование клиента, учетной записи, облачных функций, серверных интеграций, командных функций и лицензий регулируется условиями Devolutions.
+- Пакет устанавливает клиент `/usr/bin/remotedesktopmanager`, runtime-файлы `/usr/lib/devolutions/RemoteDesktopManager`, desktop-файл, AppStream metadata и MIME-обработчики `rdm`, `pvm`, `rdd`, `rdp`.
+- Для хранения секретов и запуска встроенных веб-компонентов требуются системные службы WebKitGTK, Secret Service/gnome-keyring и XWayland.
+- Пакет помечен как несвободный через `nonfree=1`.
+
+Справочные ссылки:
+- https://devolutions.net/legal/software-license-agreements
+- https://devolutions.net/privacy-policy/
+- https://devolutions.net/remote-desktop-manager/

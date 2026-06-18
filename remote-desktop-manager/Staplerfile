@@ -1,0 +1,89 @@
+name='remote-desktop-manager'
+version='2026.2.0.7'
+release=1
+summary='Remote connection and credential management platform'
+summary_ru='Платформа управления удаленными подключениями и учетными данными'
+group='Networking/Remote access'
+desc='Devolutions Remote Desktop Manager centralizes RDP, SSH, VNC, VPN and other remote sessions with credential management and shared vault workflows.'
+desc_ru='Devolutions Remote Desktop Manager централизует RDP, SSH, VNC, VPN и другие удаленные сессии с управлением учетными данными и рабочими процессами общих хранилищ.'
+homepage='https://devolutions.net/remote-desktop-manager/'
+maintainer='Devolutions <https://devolutions.net/>'
+
+architectures=('amd64')
+
+license=('Custom')
+nonfree=1
+nonfree_msg='Devolutions Remote Desktop Manager является проприетарным приложением Devolutions. Использование клиента, учетной записи, облачных функций, серверных интеграций и лицензий регулируется условиями Devolutions.'
+nonfree_url='https://devolutions.net/legal/software-license-agreements'
+
+provides=('remote-desktop-manager' 'remotedesktopmanager' 'devolutions-rdm' 'rdm')
+replaces=('remote-desktop-manager' 'remotedesktopmanager' 'devolutions-rdm' 'rdm')
+
+auto_reqprov_method="dirty"
+auto_req=0
+auto_prov=0
+
+deps=()
+deps_debian=('libwebkit2gtk-4.1-0 | libwebkit2gtk-4.0-37' 'ca-certificates' 'libsecret-1-0' 'xwayland' 'gnome-keyring')
+deps_ubuntu=("${deps_debian[@]}")
+deps_fedora=('webkit2gtk4.1' 'ca-certificates' 'libsecret' 'xorg-x11-server-Xwayland' 'gnome-keyring')
+deps_arch=('webkit2gtk-4.1' 'ca-certificates' 'libsecret' 'xorg-xwayland' 'gnome-keyring')
+deps_opensuse=('libwebkit2gtk-4_1-0' 'ca-certificates' 'libsecret-1-0' 'xwayland' 'gnome-keyring')
+deps_altlinux=('libwebkit2gtk4.1' 'ca-certificates' 'libsecret' 'xorg-xwayland' 'gnome-keyring')
+
+opt_deps=()
+opt_deps_debian=('libappindicator3-1' 'xdotool' 'lsof' 'libopenal1')
+opt_deps_ubuntu=("${opt_deps_debian[@]}")
+opt_deps_fedora=('libappindicator-gtk3' 'xdotool' 'lsof' 'openal-soft')
+opt_deps_arch=('libappindicator-gtk3' 'xdotool' 'lsof' 'openal')
+opt_deps_opensuse=('libappindicator3-1' 'xdotool' 'lsof' 'libopenal1')
+opt_deps_altlinux=('libappindicator-gtk3' 'xdotool' 'lsof' 'libopenal1')
+
+sources=(
+    "https://cdn.devolutions.net/download/Linux/RDM/${version}/RemoteDesktopManager_${version}_amd64.deb?~archive=false&~name=RemoteDesktopManager.deb"
+)
+
+checksums=(
+    '118f708430e84340cb111ed17f4c722ebe3ae0f07b074ed9ef1d5fd4608174ec'
+)
+
+scripts=(
+    ['postinstall']='postinstall.sh'
+    ['postremove']='postremove.sh'
+)
+
+package() {
+    cd "${srcdir}"
+
+    mkdir -p "${srcdir}/extracted"
+    ar x RemoteDesktopManager.deb
+    tar -xf data.tar.* -C "${srcdir}/extracted"
+
+    install -Dm755 "${srcdir}/extracted/bin/remotedesktopmanager" \
+        "${pkgdir}/usr/bin/remotedesktopmanager"
+
+    install -dm755 "${pkgdir}/usr/lib/devolutions"
+    cp -a "${srcdir}/extracted/usr/lib/devolutions/RemoteDesktopManager" \
+        "${pkgdir}/usr/lib/devolutions/"
+
+    install -Dm644 "${srcdir}/extracted/usr/share/applications/com.devolutions.remotedesktopmanager.desktop" \
+        "${pkgdir}/usr/share/applications/com.devolutions.remotedesktopmanager.desktop"
+    install -Dm644 "${srcdir}/extracted/usr/share/icons/hicolor/scalable/apps/com.devolutions.remotedesktopmanager.svg" \
+        "${pkgdir}/usr/share/icons/hicolor/scalable/apps/com.devolutions.remotedesktopmanager.svg"
+    install -Dm644 "${srcdir}/extracted/usr/share/metainfo/com.devolutions.remotedesktopmanager.metainfo.xml" \
+        "${pkgdir}/usr/share/metainfo/com.devolutions.remotedesktopmanager.metainfo.xml"
+
+    for mime_file in "${srcdir}/extracted"/usr/share/mime/packages/com.devolutions.remotedesktopmanager-*.xml; do
+        install -Dm644 "${mime_file}" "${pkgdir}/usr/share/mime/packages/$(basename "${mime_file}")"
+    done
+}
+
+files() {
+    files-find-binary
+    files-find-desktop
+    files-find \
+        "/usr/lib/devolutions/RemoteDesktopManager/**/*" \
+        "/usr/share/icons/hicolor/scalable/apps/com.devolutions.remotedesktopmanager.svg" \
+        "/usr/share/metainfo/com.devolutions.remotedesktopmanager.metainfo.xml" \
+        "/usr/share/mime/packages/com.devolutions.remotedesktopmanager-*.xml"
+}

@@ -8,12 +8,12 @@
   <p>
     <a href="https://github.com/Cheviiot/luma"><img alt="Repository" src="https://img.shields.io/badge/repository-Cheviiot%2Fluma-111827?style=for-the-badge&logo=github"></a>
     <img alt="Stapler" src="https://img.shields.io/badge/stplr-%3E%3D%20v0.1.1-2563eb?style=for-the-badge">
-    <img alt="Packages" src="https://img.shields.io/badge/packages-12-16a34a?style=for-the-badge">
+    <img alt="Packages" src="https://img.shields.io/badge/packages-13-16a34a?style=for-the-badge">
   </p>
 
   <p>
     <code>stplr &gt;= v0.1.1</code>
-    <code>12 пакетов</code>
+    <code>13 пакетов</code>
     <code>amd64</code>
     <code>arm64</code>
     <code>all</code>
@@ -55,6 +55,7 @@ stplr info luma/codex-app
 stplr install luma/codex-app
 stplr install luma/pineconemc
 stplr install luma/mindustry
+stplr install luma/remote-desktop-manager
 stplr upgrade
 ```
 
@@ -85,6 +86,7 @@ stplr upgrade
 | <img src=".github/assets/apps/mindustry.png" width="28" height="28" alt=""> [Mindustry](./mindustry)<br><sub>Песочница, tower defense и фабричная стратегия.</sub> | `158.1` | `amd64` | [anuke.itch.io/mindustry](https://anuke.itch.io/mindustry) | `stplr install luma/mindustry` |
 | <img src=".github/assets/apps/parsec.png" width="28" height="28" alt=""> [Parsec](./parsec)<br><sub>Удаленный рабочий стол и игровой стриминг с низкой задержкой.</sub> | `150-97c` | `amd64` | [parsec.app/downloads](https://parsec.app/downloads) | `stplr install luma/parsec` |
 | <img src=".github/assets/apps/pineconemc.svg" width="28" height="28" alt=""> [PineconeMC](./pineconemc)<br><sub>Форк Prism Launcher с поддержкой Ely.by и offline-аккаунтов.</sub> | `11.0.2` | `amd64`, `arm64` | [pineconemc.com](https://pineconemc.com/) | `stplr install luma/pineconemc` |
+| <img src=".github/assets/apps/remote-desktop-manager.svg" width="28" height="28" alt=""> [Remote Desktop Manager](./remote-desktop-manager)<br><sub>Менеджер RDP, SSH, VNC, VPN и других удаленных подключений.</sub> | `2026.2.0.7` | `amd64` | [Devolutions RDM](https://devolutions.net/remote-desktop-manager/) | `stplr install luma/remote-desktop-manager` |
 | <img src=".github/assets/apps/vual.png" width="28" height="28" alt=""> [Vual](./vual)<br><sub>Запуск Cheat Engine для Steam-игр через Proton.</sub> | `0.3.1` | `all` | [Cheviiot/Vual](https://github.com/Cheviiot/Vual) | `stplr install luma/vual` |
 
 ## Принципы качества
@@ -110,6 +112,7 @@ stplr upgrade
 | `netbird` | Сеть и VPN | [NetBird](https://netbird.io/) | `0.72.4` | `BSD-3-Clause`, `AGPL-3.0-only` | `amd64`, `arm64` |
 | `parsec` | Рабочий стол и игры | [Parsec](https://parsec.app/downloads) | `150-97c` | `Custom` | `amd64` |
 | `pineconemc` | Игры | [PineconeMC](https://pineconemc.com/) | `11.0.2` | `GPL-3.0-only` | `amd64`, `arm64` |
+| `remote-desktop-manager` | Рабочий стол и игры | [Devolutions RDM](https://devolutions.net/remote-desktop-manager/) | `2026.2.0.7` | `Custom` | `amd64` |
 | `tailscale` | Сеть и VPN | [Tailscale](https://tailscale.com) | `1.98.4` | `BSD-3-Clause` | `amd64`, `arm64` |
 | `vanyavpn` | Сеть и VPN | [VanyaVPN](https://vanyavpn.es) | `1.12.1+472165` | `Custom` | `amd64` |
 | `vual` | Игры | [Vual](https://github.com/Cheviiot/Vual) | `0.3.1` | `GPL-3.0-or-later` | `all` |

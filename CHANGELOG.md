@@ -1,3 +1,37 @@
+## 2026-06-19 08:13 VLAT
+
+### Изменено
+- README обновлен для каталога из 13 пакетов.
+- `.github/scripts/package-update.sh` расширен поддержкой проверки версии Devolutions Remote Desktop Manager по официальной странице previous versions.
+
+### Добавлено
+- Добавлен пакет `remote-desktop-manager` версии `2026.2.0.7` для Devolutions Remote Desktop Manager.
+- Пакет использует официальный Linux `.deb` `RemoteDesktopManager_2026.2.0.7_amd64.deb` из CDN Devolutions, устанавливает `/usr/bin/remotedesktopmanager`, runtime `/usr/lib/devolutions/RemoteDesktopManager`, desktop-файл, SVG-иконку, AppStream metadata и MIME-описания.
+- Добавлены aliases `remote-desktop-manager`, `remotedesktopmanager`, `devolutions-rdm`, `rdm` через `provides/replaces`.
+- Добавлены postinstall/postremove-скрипты с обновлением MIME-базы, desktop-базы, hicolor icon cache и KDE sycoca.
+- Добавлена русская лицензия пакета с нюансами проприетарной поставки Devolutions.
+
+### Исправлено
+- Нет.
+
+### Проверено
+- Официальная страница Devolutions показывает актуальную Linux-версию RDM `2026.2.0.7`.
+- SHA256 исходного deb-файла: `118f708430e84340cb111ed17f4c722ebe3ae0f07b074ed9ef1d5fd4608174ec`.
+- `remote-desktop-manager/.stapler/update-check` вернул `2026.2.0.7 2026.2.0.7`.
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/remote-desktop-manager/Staplerfile` успешно собрал `remote-desktop-manager+stplr-default-2026.2.0.7-alt1.x86_64.rpm`.
+- `rpm -qp --provides` подтвердил aliases `remote-desktop-manager`, `remotedesktopmanager`, `devolutions-rdm`, `rdm`.
+- `rpm -qpl` подтвердил наличие `/usr/bin/remotedesktopmanager`, `/usr/lib/devolutions/RemoteDesktopManager/RemoteDesktopManager`, desktop-файла, SVG-иконки, AppStream metadata и MIME XML.
+- `rpm -qp --requires` подтвердил ALT-зависимости `libwebkit2gtk4.1`, `ca-certificates`, `libsecret`, `xorg-xwayland`, `gnome-keyring`.
+- `desktop-file-validate` не нашел ошибок в desktop-файле.
+- `find ... | xargs bash -n` прошел успешно для `Staplerfile`, shell-скриптов и `.stapler/update-check`.
+- `python3 -m py_compile .github/scripts/validate-repo.py` и `.github/scripts/validate-repo.py` прошли успешно; валидатор проверил 13 пакетов.
+- `shellcheck` прошел успешно для shell-скриптов и `.stapler/update-check`.
+- `git diff --check` прошел успешно.
+- `.github/scripts/package-update.sh check-all` подтвердил, что `remote-desktop-manager` актуален; команда завершилась с кодом `10`, потому что отдельно обнаружены обновления `github-plus 3.5.13.1` и `netbird 0.73.0`.
+
+### Осталось
+- Отдельной итерацией обновить `github-plus` и `netbird`, если эти обновления нужны сейчас.
+
 ## 2026-06-18 21:22 VLAT
 
 ### Изменено

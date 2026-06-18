@@ -13,6 +13,7 @@ PACKAGES=(
     netbird
     parsec
     pineconemc
+    remote-desktop-manager
     tailscale
     vanyavpn
     vual
@@ -118,6 +119,33 @@ deb_control_field() {
 latest_parsec() {
     deb_control_field "https://builds.parsec.app/package/parsec-linux.deb" Version
 }
+
+latest_remote_desktop_manager() (
+    local page version
+
+    page="$(
+        download "https://devolutions.net/remote-desktop-manager/previous-versions/"
+    )"
+
+    version="$(
+        printf '%s' "$page" | python3 -c '
+import re
+import sys
+
+text = sys.stdin.read()
+match = re.search(
+    r"https://cdn\.devolutions\.net/download/Linux/RDM/([0-9.]+)/RemoteDesktopManager_\1_amd64\.deb",
+    text,
+)
+if not match:
+    raise SystemExit("cannot determine latest Devolutions RDM Linux version")
+print(match.group(1))
+'
+    )"
+
+    [[ -n "$version" ]] || die "cannot determine latest Devolutions RDM Linux version"
+    echo "$version"
+)
 
 latest_mindustry() (
     local tmp csrf download_page_url version
@@ -255,6 +283,7 @@ latest_version() {
     netbird) github_latest_release "netbirdio/netbird" ;;
     parsec) latest_parsec ;;
     pineconemc) github_latest_release "ElyPrismLauncher/Launcher" ;;
+    remote-desktop-manager) latest_remote_desktop_manager ;;
     tailscale) latest_tailscale ;;
     vanyavpn) latest_vanyavpn ;;
     vual) github_latest_release "Cheviiot/Vual" ;;
