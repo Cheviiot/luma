@@ -1,3 +1,28 @@
+## 2026-06-18 20:23 VLAT
+
+### Изменено
+- У `codex-app` увеличен `release` до `7`, так как исправлено открытие файлового менеджера без изменения upstream-версии `26.611.62324`.
+
+### Добавлено
+- Нет.
+
+### Исправлено
+- Исправлена ошибка при открытии через `File Manager`: предыдущий патч добавлял второй Linux target с тем же id `fileManager`, из-за чего пункт меню мог быть доступен, а открытие обращалось к другому target и падало.
+- Дублирующий Linux target удален из патча; теперь исправляется upstream `linuxFileManager`.
+- `linuxFileManagerDetect` больше не зависит от наличия `xdg-open`, а открытие существующей папки выполняется через Electron `shell.openPath`.
+
+### Проверено
+- `bash -n codex-app/Staplerfile` прошел успешно.
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/codex-app/Staplerfile` успешно собрал `codex-app+stplr-default-26.611.62324-alt7.x86_64.rpm`.
+- Из собранного RPM потоково проверен `/opt/codex-app/resources/codex.asar`: `linuxFileManagerDetect` возвращает `system-default`, `linuxOpenFileManagerPath` использует `a.shell.openPath`, старый detect через `xdg-open` и дублирующая `BA` Linux-ветка отсутствуют.
+- Повторно проверена встроенная иконка `webview/apps/file-explorer.png`: SHA256 `6e738a6ba5a8f0ca4a4922ccc6e933125ba3f22cd21296b2adfe9b7ec7896c97`, integrity в ASAR совпадает.
+- `.github/scripts/package-update.sh check codex-app` вернул `26.611.62324 26.611.62324`.
+- `python3 -m py_compile .github/scripts/validate-repo.py` и `.github/scripts/validate-repo.py` прошли успешно; валидатор проверил 12 пакетов.
+- `git diff --check` прошел успешно.
+
+### Осталось
+- Нет.
+
 ## 2026-06-18 19:59 VLAT
 
 ### Изменено

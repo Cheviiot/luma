@@ -1,6 +1,6 @@
 name='codex-app'
 version='26.611.62324'
-release=6
+release=7
 summary='Unofficial Linux repack of the Codex desktop app'
 summary_ru='Неофициальная Linux-перепаковка десктопного приложения Codex'
 group='Development/Tools'
@@ -261,9 +261,14 @@ replacements = [
         "defaultMessage:`List PC apps`",
     ),
     (
-        "linux file manager target",
-        "BA=sA({id:`fileManager`,label:`Finder`,icon:`apps/finder.png`,kind:`fileManager`,darwin:{detect:()=>`open`,args:e=>To(e)},win32:{label:`File Explorer`,icon:`apps/file-explorer.png`,detect:VA,args:e=>To(e),open:async({path:e})=>HA(e)}})",
-        "BA=sA({id:`fileManager`,label:`Finder`,icon:`apps/finder.png`,kind:`fileManager`,darwin:{detect:()=>`open`,args:e=>To(e)},win32:{label:`File Explorer`,icon:`apps/file-explorer.png`,detect:VA,args:e=>To(e),open:async({path:e})=>HA(e)},linux:{label:`File Manager`,icon:`apps/file-explorer.png`,detect:()=>`system-default`,args:e=>To(e),open:async({path:e})=>HA(e)}})",
+        "linux file manager detect",
+        "function linuxFileManagerDetect(){return linuxPathSearch(`xdg-open`)??linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)}",
+        "function linuxFileManagerDetect(){return `system-default`}",
+    ),
+    (
+        "linux file manager open",
+        "function linuxOpenFileManagerPath(e){let t=e;for(;;){if((0,o.existsSync)(t))break;let e=(0,i.dirname)(t);if(e===t){t=null;break}t=e}let n=t??e;if((0,o.existsSync)(n)&&(0,o.statSync)(n).isFile())n=(0,i.dirname)(n);return se(n)}",
+        "async function linuxOpenFileManagerPath(e){let t=e;for(;;){if((0,o.existsSync)(t))break;let e=(0,i.dirname)(t);if(e===t){t=null;break}t=e}let n=t??e;if((0,o.existsSync)(n)&&(0,o.statSync)(n).isFile())n=(0,i.dirname)(n);let r=await a.shell.openPath(n);if(r)throw Error(r)}",
     ),
 ]
 
@@ -465,7 +470,8 @@ required_replacements = {
     "linux follow-up shortcut wording",
     "linux computer use prompt wording",
     "linux computer use tool wording",
-    "linux file manager target",
+    "linux file manager detect",
+    "linux file manager open",
     "linux file manager icon",
 }
 matched_labels = {entry.split(":", 1)[0] for entry in matched_replacements}
