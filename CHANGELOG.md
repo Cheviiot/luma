@@ -1,3 +1,26 @@
+## 2026-06-18 19:13 VLAT
+
+### Изменено
+- У `codex-app` увеличен `release` до `3`, так как исправлено runtime-поведение без изменения upstream-версии `26.611.62324`.
+
+### Добавлено
+- Нет.
+
+### Исправлено
+- Исправлено открытие файлов из чата `codex-app`: вложения, markdown-ссылки на файлы и `@file`-упоминания теперь запрашивают внутреннюю боковую панель приложения, а не системный обработчик файлов.
+- В сборочный патч добавлена обязательная проверка трех замен для открытия файлов внутри окна, чтобы при изменении upstream-бандла сборка падала явно.
+
+### Проверено
+- `bash -n codex-app/Staplerfile` прошел успешно.
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/codex-app/Staplerfile` успешно собрал `codex-app+stplr-default-26.611.62324-alt3.x86_64.rpm`.
+- Из собранного RPM потоково проверен `/opt/codex-app/resources/codex.asar`: маркеры `openInSidePanel:!0`, `openFileLinksInSidePanel:!0` и `openInSidePanel:!0},\`${t}-file-${d}\`` присутствуют; старые условия `openInSidePanel:I(d)===\`pptx\`` и `openFileLinksInSidePanel:g.trim().startsWith(\`$\`)` отсутствуют.
+- `.github/scripts/package-update.sh check codex-app` вернул `26.611.62324 26.611.62324`.
+- `.github/scripts/validate-repo.py` проверил 12 пакетов.
+- `git diff --check` прошел успешно.
+
+### Осталось
+- Нет.
+
 ## 2026-06-18 18:43 VLAT
 
 ### Изменено

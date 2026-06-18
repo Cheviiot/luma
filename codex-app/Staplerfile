@@ -1,6 +1,6 @@
 name='codex-app'
 version='26.611.62324'
-release=2
+release=3
 summary='Unofficial Linux repack of the Codex desktop app'
 summary_ru='Неофициальная Linux-перепаковка десктопного приложения Codex'
 group='Development/Tools'
@@ -218,6 +218,21 @@ replacements = [
         "function eE({desktopPaths:e,homeDir:t,platform:n}){return iE(t,e.getPath(`home`),n)?e.getPath(`documents`):aE(n).join(t,`Documents`)}",
         "function eE({desktopPaths:e,homeDir:t,platform:n}){let r=process.env.CODEX_APP_DOCUMENTS_DIR;return r&&r.trim()!==``?r:iE(t,e.getPath(`home`),n)?e.getPath(`documents`):aE(n).join(t,`Documents`)}",
     ),
+    (
+        "chat attachment opens in side panel",
+        "openInSidePanel:I(d)===`pptx`",
+        "openInSidePanel:!0",
+    ),
+    (
+        "markdown file link opens in side panel",
+        "openFileLinksInSidePanel:g.trim().startsWith(`$`)",
+        "openFileLinksInSidePanel:!0",
+    ),
+    (
+        "file mention opens in side panel",
+        "(0,h.jsx)(s,{reference:n(e),cwd:i,hostId:a},`${t}-file-${d}`)",
+        "(0,h.jsx)(s,{reference:n(e),cwd:i,hostId:a,openInSidePanel:!0},`${t}-file-${d}`)",
+    ),
 ]
 
 matched_replacements = []
@@ -285,6 +300,15 @@ def rebuild_node(node: dict, prefix: str = "") -> dict:
 rebuilt_header = {"files": rebuild_node(header)}
 if not matched_replacements:
     raise SystemExit("projectless workspace/documents path was not patched in codex.asar")
+required_replacements = {
+    "chat attachment opens in side panel",
+    "markdown file link opens in side panel",
+    "file mention opens in side panel",
+}
+matched_labels = {entry.split(":", 1)[0] for entry in matched_replacements}
+missing_replacements = sorted(required_replacements - matched_labels)
+if missing_replacements:
+    raise SystemExit(f"file-link side panel patch was not applied: {', '.join(missing_replacements)}")
 
 header_bytes = json.dumps(rebuilt_header, separators=(",", ":")).encode("utf-8")
 header_padded_size = (len(header_bytes) + 3) & ~3
