@@ -1,6 +1,6 @@
 name='terax'
-version='0.7.3'
-release=2
+version='0.8.0'
+release=1
 summary='AI-native terminal emulator'
 summary_ru='AI-native эмулятор терминала'
 group='Development/Tools'
@@ -33,7 +33,7 @@ sources=(
 )
 
 checksums=(
-    '469093c6ed5c68992a5b5bf9573ea52c517edbbedd6abbf0e74d62cf3f7f009a'
+    '2b72c77cc78a6db861afa969acd03108ac0ccbae79e623b559ca0642e5d06605'
 )
 
 scripts=(

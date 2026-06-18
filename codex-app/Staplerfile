@@ -1,6 +1,6 @@
 name='codex-app'
-version='26.506.31421'
-release=6
+version='26.608.12217'
+release=1
 summary='Unofficial Linux repack of the Codex desktop app'
 summary_ru='Неофициальная Linux-перепаковка десктопного приложения Codex'
 group='Development/Tools'
@@ -37,7 +37,7 @@ sources=(
 )
 
 checksums=(
-    '41c74bf9f40f7eacf6a393aff82eaccef689487c28e263b5e4c381a27667d62e'
+    'deedb7ae19e31e2ad35f2c74b752b1e190d4530b19abb426e6bf4c21d085973f'
     '5c4fe03d5777a9684e37ec9a2331302abf525f53db83762e6adaafd2fc5eb510'
 )
 
@@ -196,15 +196,24 @@ _, _, _, header_size = struct.unpack("<IIII", data[:16])
 header = json.loads(data[16 : 16 + header_size])
 base_offset = 16 + ((header_size + 3) & ~3)
 
-target_path = ".vite/build/main-DnQgBHvi.js"
-old = (
-    "async function tn({appServerClient:e,homeDirectory:n}){"
-    "let r=(await e.platformPath()).join(n,`Documents`,`Codex`);return"
-)
-new = (
-    "async function tn({appServerClient:e,homeDirectory:n}){"
-    "let i=await e.platformPath(),r=i.join(process.env.CODEX_APP_DOCUMENTS_DIR||i.join(n,`Documents`),`Codex`);return"
-)
+replacements = [
+    (
+        "старый projectless workspace path",
+        (
+            "async function tn({appServerClient:e,homeDirectory:n}){"
+            "let r=(await e.platformPath()).join(n,`Documents`,`Codex`);return"
+        ),
+        (
+            "async function tn({appServerClient:e,homeDirectory:n}){"
+            "let i=await e.platformPath(),r=i.join(process.env.CODEX_APP_DOCUMENTS_DIR||i.join(n,`Documents`),`Codex`);return"
+        ),
+    ),
+    (
+        "documentsDir fallback",
+        "function ew({desktopPaths:e,homeDir:t,platform:n}){return nw(t,e.getPath(`home`),n)?e.getPath(`documents`):rw(n).join(t,`Documents`)}",
+        "function ew({desktopPaths:e,homeDir:t,platform:n}){let r=process.env.CODEX_APP_DOCUMENTS_DIR;return r&&r.trim()!==``?r:nw(t,e.getPath(`home`),n)?e.getPath(`documents`):rw(n).join(t,`Documents`)}",
+    ),
+]
 
 patched = False
 output = bytearray()
@@ -247,12 +256,18 @@ def rebuild_node(node: dict, prefix: str = "") -> dict:
         size = int(entry["size"])
         content = data[base_offset + offset : base_offset + offset + size]
 
-        if path == target_path:
-            text = content.decode("utf-8")
+        text = None
+        for label, old, new in replacements:
+            old_bytes = old.encode("utf-8")
+            if old_bytes not in content:
+                continue
+            if text is None:
+                text = content.decode("utf-8")
             count = text.count(old)
             if count != 1:
-                raise SystemExit(f"expected one projectless workspace match in {target_path}, got {count}")
+                raise SystemExit(f"expected one {label} match in {path}, got {count}")
             content = text.replace(old, new).encode("utf-8")
+            text = content.decode("utf-8")
             entry["size"] = len(content)
             entry["integrity"] = integrity_for(content, entry.get("integrity", {}).get("blockSize", 4194304))
             patched = True
@@ -266,7 +281,7 @@ def rebuild_node(node: dict, prefix: str = "") -> dict:
 
 rebuilt_header = {"files": rebuild_node(header)}
 if not patched:
-    raise SystemExit(f"projectless workspace path was not patched in {target_path}")
+    raise SystemExit("projectless workspace/documents path was not patched in codex.asar")
 
 header_bytes = json.dumps(rebuilt_header, separators=(",", ":")).encode("utf-8")
 header_padded_size = (len(header_bytes) + 3) & ~3

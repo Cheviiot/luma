@@ -1,5 +1,5 @@
 name='netbird-ui'
-version='0.71.4'
+version='0.72.4'
 release=1
 summary='Desktop UI for the NetBird mesh VPN client'
 summary_ru='Графический интерфейс для mesh VPN-клиента NetBird'
@@ -34,7 +34,7 @@ sources=(
 )
 
 checksums=(
-    '74e90e2e142cb116b7c2da3ea2ae417aec26cad6a9b86b46f83404d798332211'
+    '6e5a3c55139c501ede80f740128f0897975ddb8cecbacdbca9ca279190a91c4f'
     '71b133636e91eb67f221f64592f64fa04a3b2337f4d616be36492efae0cff643'
 )
 

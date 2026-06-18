@@ -1,6 +1,6 @@
 name='hydralauncher'
-version='3.9.9'
-release=2
+version='4.0.0'
+release=1
 summary='Open-source game launcher with embedded BitTorrent support'
 summary_ru='Открытый игровой лаунчер со встроенной поддержкой BitTorrent'
 group='Games/Other'
@@ -33,7 +33,7 @@ sources=(
 )
 
 checksums=(
-    '66a3c3dd16fecd1655bbbcb82a004ef1fad0339bf733b3ac1345c801531e4ba5'
+    '71d59b5b37ade2ed3664872d151e2d2c1ca7e96365a8082bce742f3f8b7d5bde'
 )
 
 scripts=(

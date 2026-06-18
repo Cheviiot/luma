@@ -1,6 +1,6 @@
 name='github-plus'
-version='3.5.12.0'
-release=2
+version='3.5.13.0'
+release=1
 summary='GitHub Desktop fork with Bitbucket and GitLab integration'
 summary_ru='Форк GitHub Desktop с интеграцией Bitbucket и GitLab'
 group='Development/Tools'
@@ -38,11 +38,11 @@ sources_arm64=(
 )
 
 checksums=(
-    'bea3f94e742775ca3682552dfec0e2d77edd664af7cebba263c5b01cda1f2ae5'
+    '6738441ebc9377dda619a6999fbf73d4092c89659c0922b15f640376ab07328d'
 )
 
 checksums_arm64=(
-    '51899b8934e9f69454c6245ca4eda9320aae8755d6bf668d5eeafd46d09b7c77'
+    '04df141b4f07de449ce4870d75658da7d1274169e98c86fc6c8b7e33babb3cb9'
 )
 
 scripts=(

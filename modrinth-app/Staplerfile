@@ -1,6 +1,6 @@
 name='modrinth-app'
-version='0.14.4'
-release=3
+version='0.14.6'
+release=1
 summary='Official Modrinth launcher for Minecraft mods and modpacks'
 summary_ru='Официальный лаунчер Modrinth для модов и модпаков Minecraft'
 group='Games/Other'
@@ -43,7 +43,7 @@ sources=(
 )
 
 checksums=(
-    'a04e58a62071a8e3794c25c5b33730381bdd75ce98143436da2e4accc1a22a73'
+    '9c3e4e989de58caa3143e6d67a16f8909840bcb99f0882fafb0b134e39911e23'
     '472655581fb851559730c48763e0c9d3bc25975c59d518003fc0849d3e4ba0f6'
     'a17ddd85a26b6a7f5ddb71ff8b05fc5104c0202c6e64782429790c933686c806'
 )
