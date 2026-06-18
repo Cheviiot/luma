@@ -9,20 +9,13 @@ PACKAGES=(
     codex-app
     github-plus
     happ
-    hydralauncher
     mindustry
-    modrinth-app
     netbird
-    netbird-ui
     parsec
     pineconemc
-    prismlauncher
     tailscale
-    terax
     vanyavpn
     vual
-    warp
-    windsurf
 )
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -122,10 +115,6 @@ deb_control_field() {
     rm -rf "$tmp"
 }
 
-latest_warp() {
-    deb_control_field "https://app.warp.dev/download?package=deb" Version
-}
-
 latest_parsec() {
     deb_control_field "https://builds.parsec.app/package/parsec-linux.deb" Version
 }
@@ -201,41 +190,6 @@ PY
     echo "$version"
 )
 
-latest_windsurf() {
-    local packages version
-
-    packages="$(
-        curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 30 --max-time 120 -fsSL \
-            "https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/apt/dists/stable/main/binary-amd64/Packages"
-    )"
-
-    version="$(
-        printf '%s\n' "$packages" |
-            awk '
-                /^Package: windsurf$/ {found=1; version=""; filename=""; next}
-                found && /^Version: / {version=$2; next}
-                found && /^Filename: / {filename=$2; next}
-                found && /^$/ {
-                    if (filename ~ /Windsurf-linux-x64-.*\.deb$/ && version != "") {
-                        print version
-                        exit
-                    }
-                    found=0
-                }
-            '
-    )"
-
-    if [[ -z "$version" ]] && printf '%s\n' "$packages" | grep -q 'Devin-linux-x64-.*-transitional\.deb'; then
-        current_version windsurf
-        return
-    fi
-
-    version="${version#*:}"
-    version="${version%%-*}"
-    [[ -n "$version" ]] || die "cannot determine latest Windsurf version"
-    echo "$version"
-}
-
 latest_vanyavpn() (
     local appimage_source appimage_url tmp version
 
@@ -297,20 +251,13 @@ latest_version() {
     codex-app) github_latest_release "Boria138/codex-app-linux" ;;
     github-plus) github_latest_release "pol-rivero/github-desktop-plus" ;;
     happ) github_latest_release "Happ-proxy/happ-desktop" ;;
-    hydralauncher) github_latest_release "hydralauncher/hydra" ;;
     mindustry) latest_mindustry ;;
-    modrinth-app) github_latest_release "modrinth/code" ;;
     netbird) github_latest_release "netbirdio/netbird" ;;
-    netbird-ui) github_latest_release "netbirdio/netbird" ;;
     parsec) latest_parsec ;;
     pineconemc) github_latest_release "ElyPrismLauncher/Launcher" ;;
-    prismlauncher) github_latest_release "PrismLauncher/PrismLauncher" ;;
     tailscale) latest_tailscale ;;
-    terax) github_latest_release "crynta/terax-ai" ;;
     vanyavpn) latest_vanyavpn ;;
     vual) github_latest_release "Cheviiot/Vual" ;;
-    warp) latest_warp ;;
-    windsurf) latest_windsurf ;;
     *) die "unknown package: ${package}" ;;
     esac
 }

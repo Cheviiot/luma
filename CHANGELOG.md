@@ -1,3 +1,31 @@
+## 2026-06-18 18:43 VLAT
+
+### Изменено
+- Репозиторий сокращен до 12 поддерживаемых пакетов.
+- `README.md` обновлен: удалены строки каталога, полной сводки и примеров установки для снятых пакетов.
+- `.github/scripts/package-update.sh` больше не проверяет и не обновляет снятые пакеты.
+
+### Добавлено
+- Нет.
+
+### Исправлено
+- Нет.
+
+### Удалено
+- Сняты с поддержки и удалены пакеты `windsurf`, `warp`, `terax`, `prismlauncher`, `netbird-ui`, `modrinth-app`, `hydralauncher`.
+- Удалены витринные иконки снятых пакетов из `.github/assets/apps`.
+
+### Проверено
+- `python3 -m py_compile .github/scripts/validate-repo.py` прошел успешно.
+- `.github/scripts/validate-repo.py` проверил 12 оставшихся пакетов.
+- `.github/scripts/package-update.sh check-all` завершился успешно: все 12 оставшихся пакетов имеют статус `current`.
+- `.github/scripts/package-update.sh check vual` дополнительно вернул `0.3.1 0.3.1` после единичного сетевого retry в общем `check-all`.
+- `bash -n` для оставшихся `Staplerfile`, shell-скриптов и `.stapler/update-check` прошел успешно.
+- `git diff --check` прошел успешно.
+
+### Осталось
+- Нет.
+
 ## 2026-06-18 18:33 VLAT
 
 ### Изменено
