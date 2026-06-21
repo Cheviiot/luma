@@ -5,6 +5,7 @@ set -euo pipefail
 
 PACKAGES=(
     adwyra
+    app-manager-gui
     clash-verge
     codex-app
     github-plus
@@ -275,6 +276,7 @@ latest_version() {
 
     case "$package" in
     adwyra) github_latest_release "Cheviiot/adwyra" ;;
+    app-manager-gui) github_latest_release "BlassGO/AppManager-GUI" ;;
     clash-verge) github_latest_release "clash-verge-rev/clash-verge-rev" ;;
     codex-app) github_latest_release "Boria138/codex-app-linux" ;;
     github-plus) github_latest_release "pol-rivero/github-desktop-plus" ;;
@@ -458,7 +460,7 @@ check_all() {
     local updates=0
     local package current latest status
 
-    printf '%-14s %-32s %-32s %s\n' "PACKAGE" "CURRENT" "LATEST" "STATUS"
+    printf '%-24s %-32s %-32s %s\n' "PACKAGE" "CURRENT" "LATEST" "STATUS"
 
     for package in "${PACKAGES[@]}"; do
         read -r current latest < <(check_package "$package")
@@ -468,7 +470,7 @@ check_all() {
             status="update"
             updates=1
         fi
-        printf '%-14s %-32s %-32s %s\n' "$package" "$current" "$latest" "$status"
+        printf '%-24s %-32s %-32s %s\n' "$package" "$current" "$latest" "$status"
     done
 
     if [[ "$updates" -eq 1 ]]; then

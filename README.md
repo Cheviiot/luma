@@ -8,12 +8,12 @@
   <p>
     <a href="https://github.com/Cheviiot/luma"><img alt="Repository" src="https://img.shields.io/badge/repository-Cheviiot%2Fluma-111827?style=for-the-badge&logo=github"></a>
     <img alt="Stapler" src="https://img.shields.io/badge/stplr-%3E%3D%20v0.1.1-2563eb?style=for-the-badge">
-    <img alt="Packages" src="https://img.shields.io/badge/packages-13-16a34a?style=for-the-badge">
+    <img alt="Packages" src="https://img.shields.io/badge/packages-14-16a34a?style=for-the-badge">
   </p>
 
   <p>
     <code>stplr &gt;= v0.1.1</code>
-    <code>13 пакетов</code>
+    <code>14 пакетов</code>
     <code>amd64</code>
     <code>arm64</code>
     <code>all</code>
@@ -53,6 +53,7 @@ stplr refresh
 stplr search --query "name.contains('vpn')"
 stplr info luma/codex-app
 stplr install luma/codex-app
+stplr install luma/app-manager-gui
 stplr install luma/pineconemc
 stplr install luma/mindustry
 stplr install luma/remote-desktop-manager
@@ -75,6 +76,7 @@ stplr upgrade
 
 | Приложение | Версия | Архитектуры | Первоисточник | Установка |
 |:--|:--:|:--:|:--|:--|
+| <img src=".github/assets/apps/app-manager-gui.png" width="28" height="28" alt=""> [App Manager GUI](./app-manager-gui)<br><sub>GUI для управления Android-приложениями через ADB.</sub> | `1.2.5+3` | `amd64` | [BlassGO/AppManager-GUI](https://github.com/BlassGO/AppManager-GUI) | `stplr install luma/app-manager-gui` |
 | <img src=".github/assets/apps/codex-app.png" width="28" height="28" alt=""> [Codex App](./codex-app)<br><sub>Неофициальная Linux-перепаковка десктопного приложения Codex.</sub> | `26.611.62324` | `amd64` | [Boria138/codex-app-linux](https://github.com/Boria138/codex-app-linux) | `stplr install luma/codex-app` |
 | <img src=".github/assets/apps/github-plus.png" width="28" height="28" alt=""> [GitHub Desktop Plus](./github-plus)<br><sub>Форк GitHub Desktop с интеграцией Bitbucket и GitLab.</sub> | `3.5.13.0` | `amd64`, `arm64` | [pol-rivero/github-desktop-plus](https://github.com/pol-rivero/github-desktop-plus) | `stplr install luma/github-plus` |
 
@@ -104,6 +106,7 @@ stplr upgrade
 | Пакет | Категория | Upstream | Версия | Лицензия | Архитектуры |
 |:--|:--|:--|:--:|:--|:--:|
 | `adwyra` | Рабочий стол | [Adwyra](https://github.com/Cheviiot/Adwyra) | `0.6.1` | `GPL-3.0-or-later` | `all` |
+| `app-manager-gui` | Разработка | [App Manager GUI](https://github.com/BlassGO/AppManager-GUI) | `1.2.5+3` | `GPL-3.0-only` | `amd64` |
 | `clash-verge` | Сеть и VPN | [Clash Verge Rev](https://www.clashverge.dev) | `2.5.1` | `GPL-3.0-only` | `amd64`, `arm64` |
 | `codex-app` | Разработка | [Codex App Linux](https://github.com/Boria138/codex-app-linux) | `26.611.62324` | `Custom` | `amd64` |
 | `github-plus` | Разработка | [GitHub Desktop Plus](https://github.com/pol-rivero/github-desktop-plus) | `3.5.13.0` | `MIT` | `amd64`, `arm64` |

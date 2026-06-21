@@ -1,0 +1,19 @@
+Сведения о лицензии пакета App Manager GUI
+
+Лицензия: GPL-3.0-only.
+Официальный репозиторий: https://github.com/BlassGO/AppManager-GUI
+Официальная страница релизов: https://github.com/BlassGO/AppManager-GUI/releases
+Источник Linux-пакета: https://github.com/BlassGO/AppManager-GUI/releases/download/v1.2.5%2B3/app_manager_linux_x64.tar.gz
+
+Нюансы пакета:
+- Пакет перепаковывает официальный Linux tar.gz-артефакт App Manager GUI для x86_64.
+- Upstream-проект распространяется под GPL-3.0-only; полный текст upstream-лицензии устанавливается в `/usr/share/licenses/app-manager-gui/LICENSE`.
+- Пакет устанавливает приложение в `/opt/app-manager-gui`, основной запускатель `/usr/bin/app-manager-gui`, совместимый запускатель `/usr/bin/app_manager`, desktop-файл и PNG-иконку.
+- Для работы с Android-устройствами требуется ADB; на ALT Linux пакет зависит от `android-tools`.
+- На Android-устройстве обычно нужно включить режим разработчика и USB-отладку. Эти действия остаются на стороне пользователя и устройства.
+- В составе upstream-архива присутствуют Flutter runtime-файлы и helper-asset приложения; пакет не изменяет их содержимое.
+
+Справочные ссылки:
+- https://github.com/BlassGO/AppManager-GUI
+- https://xdaforums.com/t/tool-adb-android-app-manager-v1-2-0-extract-icons-debloat-and-more.4744554/
+- https://www.gnu.org/licenses/gpl-3.0.html

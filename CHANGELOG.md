@@ -1,3 +1,37 @@
+## 2026-06-21 23:13 VLAT
+
+### Изменено
+- README обновлен для каталога из 14 пакетов.
+- `.github/scripts/package-update.sh` расширен поддержкой проверки версии App Manager GUI через релизы `BlassGO/AppManager-GUI`.
+- В `.github/scripts/package-update.sh` расширена колонка имени пакета в выводе `check-all`, чтобы длинные имена `app-manager-gui` и `remote-desktop-manager` не ломали выравнивание таблицы.
+
+### Добавлено
+- Добавлен пакет `app-manager-gui` версии `1.2.5+3`.
+- Пакет использует официальный Linux-архив `app_manager_linux_x64.tar.gz` из релиза `v1.2.5+3`, устанавливает runtime в `/opt/app-manager-gui`, запускатели `/usr/bin/app-manager-gui` и `/usr/bin/app_manager`, desktop-файл, PNG-иконку и upstream-лицензию GPL-3.0.
+- Добавлены aliases `app-manager-gui`, `appmanager-gui`, `android-app-manager`, `app-manager` через `provides/replaces`.
+- Добавлены postinstall/postremove-скрипты с обновлением desktop-базы, hicolor icon cache и KDE sycoca.
+- Добавлена русская лицензия-заметка с нюансами использования ADB и Android USB debugging.
+
+### Исправлено
+- Нет.
+
+### Проверено
+- Upstream-релиз `BlassGO/AppManager-GUI` подтвержден как `v1.2.5+3`; Linux tarball имеет SHA256 `d7da42814b9ce2e25a6d814363cedf80a00544874e882dfc0f6c2c9a16a7aeeb`.
+- `app-manager-gui/.stapler/update-check` и `.github/scripts/package-update.sh check app-manager-gui` вернули `1.2.5+3 1.2.5+3`; при одном сетевом запуске curl получил TLS retry, но итоговая проверка завершилась успешно.
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/app-manager-gui/Staplerfile` успешно собрал `app-manager-gui+stplr-default-1.2.5+3-alt1.x86_64.rpm`.
+- `rpm -qp --provides` подтвердил aliases `app-manager-gui`, `appmanager-gui`, `android-app-manager`, `app-manager`.
+- `rpm -qpl` подтвердил наличие `/opt/app-manager-gui/app_manager`, `/usr/bin/app-manager-gui`, `/usr/bin/app_manager`, desktop-файла, PNG-иконки и `/usr/share/licenses/app-manager-gui/LICENSE`.
+- `rpm -qp --requires` подтвердил ALT-зависимости `android-tools`, `libgtk+3`, `libstdc++6`, `glib2`, `libxkbcommon`, `libwayland-client`, `fontconfig`.
+- `desktop-file-validate` прошел успешно для `app-manager-gui.desktop`.
+- `find ... | xargs bash -n` прошел успешно для `Staplerfile`, shell-скриптов и `.stapler/update-check`.
+- `python3 -m py_compile .github/scripts/validate-repo.py` и `.github/scripts/validate-repo.py` прошли успешно; валидатор проверил 14 пакетов.
+- `shellcheck` и `shfmt -d` прошли успешно для затронутых shell-файлов.
+- `git diff --check` прошел успешно.
+- `.github/scripts/package-update.sh check-all` подтвердил, что `app-manager-gui` актуален; команда завершилась с кодом `10`, потому что отдельно обнаружены обновления `github-plus 3.5.13.2` и `netbird 0.75.0-rc.2`.
+
+### Осталось
+- Отдельной итерацией обновить `github-plus` и `netbird`, если эти обновления нужны сейчас.
+
 ## 2026-06-19 08:13 VLAT
 
 ### Изменено

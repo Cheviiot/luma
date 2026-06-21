@@ -30,6 +30,13 @@ Completed items:
 - Проверены provides, requires, desktop-файл, AppStream metadata и MIME XML.
 - Финальная структурная валидация после добавления `remote-desktop-manager` прошла успешно.
 - `.github/scripts/package-update.sh check-all` подтвердил актуальность `remote-desktop-manager`, но отдельно нашел обновления `github-plus 3.5.13.1` и `netbird 0.73.0`.
+- Найден upstream-релиз App Manager GUI `v1.2.5+3`, Linux tar.gz и GPL-3.0-only лицензия.
+- Добавлена директория пакета `app-manager-gui` с `Staplerfile`, updater, postinstall/postremove, русской лицензией-заметкой, upstream-лицензией и PNG-иконкой.
+- `app-manager-gui` добавлен в README и общий `.github/scripts/package-update.sh`.
+- Собран RPM `app-manager-gui+stplr-default-1.2.5+3-alt1.x86_64.rpm`.
+- Проверены provides, requires, desktop-файл, лицензия и файловый состав `app-manager-gui`.
+- Финальная структурная валидация после добавления `app-manager-gui` прошла успешно.
+- `.github/scripts/package-update.sh check-all` подтвердил актуальность `app-manager-gui`, но отдельно нашел обновления `github-plus 3.5.13.2` и `netbird 0.75.0-rc.2`.
 
 Blocked items:
 - Нет.
@@ -39,6 +46,20 @@ Last checks:
 - `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/adwyra/Staplerfile`
 - `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/vual/Staplerfile`
 - `comm -12` по спискам файлов RPM
+- `.github/scripts/package-update.sh check-all`
+- `app-manager-gui/.stapler/update-check`
+- `.github/scripts/package-update.sh check app-manager-gui`
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/app-manager-gui/Staplerfile`
+- `rpm -qp --provides app-manager-gui+stplr-default-1.2.5+3-alt1.x86_64.rpm`
+- `rpm -qpl app-manager-gui+stplr-default-1.2.5+3-alt1.x86_64.rpm`
+- `rpm -qp --requires app-manager-gui+stplr-default-1.2.5+3-alt1.x86_64.rpm`
+- `desktop-file-validate`
+- `find ... | xargs bash -n`
+- `python3 -m py_compile .github/scripts/validate-repo.py`
+- `.github/scripts/validate-repo.py`
+- `shellcheck`
+- `shfmt -d`
+- `git diff --check`
 - `.github/scripts/package-update.sh check-all`
 - `find ... | xargs bash -n`
 - `python3 -m py_compile .github/scripts/validate-repo.py`
@@ -68,6 +89,5 @@ Last checks:
 
 Notes:
 - Нужно сохранить исправление лицензионного конфликта `adwyra` и `vual` после обновления `adwyra`.
-- Для применения на машине пользователя нужно запушить `codex-app` `26.611.62324-alt8`, иначе `stplr` продолжит ставить старый `alt7`.
-- Для нового пакета нужно добавить `Staplerfile`, служебные файлы, README, автообновлятор, changelog и пройти сборку.
-- Обновления `github-plus` и `netbird`, найденные `check-all`, не входят в текущую итерацию добавления RDM.
+- Для применения нового пакета на машине пользователя нужно запушить изменения в удаленный репозиторий Luma.
+- Обновления `github-plus` и `netbird`, найденные `check-all`, не входят в текущую итерацию добавления App Manager GUI.
