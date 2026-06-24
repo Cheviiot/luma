@@ -143,6 +143,35 @@ def validate_package_repo_toml(package_dir: Path, errors: list[str]) -> None:
     errors.append(f"{rel}: должен использовать include = \"../stapler-repo.toml\" или секцию [inherit]")
 
 
+def validate_codex_app_patches(errors: list[str]) -> None:
+    file = ROOT / "codex-app" / "Staplerfile"
+    if not file.is_file():
+        return
+
+    text = read_text(file)
+    required_fragments = (
+        (
+            '"codexBuildFlavor": "prod"',
+            "codex-app/Staplerfile: bootstrap app.asar должен передавать codexBuildFlavor=prod",
+        ),
+        (
+            '"CodexBuildNumber": app_version.rsplit(".", 1)[-1]',
+            "codex-app/Staplerfile: bootstrap app.asar должен передавать CodexBuildNumber из версии",
+        ),
+        (
+            "electron_common_owl_features",
+            "codex-app/Staplerfile: нужен runtime-патч для отсутствующего Electron Owl feature binding",
+        ),
+        (
+            "isOwlFeatureEnabled:()=>!1",
+            "codex-app/Staplerfile: Owl feature fallback должен безопасно отключать feature flags",
+        ),
+    )
+    for fragment, error in required_fragments:
+        if fragment not in text:
+            errors.append(error)
+
+
 def main() -> int:
     errors: list[str] = []
     package_files = sorted(ROOT.glob("*/Staplerfile"))
@@ -179,6 +208,7 @@ def main() -> int:
         errors.append(str(exc))
 
     readme = read_text(ROOT / "README.md")
+    validate_codex_app_patches(errors)
 
     for file in package_files:
         text = read_text(file)

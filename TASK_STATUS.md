@@ -4,6 +4,14 @@ Status: completed
 Remaining items: 0
 Current item: Нет
 Completed items:
+- Исправлен запуск `codex-app` после обновления до `26.616.81150`: добавлен fallback для отсутствующего Electron binding `electron_common_owl_features`.
+- `codex-app` поднят до `release=3`, чтобы исправленный пакет обновлял локально установленный `alt2`.
+- Bootstrap `app.asar` снова передает `codexBuildFlavor=prod` и `CodexBuildNumber`.
+- В `.github/scripts/validate-repo.py` добавлена регрессионная проверка Linux-патчей `codex-app`.
+- Собран RPM `codex-app+stplr-default-26.616.81150-alt3.x86_64.rpm`.
+- Runtime-smoke из извлеченного RPM под Xvfb/X11 подтвердил видимое окно `Codex` и отсутствие ошибок `Desktop bootstrap failed` / `No such binding`.
+- Changelog обновлен записью о runtime-регрессии `codex-app`.
+- Начата диагностика runtime-регрессии `codex-app`: приложение после обновления не запускается у пользователя.
 - Проверена чистота рабочей ветки перед началом.
 - Найдены сборочные спецификации `adwyra` и `vual`.
 - Собраны RPM `adwyra` и `vual`.
@@ -53,6 +61,24 @@ Blocked items:
 - Нет.
 
 Last checks:
+- Диагностический запуск установленного `codex-app+stplr-luma-26.616.81150-alt2` подтвердил отсутствие видимых окон.
+- Диагностический ASAR с выводом stack trace показал `No such binding was linked: electron_common_owl_features`.
+- `python3 -m py_compile .github/scripts/validate-repo.py && .github/scripts/validate-repo.py` сначала упал на отсутствующем fallback, затем прошел после исправления.
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/codex-app/Staplerfile`
+- Проверка ASAR из `codex-app+stplr-default-26.616.81150-alt3.x86_64.rpm`: `codexBuildFlavor`, `CodexBuildNumber`, `electron_common_owl_features`, `isOwlFeatureEnabled:()=>!1`.
+- Runtime-smoke извлеченного RPM: `xvfb-run` с X11, `xdotool` нашел окно `Codex`, app-server выполнил `thread/start`.
+- `find ... | xargs bash -n`
+- `python3 -m py_compile .github/scripts/validate-repo.py`
+- `.github/scripts/validate-repo.py`
+- `shellcheck`
+- `shfmt -d`
+- `git diff --check`
+- `.github/scripts/package-update.sh check codex-app`
+- `.github/scripts/package-update.sh check-all`
+- `rpm -qp --provides codex-app+stplr-default-26.616.81150-alt3.x86_64.rpm`
+- `rpm -qpl codex-app+stplr-default-26.616.81150-alt3.x86_64.rpm`
+- `desktop-file-validate`
+- `sudo -n true` подтвердил, что системная установка требует пароль.
 - `git status --short --branch`
 - `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/adwyra/Staplerfile`
 - `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/vual/Staplerfile`
@@ -118,5 +144,5 @@ Last checks:
 - `git diff --check`
 
 Notes:
+- Установленный в системе пакет пока остается `codex-app+stplr-luma-26.616.81150-alt2`; автоматическая установка `alt3` не выполнена, потому что `sudo -n` требует пароль.
 - Нужно сохранить исправление лицензионного конфликта `adwyra` и `vual` после обновления `adwyra`.
-- После обновления пакетов нужно запушить изменения в удаленный репозиторий Luma.

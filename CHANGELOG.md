@@ -1,3 +1,26 @@
+## 2026-06-24 19:36 VLAT
+
+### Изменено
+- У `codex-app` увеличен `release` до `3`, так как исправлено runtime-поведение без изменения upstream-версии `26.616.81150`.
+- Bootstrap `app.asar` теперь передает `codexBuildFlavor=prod` и `CodexBuildNumber` из версии приложения.
+- `.github/scripts/validate-repo.py` расширен регрессионной проверкой Linux-патчей `codex-app`.
+
+### Добавлено
+- Для `codex-app` добавлен fallback отсутствующего Electron binding `electron_common_owl_features`: если Linux Electron не содержит Owl feature binding, feature flags безопасно считаются выключенными.
+
+### Исправлено
+- Исправлен запуск `codex-app` после обновления до `26.616.81150`: новая версия upstream обращалась к приватному Electron binding, которого нет в Linux-перепаковке, из-за чего main-фаза падала до создания окна.
+
+### Проверено
+- Воспроизведен сбой установленного `codex-app+stplr-luma-26.616.81150-alt2`: видимых окон нет, в диагностическом ASAR получена ошибка `No such binding was linked: electron_common_owl_features`.
+- Новый regression-check сначала упал на текущем `Staplerfile`, затем прошел после исправления.
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/codex-app/Staplerfile` успешно собрал `codex-app+stplr-default-26.616.81150-alt3.x86_64.rpm`.
+- Из собранного RPM проверены `codexBuildFlavor`, `CodexBuildNumber`, маркеры `electron_common_owl_features` и `isOwlFeatureEnabled:()=>!1`.
+- Runtime-smoke из извлеченного RPM под Xvfb/X11 открыл видимое окно `Codex`, app-server подключил `codex-cli 0.142.0`, прежние ошибки `Desktop bootstrap failed` и `No such binding` отсутствуют.
+
+### Осталось
+- Системная установка исправленного RPM на текущей машине требует интерактивного `sudo`-пароля.
+
 ## 2026-06-24 19:06 VLAT
 
 ### Изменено

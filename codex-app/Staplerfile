@@ -1,6 +1,6 @@
 name='codex-app'
 version='26.616.81150'
-release=2
+release=3
 summary='Unofficial Linux repack of the Codex desktop app'
 summary_ru='Неофициальная Linux-перепаковка десктопного приложения Codex'
 group='Development/Tools'
@@ -284,6 +284,11 @@ replacements = [
         "function linuxOpenFileManagerPath(e){let t=e;for(;;){if((0,o.existsSync)(t))break;let e=(0,i.dirname)(t);if(e===t){t=null;break}t=e}let n=t??e;if((0,o.existsSync)(n)&&(0,o.statSync)(n).isFile())n=(0,i.dirname)(n);return se(n)}",
         "async function linuxOpenFileManagerPath(e){let t=e;for(;;){if((0,o.existsSync)(t))break;let e=(0,i.dirname)(t);if(e===t){t=null;break}t=e}let n=t??e;if((0,o.existsSync)(n)&&(0,o.statSync)(n).isFile()){a.shell.showItemInFolder(n);return}let r=await a.shell.openPath(n);if(!r)return;let s=linuxFileManagerDetect();if(s&&s!==`system-default`){let e=(0,i.basename)(s)===`gio`?[`open`,n]:[n];await Do(s,e);return}throw Error(r)}",
     ),
+    (
+        "linux owl feature binding fallback",
+        "function Qe(){let e=process._linkedBinding;if(typeof e!=`function`)throw Error(`Owl feature binding is unavailable`);return Ge.parse(e.call(process,`electron_common_owl_features`))}",
+        "function Qe(){let e=process._linkedBinding;if(typeof e!=`function`)return {isOwlFeatureEnabled:()=>!1};try{return Ge.parse(e.call(process,`electron_common_owl_features`))}catch{return {isOwlFeatureEnabled:()=>!1}}}",
+    ),
 ]
 
 matched_replacements = []
@@ -487,6 +492,7 @@ required_replacements = {
     "linux file manager detect",
     "linux file manager open",
     "linux file manager icon",
+    "linux owl feature binding fallback",
 }
 matched_labels = {entry.split(":", 1)[0] for entry in matched_replacements}
 missing_replacements = sorted(required_replacements - matched_labels)
