@@ -37,6 +37,9 @@ Completed items:
 - Проверены provides, requires, desktop-файл, лицензия и файловый состав `app-manager-gui`.
 - Финальная структурная валидация после добавления `app-manager-gui` прошла успешно.
 - `.github/scripts/package-update.sh check-all` подтвердил актуальность `app-manager-gui`, но отдельно нашел обновления `github-plus 3.5.13.2` и `netbird 0.75.0-rc.2`.
+- По решению сопровождения пакет `app-manager-gui` снят с поддержки.
+- Удалены директория `app-manager-gui` и иконка `.github/assets/apps/app-manager-gui.png`.
+- `app-manager-gui` удален из README и `.github/scripts/package-update.sh`.
 
 Blocked items:
 - Нет.
@@ -47,6 +50,7 @@ Last checks:
 - `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/vual/Staplerfile`
 - `comm -12` по спискам файлов RPM
 - `.github/scripts/package-update.sh check-all`
+- `GITHUB_TOKEN="$(gh auth token)" .github/scripts/package-update.sh check-all` остановлен после смены задачи; до остановки подтвердил обновления `app-manager-gui 1.2.5+3 -> 1.2.6`, `codex-app 26.611.62324 -> 26.616.71553`, `github-plus 3.5.13.0 -> 3.5.13.2`, `happ 2.17.1 -> 2.18.1`, `netbird 0.72.4 -> 0.73.2`
 - `app-manager-gui/.stapler/update-check`
 - `.github/scripts/package-update.sh check app-manager-gui`
 - `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/app-manager-gui/Staplerfile`
@@ -89,5 +93,5 @@ Last checks:
 
 Notes:
 - Нужно сохранить исправление лицензионного конфликта `adwyra` и `vual` после обновления `adwyra`.
-- Для применения нового пакета на машине пользователя нужно запушить изменения в удаленный репозиторий Luma.
-- Обновления `github-plus` и `netbird`, найденные `check-all`, не входят в текущую итерацию добавления App Manager GUI.
+- После удаления `app-manager-gui` нужно запушить изменения в удаленный репозиторий Luma.
+- Обновления `codex-app`, `github-plus`, `happ` и `netbird`, найденные до остановки `check-all`, не входят в текущую итерацию снятия `app-manager-gui`.

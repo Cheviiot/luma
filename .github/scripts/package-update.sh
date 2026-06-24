@@ -5,7 +5,6 @@ set -euo pipefail
 
 PACKAGES=(
     adwyra
-    app-manager-gui
     clash-verge
     codex-app
     github-plus
@@ -276,7 +275,6 @@ latest_version() {
 
     case "$package" in
     adwyra) github_latest_release "Cheviiot/adwyra" ;;
-    app-manager-gui) github_latest_release "BlassGO/AppManager-GUI" ;;
     clash-verge) github_latest_release "clash-verge-rev/clash-verge-rev" ;;
     codex-app) github_latest_release "Boria138/codex-app-linux" ;;
     github-plus) github_latest_release "pol-rivero/github-desktop-plus" ;;

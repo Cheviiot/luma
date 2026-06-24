@@ -1,3 +1,29 @@
+## 2026-06-24 18:38 VLAT
+
+### Изменено
+- README обновлен для каталога из 13 пакетов после снятия `app-manager-gui`.
+- `.github/scripts/package-update.sh` больше не проверяет и не обновляет `app-manager-gui`.
+
+### Добавлено
+- Нет.
+
+### Исправлено
+- Нет.
+
+### Удалено
+- Удален пакет `app-manager-gui`: директория пакета, локальная иконка витрины, updater, postinstall/postremove, русская лицензия-заметка и upstream-лицензия.
+
+### Проверено
+- `GITHUB_TOKEN="$(gh auth token)" .github/scripts/package-update.sh check-all` был остановлен после решения снять `app-manager-gui`; до остановки команда нашла обновления `app-manager-gui 1.2.5+3 -> 1.2.6`, `codex-app 26.611.62324 -> 26.616.71553`, `github-plus 3.5.13.0 -> 3.5.13.2`, `happ 2.17.1 -> 2.18.1`, `netbird 0.72.4 -> 0.73.2`.
+- `find ... | xargs bash -n` прошел успешно для `Staplerfile`, shell-скриптов и `.stapler/update-check`.
+- `python3 -m py_compile .github/scripts/validate-repo.py` и `.github/scripts/validate-repo.py` прошли успешно; валидатор проверил 13 пакетов.
+- `shellcheck` и `shfmt -d` прошли успешно для shell-файлов.
+- `rg` подтвердил, что активные файлы README/updater больше не содержат ссылок на `app-manager-gui`.
+- `git diff --check` прошел успешно.
+
+### Осталось
+- Отдельной итерацией обновить `codex-app`, `github-plus`, `happ` и `netbird`, если эти обновления нужны сейчас.
+
 ## 2026-06-21 23:13 VLAT
 
 ### Изменено
