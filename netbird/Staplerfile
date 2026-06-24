@@ -1,5 +1,5 @@
 name='netbird'
-version='0.72.4'
+version='0.73.2'
 release=1
 summary='WireGuard-based mesh VPN client'
 summary_ru='Mesh VPN-клиент на базе WireGuard'
@@ -39,12 +39,12 @@ sources_arm64=(
 )
 
 checksums=(
-    '15991fec10421577f309b3aa0c41401aeecbb5968b49d8d0c60795f6b2210d0e'
+    '032eef79d2ffcf19dcbc317fc4c669ee306165a3209c4cb68ab69f3f2405097f'
     '71b133636e91eb67f221f64592f64fa04a3b2337f4d616be36492efae0cff643'
 )
 
 checksums_arm64=(
-    '35ef466673432a3e266139c9de4719787bd7f569b789fbc8c446a49e06915283'
+    'ca283f249389b561c57019862811ebc3260f9c25c37dcb45e10a287f603a848f'
     '71b133636e91eb67f221f64592f64fa04a3b2337f4d616be36492efae0cff643'
 )
 

@@ -40,6 +40,14 @@ Completed items:
 - По решению сопровождения пакет `app-manager-gui` снят с поддержки.
 - Удалены директория `app-manager-gui` и иконка `.github/assets/apps/app-manager-gui.png`.
 - `app-manager-gui` удален из README и `.github/scripts/package-update.sh`.
+- Проверена актуальность всех пакетов после снятия `app-manager-gui`.
+- `codex-app` обновлен до `26.616.81150`, checksum пересчитан, README синхронизирован.
+- `github-plus` обновлен до `3.5.13.2`, checksums amd64/arm64 пересчитаны, README синхронизирован.
+- `happ` обновлен до `2.18.1`, checksums amd64/arm64 пересчитаны, README синхронизирован.
+- `netbird` обновлен до `0.73.2`, checksums amd64/arm64 пересчитаны, README синхронизирован.
+- Патч `codex-app` адаптирован под новую структуру ASAR в `26.616.81150`.
+- Собраны RPM `codex-app`, `github-plus`, `happ` и `netbird` с новыми версиями.
+- Финальная проверка `.github/scripts/package-update.sh check-all` подтвердила актуальность всех 13 пакетов.
 
 Blocked items:
 - Нет.
@@ -51,6 +59,24 @@ Last checks:
 - `comm -12` по спискам файлов RPM
 - `.github/scripts/package-update.sh check-all`
 - `GITHUB_TOKEN="$(gh auth token)" .github/scripts/package-update.sh check-all` остановлен после смены задачи; до остановки подтвердил обновления `app-manager-gui 1.2.5+3 -> 1.2.6`, `codex-app 26.611.62324 -> 26.616.71553`, `github-plus 3.5.13.0 -> 3.5.13.2`, `happ 2.17.1 -> 2.18.1`, `netbird 0.72.4 -> 0.73.2`
+- `.github/scripts/package-update.sh check-all`
+- `.github/scripts/package-update.sh apply codex-app`
+- `.github/scripts/package-update.sh apply github-plus`
+- `.github/scripts/package-update.sh apply happ`
+- `.github/scripts/package-update.sh apply netbird`
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/codex-app/Staplerfile`
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/github-plus/Staplerfile`
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/happ/Staplerfile`
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/netbird/Staplerfile`
+- `rpm -qp --provides` для `codex-app`, `github-plus`, `happ`, `netbird`
+- ASAR marker check для `codex-app+stplr-default-26.616.81150-alt1.x86_64.rpm`
+- `find ... | xargs bash -n`
+- `python3 -m py_compile .github/scripts/validate-repo.py`
+- `.github/scripts/validate-repo.py`
+- `shellcheck`
+- `shfmt -d`
+- `git diff --check`
+- `.github/scripts/package-update.sh check-all`
 - `app-manager-gui/.stapler/update-check`
 - `.github/scripts/package-update.sh check app-manager-gui`
 - `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/app-manager-gui/Staplerfile`
@@ -93,5 +119,4 @@ Last checks:
 
 Notes:
 - Нужно сохранить исправление лицензионного конфликта `adwyra` и `vual` после обновления `adwyra`.
-- После удаления `app-manager-gui` нужно запушить изменения в удаленный репозиторий Luma.
-- Обновления `codex-app`, `github-plus`, `happ` и `netbird`, найденные до остановки `check-all`, не входят в текущую итерацию снятия `app-manager-gui`.
+- После обновления пакетов нужно запушить изменения в удаленный репозиторий Luma.

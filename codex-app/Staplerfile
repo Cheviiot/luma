@@ -1,6 +1,6 @@
 name='codex-app'
-version='26.611.62324'
-release=8
+version='26.616.81150'
+release=1
 summary='Unofficial Linux repack of the Codex desktop app'
 summary_ru='Неофициальная Linux-перепаковка десктопного приложения Codex'
 group='Development/Tools'
@@ -37,7 +37,7 @@ sources=(
 )
 
 checksums=(
-    '7550823423373bd3a83f2957684cd92e4a5e7529cff99ca7f9383dc5f28f9794'
+    '168c08ca5cebb7d3f5070cdbfa93d4344848e9c50e426c781324e7a459105925'
     '5c4fe03d5777a9684e37ec9a2331302abf525f53db83762e6adaafd2fc5eb510'
 )
 
@@ -202,6 +202,16 @@ replacements = [
     ),
     (
         "documentsDir fallback",
+        "function aD({desktopPaths:e,homeDir:t,platform:n}){return lD(t,e.getPath(`home`),n)?e.getPath(`documents`):uD(n).join(t,`Documents`)}",
+        "function aD({desktopPaths:e,homeDir:t,platform:n}){let r=process.env.CODEX_APP_DOCUMENTS_DIR;return r&&r.trim()!==``?r:lD(t,e.getPath(`home`),n)?e.getPath(`documents`):uD(n).join(t,`Documents`)}",
+    ),
+    (
+        "projectless workspace path",
+        "function fx({homeDirectory:e,path:t}){return t.join(e,`Documents`,`Codex`)}",
+        "function fx({homeDirectory:e,path:t}){return t.join(process.env.CODEX_APP_DOCUMENTS_DIR||t.join(e,`Documents`),`Codex`)}",
+    ),
+    (
+        "documentsDir fallback",
         "function ew({desktopPaths:e,homeDir:t,platform:n}){return nw(t,e.getPath(`home`),n)?e.getPath(`documents`):rw(n).join(t,`Documents`)}",
         "function ew({desktopPaths:e,homeDir:t,platform:n}){let r=process.env.CODEX_APP_DOCUMENTS_DIR;return r&&r.trim()!==``?r:nw(t,e.getPath(`home`),n)?e.getPath(`documents`):rw(n).join(t,`Documents`)}",
     ),
@@ -222,18 +232,18 @@ replacements = [
     ),
     (
         "chat attachment opens in side panel",
-        "openInSidePanel:I(d)===`pptx`",
+        "openInSidePanel:V(d)===`pptx`",
         "openInSidePanel:!0",
     ),
     (
         "markdown file link opens in side panel",
-        "openFileLinksInSidePanel:g.trim().startsWith(`$`)",
+        "openFileLinksInSidePanel:p.trim().startsWith(`$`)",
         "openFileLinksInSidePanel:!0",
     ),
     (
         "file mention opens in side panel",
-        "(0,h.jsx)(s,{reference:n(e),cwd:i,hostId:a},`${t}-file-${d}`)",
-        "(0,h.jsx)(s,{reference:n(e),cwd:i,hostId:a,openInSidePanel:!0},`${t}-file-${d}`)",
+        "(0,g.jsx)(c,{reference:s(e),cwd:n,hostId:i},`${t}-file-${d}`)",
+        "(0,g.jsx)(c,{reference:s(e),cwd:n,hostId:i,openInSidePanel:!0},`${t}-file-${d}`)",
     ),
     (
         "linux dock icon setting wording",

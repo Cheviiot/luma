@@ -66,8 +66,8 @@ stplr upgrade
 | Приложение | Версия | Архитектуры | Первоисточник | Установка |
 |:--|:--:|:--:|:--|:--|
 | <img src=".github/assets/apps/clash-verge.png" width="28" height="28" alt=""> [Clash Verge Rev](./clash-verge)<br><sub>GUI-клиент на Tauri для профилей Mihomo/Clash.</sub> | `2.5.1` | `amd64`, `arm64` | [clashverge.dev](https://www.clashverge.dev) | `stplr install luma/clash-verge` |
-| <img src=".github/assets/apps/happ.png" width="28" height="28" alt=""> [Happ](./happ)<br><sub>Удобный GUI-прокси-клиент для xray-core.</sub> | `2.17.1` | `amd64`, `arm64` | [happ.su](https://happ.su/) | `stplr install luma/happ` |
-| <img src=".github/assets/apps/netbird.png" width="28" height="28" alt=""> [NetBird](./netbird)<br><sub>Mesh VPN-клиент на базе WireGuard с SSO и политиками доступа.</sub> | `0.72.4` | `amd64`, `arm64` | [netbird.io](https://netbird.io/) | `stplr install luma/netbird` |
+| <img src=".github/assets/apps/happ.png" width="28" height="28" alt=""> [Happ](./happ)<br><sub>Удобный GUI-прокси-клиент для xray-core.</sub> | `2.18.1` | `amd64`, `arm64` | [happ.su](https://happ.su/) | `stplr install luma/happ` |
+| <img src=".github/assets/apps/netbird.png" width="28" height="28" alt=""> [NetBird](./netbird)<br><sub>Mesh VPN-клиент на базе WireGuard с SSO и политиками доступа.</sub> | `0.73.2` | `amd64`, `arm64` | [netbird.io](https://netbird.io/) | `stplr install luma/netbird` |
 | <img src=".github/assets/apps/tailscale.svg" width="28" height="28" alt=""> [Tailscale](./tailscale)<br><sub>Mesh VPN на базе WireGuard для приватных сетей.</sub> | `1.98.4` | `amd64`, `arm64` | [tailscale.com](https://tailscale.com) | `stplr install luma/tailscale` |
 | <img src=".github/assets/apps/vanyavpn.png" width="28" height="28" alt=""> [VanyaVPN](./vanyavpn)<br><sub>Десктопный клиент сервиса VanyaVPN, перепакованный из AppImage.</sub> | `1.12.1+472165` | `amd64` | [vanyavpn.es](https://vanyavpn.es) | `stplr install luma/vanyavpn` |
 
@@ -75,8 +75,8 @@ stplr upgrade
 
 | Приложение | Версия | Архитектуры | Первоисточник | Установка |
 |:--|:--:|:--:|:--|:--|
-| <img src=".github/assets/apps/codex-app.png" width="28" height="28" alt=""> [Codex App](./codex-app)<br><sub>Неофициальная Linux-перепаковка десктопного приложения Codex.</sub> | `26.611.62324` | `amd64` | [Boria138/codex-app-linux](https://github.com/Boria138/codex-app-linux) | `stplr install luma/codex-app` |
-| <img src=".github/assets/apps/github-plus.png" width="28" height="28" alt=""> [GitHub Desktop Plus](./github-plus)<br><sub>Форк GitHub Desktop с интеграцией Bitbucket и GitLab.</sub> | `3.5.13.0` | `amd64`, `arm64` | [pol-rivero/github-desktop-plus](https://github.com/pol-rivero/github-desktop-plus) | `stplr install luma/github-plus` |
+| <img src=".github/assets/apps/codex-app.png" width="28" height="28" alt=""> [Codex App](./codex-app)<br><sub>Неофициальная Linux-перепаковка десктопного приложения Codex.</sub> | `26.616.81150` | `amd64` | [Boria138/codex-app-linux](https://github.com/Boria138/codex-app-linux) | `stplr install luma/codex-app` |
+| <img src=".github/assets/apps/github-plus.png" width="28" height="28" alt=""> [GitHub Desktop Plus](./github-plus)<br><sub>Форк GitHub Desktop с интеграцией Bitbucket и GitLab.</sub> | `3.5.13.2` | `amd64`, `arm64` | [pol-rivero/github-desktop-plus](https://github.com/pol-rivero/github-desktop-plus) | `stplr install luma/github-plus` |
 
 ### Рабочий стол и игры
 
@@ -105,11 +105,11 @@ stplr upgrade
 |:--|:--|:--|:--:|:--|:--:|
 | `adwyra` | Рабочий стол | [Adwyra](https://github.com/Cheviiot/Adwyra) | `0.6.1` | `GPL-3.0-or-later` | `all` |
 | `clash-verge` | Сеть и VPN | [Clash Verge Rev](https://www.clashverge.dev) | `2.5.1` | `GPL-3.0-only` | `amd64`, `arm64` |
-| `codex-app` | Разработка | [Codex App Linux](https://github.com/Boria138/codex-app-linux) | `26.611.62324` | `Custom` | `amd64` |
-| `github-plus` | Разработка | [GitHub Desktop Plus](https://github.com/pol-rivero/github-desktop-plus) | `3.5.13.0` | `MIT` | `amd64`, `arm64` |
-| `happ` | Сеть и VPN | [Happ](https://happ.su/) | `2.17.1` | `Custom` | `amd64`, `arm64` |
+| `codex-app` | Разработка | [Codex App Linux](https://github.com/Boria138/codex-app-linux) | `26.616.81150` | `Custom` | `amd64` |
+| `github-plus` | Разработка | [GitHub Desktop Plus](https://github.com/pol-rivero/github-desktop-plus) | `3.5.13.2` | `MIT` | `amd64`, `arm64` |
+| `happ` | Сеть и VPN | [Happ](https://happ.su/) | `2.18.1` | `Custom` | `amd64`, `arm64` |
 | `mindustry` | Игры | [Mindustry](https://anuke.itch.io/mindustry) | `158.1` | `GPL-3.0-only` | `amd64` |
-| `netbird` | Сеть и VPN | [NetBird](https://netbird.io/) | `0.72.4` | `BSD-3-Clause`, `AGPL-3.0-only` | `amd64`, `arm64` |
+| `netbird` | Сеть и VPN | [NetBird](https://netbird.io/) | `0.73.2` | `BSD-3-Clause`, `AGPL-3.0-only` | `amd64`, `arm64` |
 | `parsec` | Рабочий стол и игры | [Parsec](https://parsec.app/downloads) | `150-97c` | `Custom` | `amd64` |
 | `pineconemc` | Игры | [PineconeMC](https://pineconemc.com/) | `11.0.2` | `GPL-3.0-only` | `amd64`, `arm64` |
 | `remote-desktop-manager` | Рабочий стол и игры | [Devolutions RDM](https://devolutions.net/remote-desktop-manager/) | `2026.2.0.7` | `Custom` | `amd64` |

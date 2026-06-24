@@ -1,3 +1,34 @@
+## 2026-06-24 19:06 VLAT
+
+### Изменено
+- `codex-app` обновлен с `26.611.62324` до `26.616.81150`; `release` сброшен до `1`, checksum пересчитан.
+- `github-plus` обновлен с `3.5.13.0` до `3.5.13.2`; checksums amd64/arm64 пересчитаны.
+- `happ` обновлен с `2.17.1` до `2.18.1`; checksums amd64/arm64 пересчитаны.
+- `netbird` обновлен с `0.72.4` до `0.73.2`; checksums amd64/arm64 пересчитаны.
+- README синхронизирован с актуальными версиями четырех пакетов.
+- Патч `codex-app` адаптирован под новую структуру upstream ASAR: обновлены фрагменты открытия вложений, markdown-ссылок, `@file`-упоминаний и projectless workspace path.
+
+### Добавлено
+- Нет.
+
+### Исправлено
+- Сохранены Linux-исправления `codex-app` после обновления upstream: открытие файлов внутри side panel, локализованная папка документов, Linux-формулировки интерфейса, нейтральная иконка файлового менеджера и fallback открытия файлового менеджера.
+
+### Проверено
+- `.github/scripts/package-update.sh check-all` завершился успешно: все 13 пакетов актуальны.
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/codex-app/Staplerfile` успешно собрал `codex-app+stplr-default-26.616.81150-alt1.x86_64.rpm`.
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/github-plus/Staplerfile` успешно собрал `github-plus+stplr-default-3.5.13.2-alt1.x86_64.rpm`.
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/happ/Staplerfile` успешно собрал `happ+stplr-default-2.18.1-alt1.x86_64.rpm`.
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/netbird/Staplerfile` успешно собрал `netbird+stplr-default-0.73.2-alt1.x86_64.rpm`.
+- `rpm -qp --provides` подтвердил provides для `codex-app`, `github-plus`, `happ` и `netbird`.
+- Из финального RPM `codex-app` извлечен `codex.asar`; подтверждены маркеры `CODEX_APP_DOCUMENTS_DIR`, `openInSidePanel:!0`, `openFileLinksInSidePanel:!0`, `Preferred Linux app icon`, `Whether the app menu bar is shown`, `Control Linux desktop apps through Computer Use`, `defaultMessage:\`List PC apps\``, расширенный `linuxFileManagerDetect` и `shell.showItemInFolder`.
+- `find ... | xargs bash -n` прошел успешно для `Staplerfile`, shell-скриптов и `.stapler/update-check`.
+- `python3 -m py_compile .github/scripts/validate-repo.py` и `.github/scripts/validate-repo.py` прошли успешно; валидатор проверил 13 пакетов.
+- `shellcheck`, `shfmt -d` и `git diff --check` прошли успешно.
+
+### Осталось
+- Нет.
+
 ## 2026-06-24 18:38 VLAT
 
 ### Изменено
