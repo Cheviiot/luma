@@ -1,6 +1,6 @@
 name='codex-app'
 version='26.616.81150'
-release=1
+release=2
 summary='Unofficial Linux repack of the Codex desktop app'
 summary_ru='Неофициальная Linux-перепаковка десктопного приложения Codex'
 group='Development/Tools'
@@ -123,6 +123,8 @@ configureLocalizedDocumentsPath();
 
 process.env.ELECTRON_FORCE_IS_PACKAGED = "1";
 process.env.NODE_ENV = "production";
+process.env.BUILD_FLAVOR = process.env.BUILD_FLAVOR || "prod";
+process.env.CODEX_BUILD_NUMBER = process.env.CODEX_BUILD_NUMBER || "81150";
 process.env.CODEX_CLI_PATH = path.join(process.resourcesPath, "codex");
 require(path.join(process.resourcesPath, "codex.asar"));
 '''.encode()
@@ -133,6 +135,8 @@ package_json = json.dumps(
         "private": True,
         "version": app_version,
         "main": "bootstrap.js",
+        "codexBuildFlavor": "prod",
+        "CodexBuildNumber": app_version.rsplit(".", 1)[-1],
         "description": "Codex app for Linux",
         "author": "Boria138",
     },
