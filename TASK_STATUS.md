@@ -4,6 +4,15 @@ Status: completed
 Remaining items: 0
 Current item: Нет
 Completed items:
+- Найден официальный релиз OpenCode `v1.17.11`.
+- Подтверждены Linux deb-артефакты `opencode-desktop-linux-amd64.deb` и `opencode-desktop-linux-arm64.deb`.
+- Разобран upstream deb: пакет называется `opencode`, приложение устанавливается в `/opt/OpenCode`, desktop-файлы и hicolor-иконки присутствуют.
+- Добавлен пакет `opencode` с поддержкой `amd64` и `arm64`.
+- Добавлены updater, postinstall/postremove-скрипты, русская лицензия-заметка и README-записи.
+- Из официального deb извлечена иконка `.github/assets/apps/opencode.png`.
+- `opencode/.stapler/update-check` подтвердил актуальность версии `1.17.11`.
+- Собран RPM `opencode+stplr-default-1.17.11-alt1.x86_64.rpm`.
+- Проверены provides, requires, desktop-файлы и файловый состав RPM `opencode`.
 - Исправлен запуск `codex-app` после обновления до `26.616.81150`: добавлен fallback для отсутствующего Electron binding `electron_common_owl_features`.
 - `codex-app` поднят до `release=3`, чтобы исправленный пакет обновлял локально установленный `alt2`.
 - Bootstrap `app.asar` снова передает `codexBuildFlavor=prod` и `CodexBuildNumber`.

@@ -11,6 +11,7 @@ PACKAGES=(
     happ
     mindustry
     netbird
+    opencode
     parsec
     pineconemc
     remote-desktop-manager
@@ -281,6 +282,7 @@ latest_version() {
     happ) github_latest_release "Happ-proxy/happ-desktop" ;;
     mindustry) latest_mindustry ;;
     netbird) github_latest_release "netbirdio/netbird" ;;
+    opencode) github_latest_release "anomalyco/opencode" ;;
     parsec) latest_parsec ;;
     pineconemc) github_latest_release "ElyPrismLauncher/Launcher" ;;
     remote-desktop-manager) latest_remote_desktop_manager ;;

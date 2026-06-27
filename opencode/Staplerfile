@@ -1,0 +1,84 @@
+name='opencode'
+version='1.17.11'
+release=1
+summary='Open source AI coding agent desktop app'
+summary_ru='Десктопное приложение AI-агента OpenCode'
+group='Development/Tools'
+desc='OpenCode is an open source AI coding agent for terminal, IDE and desktop workflows with support for multiple model providers.'
+desc_ru='OpenCode — открытый AI-агент для работы с кодом в терминале, IDE и десктопном приложении с поддержкой разных провайдеров моделей.'
+homepage='https://opencode.ai'
+maintainer='Anomaly Innovations Inc. <hello@opencode.ai>'
+
+architectures=('amd64' 'arm64')
+
+license=('MIT')
+
+provides=('opencode' 'opencode-desktop' 'open-code')
+replaces=('opencode' 'opencode-desktop' 'open-code')
+
+auto_reqprov_method="dirty"
+auto_req=0
+auto_prov=0
+
+deps=()
+deps_debian=('libgtk-3-0' 'libnotify4' 'libnss3' 'libxss1' 'libxtst6' 'xdg-utils' 'libatspi2.0-0' 'libuuid1' 'libsecret-1-0')
+deps_ubuntu=("${deps_debian[@]}")
+deps_fedora=('gtk3' 'libnotify' 'nss' 'libXScrnSaver' 'libXtst' 'xdg-utils' 'at-spi2-core' 'libuuid' 'libsecret')
+deps_arch=('gtk3' 'libnotify' 'nss' 'libxss' 'libxtst' 'xdg-utils' 'at-spi2-core' 'libutil-linux' 'libsecret')
+deps_opensuse=('gtk3' 'libnotify4' 'mozilla-nss' 'libXScrnSaver1' 'libXtst6' 'xdg-utils' 'at-spi2-core' 'libuuid1' 'libsecret-1-0')
+deps_altlinux=('libgtk+3' 'libnotify' 'libnss' 'libXScrnSaver' 'libXtst' 'xdg-utils' 'libat-spi2-core' 'libuuid' 'libsecret')
+
+opt_deps=()
+opt_deps_debian=('libappindicator3-1' 'gnome-keyring')
+opt_deps_ubuntu=("${opt_deps_debian[@]}")
+opt_deps_fedora=('libappindicator-gtk3' 'gnome-keyring')
+opt_deps_arch=('libappindicator-gtk3' 'gnome-keyring')
+opt_deps_opensuse=('libappindicator3-1' 'gnome-keyring')
+opt_deps_altlinux=('libappindicator-gtk3' 'gnome-keyring')
+
+sources=(
+    "https://github.com/anomalyco/opencode/releases/download/v${version}/opencode-desktop-linux-amd64.deb?~archive=false&~name=opencode.deb"
+)
+
+sources_arm64=(
+    "https://github.com/anomalyco/opencode/releases/download/v${version}/opencode-desktop-linux-arm64.deb?~archive=false&~name=opencode.deb"
+)
+
+checksums=(
+    'e3376fa8268a007b7787845b9863832f500e82daef571ec6cc9fc4725a428108'
+)
+
+checksums_arm64=(
+    '2976a5cdece553e44972d1b4f36b1c8ee9050105067ac982d476d6b51c8adac7'
+)
+
+scripts=(
+    ['postinstall']='postinstall.sh'
+    ['postremove']='postremove.sh'
+)
+
+package() {
+    cd "${srcdir}"
+
+    mkdir -p "${srcdir}/extracted"
+    ar x opencode.deb
+    tar -xf data.tar.* -C "${srcdir}/extracted"
+
+    install -dm755 "${pkgdir}/opt"
+    cp -a "${srcdir}/extracted/opt/OpenCode" "${pkgdir}/opt/"
+
+    install -dm755 "${pkgdir}/usr/share"
+    cp -a "${srcdir}/extracted/usr/share/applications" "${pkgdir}/usr/share/"
+    cp -a "${srcdir}/extracted/usr/share/icons" "${pkgdir}/usr/share/"
+
+    install -dm755 "${pkgdir}/usr/bin"
+    ln -sfn /opt/OpenCode/ai.opencode.desktop "${pkgdir}/usr/bin/opencode-desktop"
+}
+
+files() {
+    files-find-binary
+    files-find-desktop
+    files-find \
+        "/opt/OpenCode/**/*" \
+        "/usr/share/icons/hicolor/*/apps/ai.opencode.desktop.png"
+}

@@ -1,3 +1,27 @@
+## 2026-06-27 23:20 VLAT
+
+### Добавлено
+- Добавлен пакет `opencode` для OpenCode Desktop `1.17.11` из официальных Linux deb-артефактов `anomalyco/opencode`.
+- Пакет поддерживает `amd64` и `arm64`, устанавливает `/opt/OpenCode`, desktop-файлы, hicolor-иконки и alias `/usr/bin/opencode-desktop`.
+- Добавлены `opencode/Staplerfile`, `stapler-repo.toml`, `.stapler/update-check`, postinstall/postremove-скрипты и русская лицензия-заметка.
+
+### Изменено
+- `.github/scripts/package-update.sh` расширен проверкой актуальной версии `opencode` через GitHub releases.
+- README обновлен: счетчик увеличен до 14 пакетов, OpenCode добавлен в витрину разработки и полную сводку.
+
+### Проверено
+- Проверен официальный релиз `v1.17.11`: найдены deb-артефакты `opencode-desktop-linux-amd64.deb` и `opencode-desktop-linux-arm64.deb`.
+- Разобран upstream deb: подтверждены `/opt/OpenCode`, desktop-файлы и PNG-иконки `ai.opencode.desktop`.
+- `opencode/.stapler/update-check` вернул `1.17.11 1.17.11`.
+- `stplr build --clean --script /home/cheviiot/Документы/GitHub/Luma/opencode/Staplerfile` успешно собрал `opencode+stplr-default-1.17.11-alt1.x86_64.rpm`.
+- `rpm -qp --provides` подтвердил aliases `opencode`, `opencode-desktop` и `open-code`.
+- `rpm -qpl` подтвердил наличие `/opt/OpenCode/ai.opencode.desktop`, `/usr/bin/opencode-desktop`, desktop-файлов и hicolor-иконок.
+- `desktop-file-validate`, `find ... | xargs bash -n`, `python3 -m py_compile`, `.github/scripts/validate-repo.py`, `shellcheck`, `shfmt -d` и `git diff --check` прошли успешно.
+- `.github/scripts/package-update.sh check-all` подтвердил актуальность `opencode`; команда завершилась кодом `10`, потому что отдельно обнаружены обновления `github-plus 3.5.13.3`, `happ 2.18.3` и `netbird 0.74.0-rc.1`.
+
+### Осталось
+- Обновления `github-plus`, `happ` и `netbird` не смешивались с добавлением `opencode` и требуют отдельного прохода.
+
 ## 2026-06-24 19:36 VLAT
 
 ### Изменено
