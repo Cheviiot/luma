@@ -1,3 +1,26 @@
+## 2026-06-30 22:25 VLAT
+
+### Изменено
+- У `hermes-agent` увеличен `release` до `3`, так как исправлена поставка иконки без изменения upstream-версии `2026.6.19`.
+- Иконка `hermes-agent.png` добавлена как локальный source пакета, чтобы Stapler и файловая сборка получали ее независимо от desktop-сборки upstream.
+
+### Добавлено
+- В пакет `hermes-agent` добавлена локальная иконка `hermes-agent/hermes-agent.png`.
+- Иконка устанавливается в hicolor как `256x256` и `1024x1024`, чтобы меню окружения рабочего стола надежнее находило `Icon=hermes-agent`.
+
+### Исправлено
+- Исправлена ситуация, когда после установки `hermes-agent` иконка приложения не подтягивалась.
+
+### Проверено
+- SHA256 локальной иконки `hermes-agent.png`: `d60d164e24fdcf6532133b8ea43c77a201e4b9e9dbc396187b58d51d8590ef52`.
+- `stplr build --script /home/cheviiot/Документы/GitHub/Luma/hermes-agent/Staplerfile` успешно собрал `hermes-agent+stplr-default-2026.6.19-alt3.x86_64.rpm`.
+- `rpm -qpl hermes-agent+stplr-default-2026.6.19-alt3.x86_64.rpm` подтвердил наличие `/usr/share/applications/hermes-agent.desktop`, `/usr/share/icons/hicolor/256x256/apps/hermes-agent.png` и `/usr/share/icons/hicolor/1024x1024/apps/hermes-agent.png`.
+- `rpm -qp --requires hermes-agent+stplr-default-2026.6.19-alt3.x86_64.rpm` подтвердил runtime-зависимости без `python3-module-venv`.
+- `desktop-file-validate /home/cheviiot/.cache/stplr/pkgs/hermes-agent/pkg/usr/share/applications/hermes-agent.desktop` прошел успешно.
+
+### Осталось
+- Нет.
+
 ## 2026-06-30 21:55 VLAT
 
 ### Изменено

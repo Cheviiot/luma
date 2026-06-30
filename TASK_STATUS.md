@@ -103,6 +103,11 @@ Last checks:
 - `stplr build --script /home/cheviiot/Документы/GitHub/Luma/hermes-agent/Staplerfile`
 - `rpm -qp --requires hermes-agent+stplr-default-2026.6.19-alt2.x86_64.rpm`
 - `rpm -qp --requires hermes-agent+stplr-default-2026.6.19-alt2.x86_64.rpm | rg 'python3-module-venv' || true`
+- `sha256sum hermes-agent/hermes-agent.png`
+- `stplr build --script /home/cheviiot/Документы/GitHub/Luma/hermes-agent/Staplerfile`
+- `rpm -qpl hermes-agent+stplr-default-2026.6.19-alt3.x86_64.rpm | rg 'hermes-agent\.png|hermes-agent\.desktop'`
+- `rpm -qp --requires hermes-agent+stplr-default-2026.6.19-alt3.x86_64.rpm`
+- `desktop-file-validate /home/cheviiot/.cache/stplr/pkgs/hermes-agent/pkg/usr/share/applications/hermes-agent.desktop`
 - `gh release view --repo NousResearch/hermes-agent --json tagName,name,publishedAt,isPrerelease,url`
 - `curl -fsSL https://github.com/NousResearch/hermes-agent/archive/refs/tags/v2026.6.19.tar.gz`
 - `sha256sum /tmp/hermes-agent-v2026.6.19.tar.gz`
@@ -194,5 +199,7 @@ Notes:
 - Пакет должен оставлять пользовательские настройки Hermes в `~/.hermes`; системный `/opt/hermes-agent` содержит только поставляемый runtime.
 - Сборочный RPM лежит в корне репозитория как локальный артефакт проверки и не предназначен для коммита.
 - После пользовательской проверки установки `hermes-agent+stplr-luma-2026.6.19-alt1` выявлена неверная ALT runtime-зависимость `python3-module-venv`; на ALT модуль `venv` предоставляет `python3-base`, поэтому пакет поднят до `release=2` с исправленным списком зависимостей.
+- После пользовательской проверки установки `hermes-agent` выявлено, что иконка не подтянулась; пакет поднят до `release=3`, иконка добавлена как локальный source и устанавливается в hicolor `256x256` и `1024x1024`.
+- RPM `hermes-agent+stplr-default-2026.6.19-alt3.x86_64.rpm` подтвердил наличие desktop-файла и обеих hicolor-иконок.
 - Установленный в системе пакет пока остается `codex-app+stplr-luma-26.616.81150-alt2`; автоматическая установка `alt3` не выполнена, потому что `sudo -n` требует пароль.
 - Нужно сохранить исправление лицензионного конфликта `adwyra` и `vual` после обновления `adwyra`.
