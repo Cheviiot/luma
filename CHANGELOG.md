@@ -1,3 +1,25 @@
+## 2026-06-30 21:55 VLAT
+
+### Изменено
+- У `hermes-agent` увеличен `release` до `2`, так как исправлена устанавливаемость RPM без изменения upstream-версии `2026.6.19`.
+- Из ALT runtime-зависимостей `hermes-agent` удален несуществующий пакет `python3-module-venv`; модуль `venv` на ALT поставляется пакетом `python3-base`, который уже подтягивается через `python3`.
+
+### Добавлено
+- Нет.
+
+### Исправлено
+- Исправлена ошибка установки `hermes-agent+stplr-luma-2026.6.19-alt1`: `Depends: python3-module-venv но пакет не может быть установлен`.
+
+### Проверено
+- По `rpm -q --whatprovides` подтверждено, что `python3(venv)` предоставляет `python3-base-3.12.7-alt1`, а `python3-module-venv` не предоставляется ни одним пакетом.
+- `apt-cache search` подтвердил отсутствие отдельного пакета `python3-module-venv` в текущем ALT-репозитории.
+- `stplr build --script /home/cheviiot/Документы/GitHub/Luma/hermes-agent/Staplerfile` успешно собрал `hermes-agent+stplr-default-2026.6.19-alt2.x86_64.rpm`.
+- `rpm -qp --requires hermes-agent+stplr-default-2026.6.19-alt2.x86_64.rpm` подтвердил, что `python3-module-venv` больше не попадает в зависимости.
+- `find ... | xargs bash -n`, `python3 -m py_compile`, `.github/scripts/validate-repo.py`, `shellcheck`, `shfmt -d` и `git diff --check` прошли успешно.
+
+### Осталось
+- Нет.
+
 ## 2026-06-30 21:45 VLAT
 
 ### Добавлено
