@@ -108,6 +108,24 @@ Last checks:
 - `rpm -qpl hermes-agent+stplr-default-2026.6.19-alt3.x86_64.rpm | rg 'hermes-agent\.png|hermes-agent\.desktop'`
 - `rpm -qp --requires hermes-agent+stplr-default-2026.6.19-alt3.x86_64.rpm`
 - `desktop-file-validate /home/cheviiot/.cache/stplr/pkgs/hermes-agent/pkg/usr/share/applications/hermes-agent.desktop`
+- `git clone --depth=1 https://github.com/warment/hermes-desktop-ru.git /tmp/hermes-desktop-ru`
+- `curl -LfsS https://raw.githubusercontent.com/warment/hermes-desktop-ru/v1.1.1/patches/ru.ts`
+- `curl -LfsS https://raw.githubusercontent.com/warment/hermes-desktop-ru/v1.1.1/patches/ru-constants.ts`
+- `sha256sum /tmp/hermes-ru.ts /tmp/hermes-ru-constants.ts`
+- `python3 hermes-agent/apply-hermes-ru.py /home/cheviiot/.cache/stplr/pkgs/hermes-agent/src/hermes-agent-2026.6.19 /tmp/hermes-desktop-ru`
+- `GITHUB_SHA=2bd1977d8fad185c9b4be47884f7e87f1add0ce3 GITHUB_REF_NAME=v2026.6.19 npm run build`
+- `stplr build --script /home/cheviiot/Документы/GitHub/Luma/hermes-agent/Staplerfile`
+- `ls -lh hermes-agent+stplr-default-2026.6.19-alt4.x86_64.rpm`
+- `rpm -qpl hermes-agent+stplr-default-2026.6.19-alt4.x86_64.rpm`
+- `rpm -qp --requires hermes-agent+stplr-default-2026.6.19-alt4.x86_64.rpm`
+- `rg -n 'Русский|Hermes Desktop готов|Управление Apple Notes' /home/cheviiot/.cache/stplr/pkgs/hermes-agent/pkg/opt/hermes-agent/desktop/resources/app.asar.unpacked/dist/assets`
+- `python3 -m py_compile hermes-agent/apply-hermes-ru.py`
+- `find . -path './.git' -prune -o \( -name 'Staplerfile' -o -name '*.sh' -o -path '*/.stapler/*' \) -type f -print0 | xargs -0 -r bash -n`
+- `python3 -m py_compile .github/scripts/validate-repo.py hermes-agent/apply-hermes-ru.py`
+- `.github/scripts/validate-repo.py`
+- `shellcheck hermes-agent/postinstall.sh hermes-agent/postremove.sh hermes-agent/.stapler/update-check .github/scripts/package-update.sh`
+- `shfmt -d -i 4 hermes-agent/Staplerfile hermes-agent/postinstall.sh hermes-agent/postremove.sh hermes-agent/.stapler/update-check .github/scripts/package-update.sh`
+- `git diff --check`
 - `gh release view --repo NousResearch/hermes-agent --json tagName,name,publishedAt,isPrerelease,url`
 - `curl -fsSL https://github.com/NousResearch/hermes-agent/archive/refs/tags/v2026.6.19.tar.gz`
 - `sha256sum /tmp/hermes-agent-v2026.6.19.tar.gz`
@@ -201,5 +219,10 @@ Notes:
 - После пользовательской проверки установки `hermes-agent+stplr-luma-2026.6.19-alt1` выявлена неверная ALT runtime-зависимость `python3-module-venv`; на ALT модуль `venv` предоставляет `python3-base`, поэтому пакет поднят до `release=2` с исправленным списком зависимостей.
 - После пользовательской проверки установки `hermes-agent` выявлено, что иконка не подтянулась; пакет поднят до `release=3`, иконка добавлена как локальный source и устанавливается в hicolor `256x256` и `1024x1024`.
 - RPM `hermes-agent+stplr-default-2026.6.19-alt3.x86_64.rpm` подтвердил наличие desktop-файла и обеих hicolor-иконок.
+- Изучен `warment/hermes-desktop-ru` `v1.1.1`: полезные для Linux-сборки части находятся в `patches/ru.ts` и `patches/ru-constants.ts`, а install/auto-patch scripts ориентированы на пользовательскую macOS-установку.
+- Для `hermes-agent` добавлен build-time адаптер `apply-hermes-ru.py`, который подключает русский locale к текущему Hermes Desktop i18n API без запуска внешнего install.sh.
+- `hermes-agent` поднят до `release=4`; русская локализация подключается из raw-файлов `warment/hermes-desktop-ru` `v1.1.1`.
+- Собран RPM `hermes-agent+stplr-default-2026.6.19-alt4.x86_64.rpm`.
+- Проверено, что production bundle `Hermes Desktop` содержит пункт `Русский`, строку `Hermes Desktop готов` и русские описания известных skills.
 - Установленный в системе пакет пока остается `codex-app+stplr-luma-26.616.81150-alt2`; автоматическая установка `alt3` не выполнена, потому что `sudo -n` требует пароль.
 - Нужно сохранить исправление лицензионного конфликта `adwyra` и `vual` после обновления `adwyra`.

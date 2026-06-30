@@ -1,7 +1,8 @@
 name='hermes-agent'
 version='2026.6.19'
-release=3
+release=4
 agent_version='0.17.0'
+ru_locale_version='1.1.1'
 source_commit='2bd1977d8fad185c9b4be47884f7e87f1add0ce3'
 summary='Self-improving AI agent with desktop shell'
 summary_ru='Самоулучшающийся AI-агент с десктопной оболочкой'
@@ -48,12 +49,18 @@ opt_deps_altlinux=('gnome-keyring' 'libappindicator-gtk3')
 
 sources=(
     "https://github.com/NousResearch/hermes-agent/archive/refs/tags/v${version}.tar.gz"
+    "https://raw.githubusercontent.com/warment/hermes-desktop-ru/v${ru_locale_version}/patches/ru.ts"
+    "https://raw.githubusercontent.com/warment/hermes-desktop-ru/v${ru_locale_version}/patches/ru-constants.ts"
     "local:///hermes-agent.png"
+    "local:///apply-hermes-ru.py"
 )
 
 checksums=(
     '69b805ec0a7a7be880068ba8a3b17479d7ba29f0cac0a2e9c6692c02f346ba91'
+    '2bd66e04152c638b2a41954d38e1f544301ca30b8116d6970d147326fe64c4b0'
+    '4d6e4936203160fd9e317619d23ae8e7f73287d10e5d2e046bd236b823fbabd8'
     'd60d164e24fdcf6532133b8ea43c77a201e4b9e9dbc396187b58d51d8590ef52'
+    '5dab58062643078f7148cc68f5437944a9861b0430540a56a8cf669ee5e3d20f'
 )
 
 scripts=(
@@ -78,6 +85,10 @@ PY
     "${pkgdir}/opt/hermes-agent/venv/bin/python" -m pip install '.[all]'
 
     export npm_config_nodedir=/usr
+
+    python3 "${srcdir}/apply-hermes-ru.py" \
+        "${srcdir}/hermes-agent-${version}" \
+        "${srcdir}"
 
     npm ci \
         --fetch-retries=5 \

@@ -1,3 +1,32 @@
+## 2026-06-30 22:40 VLAT
+
+### Изменено
+- У `hermes-agent` увеличен `release` до `4`, так как desktop-сборка получила русскую локализацию без изменения upstream-версии Hermes `2026.6.19`.
+- Вместо macOS-ориентированного install.sh из `warment/hermes-desktop-ru` пакет использует воспроизводимый build-time адаптер `hermes-agent/apply-hermes-ru.py`.
+- README и русская лицензия-заметка `hermes-agent` обновлены ссылкой на источник русской локализации `warment/hermes-desktop-ru`.
+
+### Добавлено
+- В sources `hermes-agent` добавлены raw-файлы `ru.ts` и `ru-constants.ts` из `warment/hermes-desktop-ru` `v1.1.1`.
+- В desktop-интерфейс Hermes добавляется locale `ru`, пункт `Русский` в списке языков и русские описания известных skills.
+
+### Исправлено
+- Обойден конфликт `pax_global_header`, который возникал при попытке подключить второй GitHub tarball локализации как отдельный source Stapler.
+- Адаптер локализации приводит внешний `ru.ts` к partial locale overrides, чтобы устаревшие или дополнительные ключи перевода не ломали строгую сборку текущего Hermes Desktop.
+
+### Проверено
+- SHA256 `ru.ts` из `warment/hermes-desktop-ru` `v1.1.1`: `2bd66e04152c638b2a41954d38e1f544301ca30b8116d6970d147326fe64c4b0`.
+- SHA256 `ru-constants.ts` из `warment/hermes-desktop-ru` `v1.1.1`: `4d6e4936203160fd9e317619d23ae8e7f73287d10e5d2e046bd236b823fbabd8`.
+- `python3 hermes-agent/apply-hermes-ru.py ... && GITHUB_SHA=... GITHUB_REF_NAME=... npm run build` успешно прошел на исходниках Hermes Desktop.
+- `stplr build --script /home/cheviiot/Документы/GitHub/Luma/hermes-agent/Staplerfile` успешно собрал `hermes-agent+stplr-default-2026.6.19-alt4.x86_64.rpm`.
+- `rg` по production bundle подтвердил наличие строк `Русский`, `Hermes Desktop готов` и русских описаний skills.
+- `rpm -qpl hermes-agent+stplr-default-2026.6.19-alt4.x86_64.rpm` подтвердил наличие desktop-приложения, `app.asar`, hicolor-иконок и лицензии.
+- `rpm -qp --requires hermes-agent+stplr-default-2026.6.19-alt4.x86_64.rpm` подтвердил runtime-зависимости без `python3-module-venv`.
+- `desktop-file-validate /home/cheviiot/.cache/stplr/pkgs/hermes-agent/pkg/usr/share/applications/hermes-agent.desktop` прошел успешно.
+- `find ... | xargs bash -n`, `python3 -m py_compile`, `.github/scripts/validate-repo.py`, `shellcheck`, `shfmt -d` и `git diff --check` прошли успешно.
+
+### Осталось
+- Нет.
+
 ## 2026-06-30 22:25 VLAT
 
 ### Изменено
