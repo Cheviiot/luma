@@ -4,6 +4,19 @@ Status: completed
 Remaining items: 0
 Current item: Нет
 Completed items:
+- Изучена установленная локально копия Hermes Agent: CLI находится в `~/.local/bin/hermes`, runtime и desktop-сборка находятся в `~/.hermes/hermes-agent`.
+- Подтвержден официальный upstream `NousResearch/hermes-agent`, релиз `v2026.6.19`, Python-версия продукта `0.17.0` и отсутствие готового Linux desktop-артефакта в GitHub releases.
+- Принято решение не пакетировать пользовательский `~/.hermes`, а собирать чистый пакет из upstream-тега с CLI/backend и desktop-оболочкой в `/opt/hermes-agent`.
+- Начата реализация пакета `hermes-agent` с wrapper-командами `hermes` и `hermes-desktop`.
+- Добавлены `hermes-agent/Staplerfile`, `stapler-repo.toml`, `.stapler/update-check`, postinstall/postremove-скрипты и русская лицензия-заметка.
+- Добавлена иконка `.github/assets/apps/hermes-agent.png`.
+- README обновлен для каталога из 15 пакетов: Hermes Agent добавлен в витрину разработки и полную сводку.
+- `.github/scripts/package-update.sh` расширен поддержкой Hermes Agent через `git ls-remote`.
+- Сборка Hermes Desktop адаптирована под исходный архив без `.git`: передаются `GITHUB_SHA=2bd1977d8fad185c9b4be47884f7e87f1add0ce3` и `GITHUB_REF_NAME=v2026.6.19`.
+- Для native-модуля `node-pty` добавлены build-зависимости `node-devel`, `gcc-c++`, `make`; npm/node-gyp использует системные Node headers через `npm_config_nodedir=/usr`.
+- Усилены npm retry/timeout параметры для устойчивости к временным сбоям registry.
+- Собран RPM `hermes-agent+stplr-default-2026.6.19-alt1.x86_64.rpm`.
+- Проверены provides, requires, файловый состав RPM, desktop-файл, install-stamp, staged CLI и общая структурная валидация репозитория.
 - Найден официальный релиз OpenCode `v1.17.11`.
 - Подтверждены Linux deb-артефакты `opencode-desktop-linux-amd64.deb` и `opencode-desktop-linux-arm64.deb`.
 - Разобран upstream deb: пакет называется `opencode`, приложение устанавливается в `/opt/OpenCode`, desktop-файлы и hicolor-иконки присутствуют.
@@ -70,6 +83,25 @@ Blocked items:
 - Нет.
 
 Last checks:
+- `hermes-agent/.stapler/update-check`
+- `.github/scripts/package-update.sh check hermes-agent`
+- `stplr build --script /home/cheviiot/Документы/GitHub/Luma/hermes-agent/Staplerfile`
+- `/home/cheviiot/.cache/stplr/pkgs/hermes-agent/pkg/opt/hermes-agent/venv/bin/hermes --version`
+- `rpm -qp --provides hermes-agent+stplr-default-2026.6.19-alt1.x86_64.rpm`
+- `rpm -qp --requires hermes-agent+stplr-default-2026.6.19-alt1.x86_64.rpm`
+- `rpm -qpl hermes-agent+stplr-default-2026.6.19-alt1.x86_64.rpm`
+- `rpm -qp --scripts hermes-agent+stplr-default-2026.6.19-alt1.x86_64.rpm`
+- `desktop-file-validate /home/cheviiot/.cache/stplr/pkgs/hermes-agent/pkg/usr/share/applications/hermes-agent.desktop`
+- `find . -path './.git' -prune -o \( -name 'Staplerfile' -o -name '*.sh' -o -path '*/.stapler/*' \) -type f -print0 | xargs -0 -r bash -n`
+- `python3 -m py_compile .github/scripts/validate-repo.py`
+- `.github/scripts/validate-repo.py`
+- `shellcheck hermes-agent/postinstall.sh hermes-agent/postremove.sh hermes-agent/.stapler/update-check .github/scripts/package-update.sh`
+- `shfmt -d -i 4 hermes-agent/Staplerfile hermes-agent/postinstall.sh hermes-agent/postremove.sh hermes-agent/.stapler/update-check .github/scripts/package-update.sh`
+- `git diff --check`
+- `gh release view --repo NousResearch/hermes-agent --json tagName,name,publishedAt,isPrerelease,url`
+- `curl -fsSL https://github.com/NousResearch/hermes-agent/archive/refs/tags/v2026.6.19.tar.gz`
+- `sha256sum /tmp/hermes-agent-v2026.6.19.tar.gz`
+- Инспекция `pyproject.toml` и `apps/desktop/package.json` из исходного архива Hermes Agent.
 - Диагностический запуск установленного `codex-app+stplr-luma-26.616.81150-alt2` подтвердил отсутствие видимых окон.
 - Диагностический ASAR с выводом stack trace показал `No such binding was linked: electron_common_owl_features`.
 - `python3 -m py_compile .github/scripts/validate-repo.py && .github/scripts/validate-repo.py` сначала упал на отсутствующем fallback, затем прошел после исправления.
@@ -153,5 +185,8 @@ Last checks:
 - `git diff --check`
 
 Notes:
+- Для версии Stapler используется тег `2026.6.19`, потому что desktop `package.json` внутри релиза не совпадает с Python-версией `0.17.0`, а upstream-обновления публикуются по тегу даты.
+- Пакет должен оставлять пользовательские настройки Hermes в `~/.hermes`; системный `/opt/hermes-agent` содержит только поставляемый runtime.
+- Сборочный RPM лежит в корне репозитория как локальный артефакт проверки и не предназначен для коммита.
 - Установленный в системе пакет пока остается `codex-app+stplr-luma-26.616.81150-alt2`; автоматическая установка `alt3` не выполнена, потому что `sudo -n` требует пароль.
 - Нужно сохранить исправление лицензионного конфликта `adwyra` и `vual` после обновления `adwyra`.

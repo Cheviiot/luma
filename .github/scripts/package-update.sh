@@ -9,6 +9,7 @@ PACKAGES=(
     codex-app
     github-plus
     happ
+    hermes-agent
     mindustry
     netbird
     opencode
@@ -219,6 +220,20 @@ PY
     echo "$version"
 )
 
+latest_hermes_agent() (
+    local version
+
+    version="$(
+        git ls-remote --tags --refs https://github.com/NousResearch/hermes-agent.git 'refs/tags/v*' |
+            awk '{sub("refs/tags/v", "", $2); print $2}' |
+            sort -V |
+            tail -1
+    )"
+
+    [[ -n "$version" ]] || die "cannot determine latest Hermes Agent version"
+    echo "$version"
+)
+
 latest_vanyavpn() (
     local appimage_source appimage_url tmp version
 
@@ -280,6 +295,7 @@ latest_version() {
     codex-app) github_latest_release "Boria138/codex-app-linux" ;;
     github-plus) github_latest_release "pol-rivero/github-desktop-plus" ;;
     happ) github_latest_release "Happ-proxy/happ-desktop" ;;
+    hermes-agent) latest_hermes_agent ;;
     mindustry) latest_mindustry ;;
     netbird) github_latest_release "netbirdio/netbird" ;;
     opencode) github_latest_release "anomalyco/opencode" ;;

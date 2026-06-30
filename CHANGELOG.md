@@ -1,3 +1,31 @@
+## 2026-06-30 21:45 VLAT
+
+### Добавлено
+- Добавлен пакет `hermes-agent` для Hermes Agent из официального исходного релиза `NousResearch/hermes-agent` `v2026.6.19`.
+- Пакет проектируется как all-in-one поставка: CLI/backend устанавливается в `/opt/hermes-agent/venv`, desktop-оболочка Electron — в `/opt/hermes-agent/desktop`, системные команды — `/usr/bin/hermes` и `/usr/bin/hermes-desktop`.
+- Добавлены `hermes-agent/Staplerfile`, `stapler-repo.toml`, `.stapler/update-check`, postinstall/postremove-скрипты, русская лицензия-заметка и иконка витрины.
+- Для сборки desktop-приложения добавлены build-зависимости `node-devel`, `gcc-c++` и `make`, а `node-gyp` направлен на системные Node headers через `npm_config_nodedir=/usr`.
+
+### Изменено
+- README обновлен: счетчик увеличен до 15 пакетов, Hermes Agent добавлен в раздел разработки и полную сводку.
+- `.github/scripts/package-update.sh` расширен проверкой актуального тега `NousResearch/hermes-agent` через `git ls-remote`, чтобы не зависеть от лимитов GitHub API.
+- Сборка desktop-приложения получает `GITHUB_SHA` и `GITHUB_REF_NAME`, потому что upstream build-stamp требует git commit даже при сборке из исходного архива без `.git`.
+
+### Проверено
+- Подтвержден официальный релиз `v2026.6.19`: GitHub release опубликован 2026-06-19, Python-пакет Hermes Agent имеет версию `0.17.0`.
+- Подтверждено, что GitHub release не содержит готового Linux desktop-артефакта, поэтому пакет собирается из исходного архива, а не перепаковывает пользовательский `~/.hermes`.
+- `hermes-agent/.stapler/update-check` и `.github/scripts/package-update.sh check hermes-agent` вернули `2026.6.19 2026.6.19`.
+- `stplr build --script /home/cheviiot/Документы/GitHub/Luma/hermes-agent/Staplerfile` успешно собрал `hermes-agent+stplr-default-2026.6.19-alt1.x86_64.rpm`.
+- Из staged venv выполнен `hermes --version`: подтверждены Hermes Agent `v0.17.0`, Python `3.12.7` и OpenAI SDK `2.24.0`.
+- `rpm -qp --provides` подтвердил aliases `hermes-agent`, `hermes` и `hermes-desktop`.
+- `rpm -qp --requires` подтвердил runtime-зависимости Python, Node/npm, Git, ripgrep, ffmpeg и Electron-библиотек.
+- `rpm -qpl` подтвердил наличие `/opt/hermes-agent/desktop/Hermes`, `chrome-sandbox`, `app.asar`, `install-stamp.json`, `/usr/bin/hermes`, `/usr/bin/hermes-desktop`, desktop-файла и hicolor-иконки.
+- `install-stamp.json` внутри desktop-сборки содержит commit `2bd1977d8fad185c9b4be47884f7e87f1add0ce3`, branch `v2026.6.19`, `dirty=false`.
+- `desktop-file-validate`, `find ... | xargs bash -n`, `python3 -m py_compile`, `.github/scripts/validate-repo.py`, `shellcheck`, `shfmt -d` и `git diff --check` прошли успешно.
+
+### Осталось
+- Нет.
+
 ## 2026-06-27 23:20 VLAT
 
 ### Добавлено

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -euo pipefail
+
+current_version='2026.6.19'
+
+latest_version="$(
+    git ls-remote --tags --refs https://github.com/NousResearch/hermes-agent.git 'refs/tags/v*' |
+        awk '{sub("refs/tags/v", "", $2); print $2}' |
+        sort -V |
+        tail -1
+)"
+
+if [[ -z "$latest_version" ]]; then
+    echo "Не удалось определить актуальную версию Hermes Agent" >&2
+    exit 1
+fi
+
+echo "$current_version $latest_version"

@@ -1,0 +1,167 @@
+name='hermes-agent'
+version='2026.6.19'
+release=1
+agent_version='0.17.0'
+source_commit='2bd1977d8fad185c9b4be47884f7e87f1add0ce3'
+summary='Self-improving AI agent with desktop shell'
+summary_ru='Самоулучшающийся AI-агент с десктопной оболочкой'
+group='Development/Tools'
+desc='Hermes Agent is a self-improving AI agent with a CLI backend, local service mode and a native Electron desktop shell.'
+desc_ru='Hermes Agent — самоулучшающийся AI-агент с CLI/backend, локальным сервисным режимом и нативной Electron-оболочкой.'
+homepage='https://hermes-agent.nousresearch.com'
+maintainer='Nous Research <support@nousresearch.com>'
+
+architectures=('amd64')
+
+license=('MIT')
+
+provides=('hermes-agent' 'hermes' 'hermes-desktop')
+replaces=('hermes-agent' 'hermes' 'hermes-desktop')
+
+auto_reqprov_method="dirty"
+auto_req=0
+auto_prov=0
+
+deps=()
+deps_debian=('python3' 'python3-venv' 'python3-pip' 'nodejs' 'npm' 'git' 'curl' 'ripgrep' 'ffmpeg' 'ca-certificates' 'libgtk-3-0' 'libnotify4' 'libnss3' 'libxss1' 'libxtst6' 'xdg-utils' 'libatspi2.0-0' 'libuuid1' 'libsecret-1-0' 'libdrm2' 'libgbm1' 'libxcb-dri3-0' 'libasound2')
+deps_ubuntu=("${deps_debian[@]}")
+deps_fedora=('python3' 'nodejs' 'npm' 'git' 'curl' 'ripgrep' 'ffmpeg' 'ca-certificates' 'gtk3' 'libnotify' 'nss' 'libXScrnSaver' 'libXtst' 'xdg-utils' 'at-spi2-core' 'libuuid' 'libsecret' 'libdrm' 'mesa-libgbm' 'libxcb' 'alsa-lib')
+deps_arch=('python' 'nodejs' 'npm' 'git' 'curl' 'ripgrep' 'ffmpeg' 'ca-certificates' 'gtk3' 'libnotify' 'nss' 'libxss' 'libxtst' 'xdg-utils' 'at-spi2-core' 'libutil-linux' 'libsecret' 'libdrm' 'mesa' 'libxcb' 'alsa-lib')
+deps_opensuse=('python3' 'python3-pip' 'python3-virtualenv' 'nodejs' 'npm' 'git' 'curl' 'ripgrep' 'ffmpeg' 'ca-certificates' 'gtk3' 'libnotify4' 'mozilla-nss' 'libXScrnSaver1' 'libXtst6' 'xdg-utils' 'at-spi2-core' 'libuuid1' 'libsecret-1-0' 'libdrm2' 'libgbm1' 'libxcb-dri3-0' 'libasound2')
+deps_altlinux=('python3' 'python3-module-venv' 'python3-module-pip' 'node' 'npm' 'git' 'curl' 'ripgrep' 'ffmpeg' 'ca-certificates' 'libgtk+3' 'libnotify' 'libnss' 'libXScrnSaver' 'libXtst' 'xdg-utils' 'libat-spi2-core' 'libuuid' 'libsecret' 'libdrm' 'libgbm' 'libxcb' 'libalsa')
+
+build_deps=()
+build_deps_debian=('build-essential' 'python3' 'nodejs' 'npm' 'libnode-dev')
+build_deps_ubuntu=("${build_deps_debian[@]}")
+build_deps_fedora=('gcc-c++' 'make' 'python3' 'nodejs' 'npm' 'nodejs-devel')
+build_deps_arch=('base-devel' 'python' 'nodejs' 'npm')
+build_deps_opensuse=('gcc-c++' 'make' 'python3' 'nodejs' 'npm' 'nodejs-devel')
+build_deps_altlinux=('gcc-c++' 'make' 'python3' 'node' 'npm' 'node-devel')
+
+opt_deps=()
+opt_deps_debian=('gnome-keyring' 'libappindicator3-1')
+opt_deps_ubuntu=("${opt_deps_debian[@]}")
+opt_deps_fedora=('gnome-keyring' 'libappindicator-gtk3')
+opt_deps_arch=('gnome-keyring' 'libappindicator-gtk3')
+opt_deps_opensuse=('gnome-keyring' 'libappindicator3-1')
+opt_deps_altlinux=('gnome-keyring' 'libappindicator-gtk3')
+
+sources=(
+    "https://github.com/NousResearch/hermes-agent/archive/refs/tags/v${version}.tar.gz"
+)
+
+checksums=(
+    '69b805ec0a7a7be880068ba8a3b17479d7ba29f0cac0a2e9c6692c02f346ba91'
+)
+
+scripts=(
+    ['postinstall']='postinstall.sh'
+    ['postremove']='postremove.sh'
+)
+
+package() {
+    cd "${srcdir}/hermes-agent-${version}"
+
+    python3 - <<'PY'
+import sys
+
+if sys.version_info < (3, 11) or sys.version_info >= (3, 14):
+    raise SystemExit("Hermes Agent requires Python >=3.11,<3.14")
+PY
+
+    install -dm755 "${pkgdir}/opt/hermes-agent"
+
+    python3 -m venv "${pkgdir}/opt/hermes-agent/venv"
+    "${pkgdir}/opt/hermes-agent/venv/bin/python" -m pip install --upgrade pip setuptools wheel
+    "${pkgdir}/opt/hermes-agent/venv/bin/python" -m pip install '.[all]'
+
+    export npm_config_nodedir=/usr
+
+    npm ci \
+        --fetch-retries=5 \
+        --fetch-retry-factor=2 \
+        --fetch-retry-mintimeout=20000 \
+        --fetch-retry-maxtimeout=120000 \
+        --network-timeout=300000
+    (
+        cd apps/desktop
+        GITHUB_SHA="${source_commit}" \
+            GITHUB_REF_NAME="v${version}" \
+            CSC_IDENTITY_AUTO_DISCOVERY=false \
+            npm run pack
+    )
+
+    cp -a apps/desktop/release/linux-unpacked "${pkgdir}/opt/hermes-agent/desktop"
+    chmod 755 "${pkgdir}/opt/hermes-agent/desktop/Hermes"
+    chmod 4755 "${pkgdir}/opt/hermes-agent/desktop/chrome-sandbox" 2>/dev/null || true
+
+    install -dm755 "${pkgdir}/usr/bin"
+    cat >"${pkgdir}/usr/bin/hermes" <<'EOF'
+#!/bin/bash
+unset PYTHONPATH
+unset PYTHONHOME
+export PYTHONNOUSERSITE=1
+exec /opt/hermes-agent/venv/bin/hermes "$@"
+EOF
+    chmod 755 "${pkgdir}/usr/bin/hermes"
+
+    cat >"${pkgdir}/usr/bin/hermes-desktop" <<'EOF'
+#!/bin/bash
+unset PYTHONPATH
+unset PYTHONHOME
+export HERMES_DESKTOP_HERMES="${HERMES_DESKTOP_HERMES:-/usr/bin/hermes}"
+export HERMES_DESKTOP_IGNORE_EXISTING="${HERMES_DESKTOP_IGNORE_EXISTING:-1}"
+exec /opt/hermes-agent/desktop/Hermes "$@"
+EOF
+    chmod 755 "${pkgdir}/usr/bin/hermes-desktop"
+
+    python3 - "${pkgdir}/opt/hermes-agent/venv/bin" <<'PY'
+from pathlib import Path
+import sys
+
+bin_dir = Path(sys.argv[1])
+for path in bin_dir.iterdir():
+    if not path.is_file():
+        continue
+    try:
+        data = path.read_bytes()
+    except OSError:
+        continue
+    if not data.startswith(b"#!") or b"/opt/hermes-agent/venv/bin/python" in data.splitlines()[0]:
+        continue
+    lines = data.splitlines(keepends=True)
+    if b"/opt/hermes-agent/venv/bin/python" not in lines[0] and b"/hermes-agent/venv/bin/python" in lines[0]:
+        lines[0] = b"#!/opt/hermes-agent/venv/bin/python\n"
+        path.write_bytes(b"".join(lines))
+PY
+
+    install -dm755 "${pkgdir}/usr/share/applications"
+    cat >"${pkgdir}/usr/share/applications/hermes-agent.desktop" <<'EOF'
+[Desktop Entry]
+Name=Hermes Agent
+Comment=Self-improving AI agent desktop client
+Comment[ru]=Десктопный клиент самоулучшающегося AI-агента Hermes
+Exec=hermes-desktop %U
+Terminal=false
+Type=Application
+Icon=hermes-agent
+StartupWMClass=Hermes
+Categories=Development;Utility;
+MimeType=x-scheme-handler/hermes;
+EOF
+
+    install -dm755 "${pkgdir}/usr/share/icons/hicolor/1024x1024/apps"
+    install -Dm644 apps/desktop/assets/icon.png "${pkgdir}/usr/share/icons/hicolor/1024x1024/apps/hermes-agent.png"
+
+    install -dm755 "${pkgdir}/usr/share/licenses/hermes-agent"
+    install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/hermes-agent/LICENSE.upstream"
+}
+
+files() {
+    files-find-binary
+    files-find-desktop
+    files-find \
+        "/opt/hermes-agent/**/*" \
+        "/usr/share/icons/hicolor/*/apps/hermes-agent.png" \
+        "/usr/share/licenses/hermes-agent/LICENSE.upstream"
+}

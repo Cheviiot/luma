@@ -8,12 +8,12 @@
   <p>
     <a href="https://github.com/Cheviiot/luma"><img alt="Repository" src="https://img.shields.io/badge/repository-Cheviiot%2Fluma-111827?style=for-the-badge&logo=github"></a>
     <img alt="Stapler" src="https://img.shields.io/badge/stplr-%3E%3D%20v0.1.1-2563eb?style=for-the-badge">
-    <img alt="Packages" src="https://img.shields.io/badge/packages-14-16a34a?style=for-the-badge">
+    <img alt="Packages" src="https://img.shields.io/badge/packages-15-16a34a?style=for-the-badge">
   </p>
 
   <p>
     <code>stplr &gt;= v0.1.1</code>
-    <code>14 пакетов</code>
+    <code>15 пакетов</code>
     <code>amd64</code>
     <code>arm64</code>
     <code>all</code>
@@ -77,6 +77,7 @@ stplr upgrade
 |:--|:--:|:--:|:--|:--|
 | <img src=".github/assets/apps/codex-app.png" width="28" height="28" alt=""> [Codex App](./codex-app)<br><sub>Неофициальная Linux-перепаковка десктопного приложения Codex.</sub> | `26.616.81150` | `amd64` | [Boria138/codex-app-linux](https://github.com/Boria138/codex-app-linux) | `stplr install luma/codex-app` |
 | <img src=".github/assets/apps/github-plus.png" width="28" height="28" alt=""> [GitHub Desktop Plus](./github-plus)<br><sub>Форк GitHub Desktop с интеграцией Bitbucket и GitLab.</sub> | `3.5.13.2` | `amd64`, `arm64` | [pol-rivero/github-desktop-plus](https://github.com/pol-rivero/github-desktop-plus) | `stplr install luma/github-plus` |
+| <img src=".github/assets/apps/hermes-agent.png" width="28" height="28" alt=""> [Hermes Agent](./hermes-agent)<br><sub>Самоулучшающийся AI-агент с CLI/backend и Linux desktop-оболочкой.</sub> | `2026.6.19` | `amd64` | [hermes-agent.nousresearch.com](https://hermes-agent.nousresearch.com) | `stplr install luma/hermes-agent` |
 | <img src=".github/assets/apps/opencode.png" width="28" height="28" alt=""> [OpenCode](./opencode)<br><sub>Открытый AI-агент для разработки в десктопном интерфейсе.</sub> | `1.17.11` | `amd64`, `arm64` | [opencode.ai](https://opencode.ai) | `stplr install luma/opencode` |
 
 ### Рабочий стол и игры
@@ -109,6 +110,7 @@ stplr upgrade
 | `codex-app` | Разработка | [Codex App Linux](https://github.com/Boria138/codex-app-linux) | `26.616.81150` | `Custom` | `amd64` |
 | `github-plus` | Разработка | [GitHub Desktop Plus](https://github.com/pol-rivero/github-desktop-plus) | `3.5.13.2` | `MIT` | `amd64`, `arm64` |
 | `happ` | Сеть и VPN | [Happ](https://happ.su/) | `2.18.1` | `Custom` | `amd64`, `arm64` |
+| `hermes-agent` | Разработка | [Hermes Agent](https://hermes-agent.nousresearch.com) | `2026.6.19` | `MIT` | `amd64` |
 | `mindustry` | Игры | [Mindustry](https://anuke.itch.io/mindustry) | `158.1` | `GPL-3.0-only` | `amd64` |
 | `netbird` | Сеть и VPN | [NetBird](https://netbird.io/) | `0.73.2` | `BSD-3-Clause`, `AGPL-3.0-only` | `amd64`, `arm64` |
 | `opencode` | Разработка | [OpenCode](https://opencode.ai) | `1.17.11` | `MIT` | `amd64`, `arm64` |
